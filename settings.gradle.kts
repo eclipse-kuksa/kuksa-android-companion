@@ -1,21 +1,4 @@
-/*
- * Copyright (c) 2023 Contributors to the Eclipse Foundation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX-License-Identifier: Apache-2.0
- *
- */
+import java.util.Properties
 
 pluginManagement {
     repositories {
@@ -29,6 +12,7 @@ pluginManagement {
         id("com.google.devtools.ksp") version "1.9.0-1.0.11"
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -39,6 +23,21 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         mavenLocal()
+        maven {
+            url = uri("https://maven.pkg.github.com/eclipse-kuksa/kuksa-android-sdk")
+            credentials {
+                val localProperties = Properties().apply {
+                    val localProperties = rootDir.listFiles()?.find { file ->
+                        file.name == "local.properties"
+                    } ?: return@apply
+
+                    load(localProperties.reader())
+                }
+
+                username = System.getenv("GPR_USERNAME") ?: localProperties.getProperty("gpr.user")
+                password = System.getenv("GPR_TOKEN") ?: localProperties.getProperty("gpr.key")
+            }
+        }
     }
 }
 

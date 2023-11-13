@@ -31,7 +31,7 @@ android {
     defaultConfig {
         applicationId = "org.eclipse.kuksa.demo"
         minSdk = 27
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -88,7 +88,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation("org.eclipse.kuksa:kuksa-sdk:0.1.0-SNAPSHOT") {
+    implementation(libs.kuksa.sdk) {
         isChanging = true
     }
     implementation(libs.androidx.datastore)
