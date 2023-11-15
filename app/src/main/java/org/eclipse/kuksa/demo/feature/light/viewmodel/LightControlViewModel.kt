@@ -19,11 +19,13 @@
 
 package org.eclipse.kuksa.demo.feature.light.viewmodel
 
+import androidx.annotation.DrawableRes
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import org.eclipse.kuksa.demo.R
 import org.eclipse.kuksa.vss.VssLights
 import org.eclipse.kuksa.vsscore.model.VssProperty
 
@@ -50,6 +52,22 @@ class LightControlViewModel : ViewModel() {
 
     val isDirectionIndicatorSignaling by derivedStateOf {
         isDirectionIndicatorLeftSignaling.value || isDirectionIndicatorRightSignaling.value
+    }
+
+    @get:DrawableRes
+    val directionIndicatorRes by derivedStateOf {
+        val isLeftSignalling = isDirectionIndicatorLeftSignaling.value
+        val isRightSignalling = isDirectionIndicatorRightSignaling.value
+
+        if (isLeftSignalling && isRightSignalling) {
+            return@derivedStateOf R.drawable.lights_direction_indicator_both_24
+        } else if (isLeftSignalling) {
+            return@derivedStateOf R.drawable.lights_direction_indicator_left_24
+        } else if (isRightSignalling) {
+            return@derivedStateOf R.drawable.lights_direction_indicator_right_24
+        }
+
+        return@derivedStateOf R.drawable.lights_direction_indicator_none_24
     }
 
     val isFogLightFrontOn by derivedStateOf {
