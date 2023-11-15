@@ -39,10 +39,7 @@ include(":app")
 
 fun loadLocalProperties(): Properties {
     return Properties().apply {
-        val localProperties = rootDir.listFiles()?.find { file ->
-            file.name == "local.properties"
-        } ?: return@apply
-
+        val localProperties = file("$rootDir/local.properties")
         load(localProperties.reader())
     }
 }
