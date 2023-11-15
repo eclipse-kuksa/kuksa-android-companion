@@ -1,0 +1,37 @@
+<!--
+  ~ Copyright (c) 2023 Contributors to the Eclipse Foundation
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  ~ SPDX-License-Identifier: Apache-2.0
+  ~
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="6.35"
+    android:viewportHeight="6.35">
+    <path
+        android:pathData="M3.1547,0.92 L0.4677,5.5738L5.8414,5.5738ZM3.1547,1.9312 L4.9733,5.0812L1.3359,5.0812L3.1547,1.9312"
+        android:strokeWidth="0.0123484"
+        android:fillColor="#000000"
+        android:strokeColor="#00000000"
+        android:fillType="nonZero" />
+    <path
+        android:pathData="M3.1547,2.6572 L1.9635,4.72h2.3821zM3.1547,3.328 L3.7623,4.3803L2.547,4.3803L3.1547,3.328"
+        android:strokeWidth="0.0123484"
+        android:fillColor="#000000"
+        android:strokeColor="#00000000"
+        android:fillType="nonZero" />
+</vector>

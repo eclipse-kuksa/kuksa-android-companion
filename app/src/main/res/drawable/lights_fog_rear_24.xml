@@ -1,0 +1,37 @@
+<!--
+  ~ Copyright (c) 2023 Contributors to the Eclipse Foundation
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  ~ SPDX-License-Identifier: Apache-2.0
+  ~
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="6.35"
+    android:viewportHeight="6.35">
+    <path
+        android:pathData="m2.3987,1.0698c-0.1767,0 -0.3319,0.0169 -0.4631,0.0501 -0.7925,0.1752 -1.648,0.946 -1.648,1.8881 0,0.9426 0.8556,1.7133 1.6493,1.8883 0.13,0.0331 0.2852,0.05 0.4618,0.05 0.506,0 0.8657,-0.1053 1.0676,-0.313C3.619,4.4772 3.6278,4.3191 3.6278,4.28v-2.5439c0,-0.039 -0.0088,-0.1972 -0.1615,-0.3534C3.2644,1.1751 2.9047,1.0698 2.3987,1.0698ZM3.2581,4.2775c-0.0038,0.02 -0.0618,0.2988 -0.8593,0.2988 -0.1464,0 -0.2726,-0.0131 -0.3723,-0.0391l-0.0076,-0.0016C1.3615,4.3921 0.6573,3.744 0.6573,3.0081c0,-0.7355 0.7041,-1.3836 1.3616,-1.5275l0.0063,-0.0016c0.101,-0.026 0.2271,-0.0392 0.3735,-0.0392 0.7697,0 0.8505,0.2591 0.8581,0.2956v0.0072l0.0013,-0.0058c0,0.0007 0,0.0013 0,0.0018v2.539"
+        android:strokeWidth="0.0126188"
+        android:fillColor="#000000"
+        android:strokeColor="#00000000"
+        android:fillType="nonZero" />
+    <path
+        android:pathData="M5.0777,1.841H6.0481V1.552H5.3427c0.0934,-0.1134 0.1741,-0.2604 0.1741,-0.4822 0,-0.1022 -0.082,-0.185 -0.1855,-0.185 -0.101,0 -0.1842,0.0829 -0.1842,0.185 0,0.1646 -0.0757,0.2394 -0.1918,0.3525 -0.0391,0.0392 -0.082,0.0815 -0.1224,0.1297H4.1225v0.2891h0.5552c-0.0151,0.0588 -0.024,0.124 -0.024,0.1978 0,0.0619 0.0063,0.1178 0.0177,0.169H4.1225v0.2891h0.6865c0.0467,0.0604 0.0984,0.1116 0.1464,0.1585 0.0757,0.0737 0.1338,0.1316 0.1653,0.2081H4.1225V3.1525H5.1206C5.0891,3.2291 5.031,3.2869 4.9553,3.3605 4.9073,3.4075 4.8556,3.4587 4.8089,3.5194H4.1225v0.289h0.5489c-0.0114,0.0511 -0.0177,0.107 -0.0177,0.1688 0,0.0738 0.0088,0.1391 0.0252,0.1979H4.1225v0.2891h0.7104c0.0404,0.0481 0.0833,0.0903 0.1224,0.1296 0.1161,0.1131 0.1918,0.1879 0.1918,0.3526 0,0.1022 0.0833,0.185 0.1842,0.185 0.1035,0 0.1855,-0.0828 0.1855,-0.185 0,-0.2218 -0.0808,-0.3688 -0.1741,-0.4822H6.0481V4.1751H5.0777c-0.0341,-0.054 -0.0543,-0.1144 -0.0543,-0.1979 0,-0.069 0.0139,-0.1219 0.0379,-0.1688h0.9868V3.5194H5.3175C5.3995,3.4275 5.4752,3.3135 5.5042,3.1525H6.0481V2.8635H5.5042C5.4752,2.7027 5.3995,2.5886 5.3175,2.4969H6.0481V2.2078H5.0613c-0.024,-0.047 -0.0379,-0.0999 -0.0379,-0.169 0,-0.0835 0.0202,-0.1437 0.0543,-0.1978"
+        android:strokeWidth="0.0126188"
+        android:fillColor="#000000"
+        android:strokeColor="#00000000"
+        android:fillType="nonZero" />
+</vector>

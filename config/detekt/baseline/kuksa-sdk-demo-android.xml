@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+  <ManuallySuppressedIssues>
+    <ID>MagicNumber:VehicleSceneThread.kt$VehicleSceneThread$100</ID>
+  </ManuallySuppressedIssues>
+  <CurrentIssues/>
+</SmellBaseline>
