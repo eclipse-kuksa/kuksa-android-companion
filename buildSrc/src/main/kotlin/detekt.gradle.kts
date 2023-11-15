@@ -20,7 +20,7 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 
-val baselineFile = project.file("$rootDir/config/detekt/baseline/${project.name}.xml")
+val baselineFile = project.file("$rootDir/config/detekt/baseline.xml")
 
 plugins {
     id("io.gitlab.arturbosch.detekt") // see https://github.com/detekt/detekt
