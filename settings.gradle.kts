@@ -26,13 +26,7 @@ dependencyResolutionManagement {
         maven {
             url = uri("https://maven.pkg.github.com/eclipse-kuksa/kuksa-android-sdk")
             credentials {
-                val localProperties = Properties().apply {
-                    val localProperties = rootDir.listFiles()?.find { file ->
-                        file.name == "local.properties"
-                    } ?: return@apply
-
-                    load(localProperties.reader())
-                }
+                val localProperties = loadLocalProperties()
 
                 username = System.getenv("GPR_USERNAME") ?: localProperties.getProperty("gpr.user")
                 password = System.getenv("GPR_TOKEN") ?: localProperties.getProperty("gpr.key")
@@ -42,3 +36,13 @@ dependencyResolutionManagement {
 }
 
 include(":app")
+
+fun loadLocalProperties(): Properties {
+    return Properties().apply {
+        val localProperties = rootDir.listFiles()?.find { file ->
+            file.name == "local.properties"
+        } ?: return@apply
+
+        load(localProperties.reader())
+    }
+}
