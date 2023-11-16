@@ -20,6 +20,8 @@ ramsesAar = "1.1.0"
 navigationCompose = "2.7.5"
 kotlinxSerializationJson = "1.6.0"
 constraintlayoutCompose = "1.0.1"
+kotlinSerializationPlugin = "1.9.20"
+devtoolsKsp = "1.9.20-1.0.14"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -57,3 +59,4 @@ detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gr
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 
 [plugins]
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerializationPlugin" }

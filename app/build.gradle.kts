@@ -20,7 +20,7 @@
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")
-    kotlin("plugin.serialization") version "1.9.0"
+    alias(libs.plugins.kotlin.serialization)
     kotlin("android")
 }
 
