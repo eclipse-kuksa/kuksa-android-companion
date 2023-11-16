@@ -39,4 +39,4 @@ google-services.json
 
 # 3rd Party Plugins
 # https://github.com/Splitties/refreshVersions
-version.properties
+versions.properties

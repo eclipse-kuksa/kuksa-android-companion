@@ -71,3 +71,9 @@ fun loadLocalProperties(): Properties? {
         }
     }
 }
+
+refreshVersions {
+    rejectVersionIf {
+        candidate.stabilityLevel.isLessStableThan(current.stabilityLevel)
+    }
+}
