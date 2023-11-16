@@ -29,7 +29,6 @@ pluginManagement {
 
     plugins {
         id("com.google.devtools.ksp") version "1.9.20-1.0.14"
-        id("com.github.ben-manes.versions") version "0.49.0"
     }
 }
 
