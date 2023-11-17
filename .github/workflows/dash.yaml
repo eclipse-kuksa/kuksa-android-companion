@@ -23,6 +23,6 @@ jobs:
         run: ./gradlew mergeDashFiles
 
       - name: Dash license check
-        uses: ./.github/actions/check-dash
+        uses: eclipse-kuksa/kuksa-actions/check-dash@2
         with:
           dashinput: ${{github.workspace}}/build/oss/all/all-dependencies.txt
