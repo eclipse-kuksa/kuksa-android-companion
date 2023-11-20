@@ -19,5 +19,5 @@
 
 <resources>
 
-    <style name="Theme.KuksaDemo" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.KuksaCompanion" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>

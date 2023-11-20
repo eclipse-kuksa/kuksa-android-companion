@@ -25,11 +25,11 @@ plugins {
 }
 
 android {
-    namespace = "org.eclipse.kuksa.demo"
+    namespace = "org.eclipse.kuksa.companion"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "org.eclipse.kuksa.demo"
+        applicationId = "org.eclipse.kuksa.companion"
         minSdk = 27
         targetSdk = 34
         versionCode = 1
