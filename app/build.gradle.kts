@@ -20,7 +20,7 @@
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")
-    kotlin("plugin.serialization") version "1.9.0"
+    alias(libs.plugins.kotlin.serialization)
     kotlin("android")
 }
 
@@ -88,7 +88,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation("org.eclipse.kuksa:kuksa-sdk:0.1.0-SNAPSHOT") {
+    implementation(libs.kuksa.sdk) {
         isChanging = true
     }
     implementation(libs.androidx.datastore)

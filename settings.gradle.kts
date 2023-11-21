@@ -17,6 +17,8 @@
  *
  */
 
+import java.util.Properties
+
 pluginManagement {
     repositories {
         mavenLocal()
@@ -26,9 +28,15 @@ pluginManagement {
     }
 
     plugins {
-        id("com.google.devtools.ksp") version "1.9.0-1.0.11"
+        id("com.google.devtools.ksp") version "1.9.20-1.0.14"
+        id("de.fayard.refreshVersions") version "0.60.3"
     }
 }
+
+plugins {
+    id("de.fayard.refreshVersions")
+}
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -39,7 +47,33 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         mavenLocal()
+        maven {
+            url = uri("https://maven.pkg.github.com/eclipse-kuksa/kuksa-android-sdk")
+            credentials {
+                val localProperties = loadLocalProperties()
+
+                username = System.getenv("GPR_USERNAME") ?: localProperties?.getProperty("gpr.user")
+                password = System.getenv("GPR_TOKEN") ?: localProperties?.getProperty("gpr.key")
+            }
+        }
     }
 }
 
 include(":app")
+
+fun loadLocalProperties(): Properties? {
+    val localProperties = file("$rootDir/local.properties")
+    if (!localProperties.exists()) return null
+
+    localProperties.reader().use { reader ->
+        return Properties().apply {
+            load(reader)
+        }
+    }
+}
+
+refreshVersions {
+    rejectVersionIf {
+        candidate.stabilityLevel.isLessStableThan(current.stabilityLevel)
+    }
+}
