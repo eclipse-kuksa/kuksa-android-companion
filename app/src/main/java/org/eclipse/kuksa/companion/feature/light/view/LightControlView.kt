@@ -182,7 +182,7 @@ private fun LightOverlay(viewModel: LightControlViewModel) {
         )
         LightDashboardSymbol(
             isLightEnabled = viewModel.isDirectionIndicatorSignaling,
-            painterResource = R.drawable.lights_direction_indicator_24,
+            painterResource = viewModel.directionIndicatorRes,
             contentDescription = "Direction Indicator",
         )
         LightDashboardSymbol(
