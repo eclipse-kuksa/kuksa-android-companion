@@ -28,8 +28,13 @@ pluginManagement {
     }
 
     plugins {
-        id("com.google.devtools.ksp") version "1.9.0-1.0.11"
+        id("com.google.devtools.ksp") version "1.9.20-1.0.14"
+        id("de.fayard.refreshVersions") version "0.60.3"
     }
+}
+
+plugins {
+    id("de.fayard.refreshVersions")
 }
 
 dependencyResolutionManagement {
@@ -64,5 +69,11 @@ fun loadLocalProperties(): Properties? {
         return Properties().apply {
             load(reader)
         }
+    }
+}
+
+refreshVersions {
+    rejectVersionIf {
+        candidate.stabilityLevel.isLessStableThan(current.stabilityLevel)
     }
 }
