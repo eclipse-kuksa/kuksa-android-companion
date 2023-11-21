@@ -36,3 +36,7 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# 3rd Party Plugins
+# https://github.com/Splitties/refreshVersions
+versions.properties

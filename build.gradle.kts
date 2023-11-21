@@ -25,6 +25,7 @@ plugins {
 subprojects {
     apply {
         plugin("ktlint")
+        plugin("dash")
     }
     afterEvaluate {
         tasks.check {
