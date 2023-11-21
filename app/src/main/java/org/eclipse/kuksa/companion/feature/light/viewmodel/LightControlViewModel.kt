@@ -25,7 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import org.eclipse.kuksa.demo.R
+import org.eclipse.kuksa.companion.R
 import org.eclipse.kuksa.vss.VssLights
 import org.eclipse.kuksa.vsscore.model.VssProperty
 
