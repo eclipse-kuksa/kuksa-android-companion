@@ -1,0 +1,23 @@
+{
+  "bumpFiles": [
+    {
+      "filename": "version",
+      "type": "plain-text"
+    }
+  ],
+  "types": [
+    {"type": "feature", "section": "Features"},
+    {"type": "fix", "section": "Bug Fixes"},
+    {"type": "docs", "section": "Documentation"},
+    {"type": "perf", "section": "Performance"},
+    {"type": "refactor", "section": "Refactoring"},
+    {"type": "revert", "section": "Reverts"},
+    {"type": "test", "hidden": true},
+    {"type": "chore", "hidden": true},
+    {"type": "style", "hidden": true}
+  ],
+  "preMajor": true,
+  "commitUrlFormat": "https://github.com/eclipse-kuksa/kuksa-android-companion/commit/{{hash}}",
+  "compareUrlFormat": "https://github.com/eclipse-kuksa/kuksa-android-companion/compare/release/{{previousTag}}...{{currentTag}}",
+  "issueUrlFormat": "https://github.com/eclipse-kuksa/kuksa-android-companion/issues/{{id}}"
+}
