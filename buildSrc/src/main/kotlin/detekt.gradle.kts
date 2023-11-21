@@ -19,6 +19,7 @@
 
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
+import org.eclipse.kuksa.companion.extension.lib
 
 val baselineFile = project.file("$rootDir/config/detekt/baseline.xml")
 
