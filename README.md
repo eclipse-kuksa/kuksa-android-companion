@@ -1,4 +1,4 @@
-# kuksa-sdk-demo-android
+# kuksa-android-companion
 
 Demonstration app of the Kuksa components.
 
