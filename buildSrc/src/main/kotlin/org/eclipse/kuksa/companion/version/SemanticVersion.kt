@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.eclipse.kuksa.version
+package org.eclipse.kuksa.companion.version
 
 import java.util.Locale
 

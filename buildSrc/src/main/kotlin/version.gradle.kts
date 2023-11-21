@@ -1,4 +1,4 @@
-import org.eclipse.kuksa.version.SemanticVersion
+import org.eclipse.kuksa.companion.version.SemanticVersion
 
 val file = File("$rootDir/version.txt")
 val fileContent = file.readText()

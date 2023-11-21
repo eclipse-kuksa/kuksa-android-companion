@@ -1,4 +1,4 @@
-package org.eclipse.kuksa.companion.extension/*
+/*
  * Copyright (c) 2023 Contributors to the Eclipse Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,8 @@ package org.eclipse.kuksa.companion.extension/*
  * SPDX-License-Identifier: Apache-2.0
  *
  */
+
+package org.eclipse.kuksa.companion.extension
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
