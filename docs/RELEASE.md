@@ -1,6 +1,8 @@
 ## Releasing a version
 
-Releasing a version is mostly automated. However since the CHANGELOG.md + version information are part of the git history and need to be committed, some manual steps are still needed. These steps are also there to check for errors which may have been made in the git history via the [Conventionalcommits standard](https://www.conventionalcommits.org/en/v1.0.0/) format.
+Releasing a version is mostly automated. However since the CHANGELOG.md + version information are part of the git history 
+and need to be committed, some manual steps are still needed. These steps are also there to check for errors which may 
+have been made in the git history via the [Conventionalcommits standard](https://www.conventionalcommits.org/en/v1.0.0/) format.
 
 The NPM package [Commit-And-Tag](https://github.com/absolute-version/commit-and-tag-version) is used to streamline the release process.
 
@@ -24,5 +26,6 @@ The following convenience NPM scripts are available for use here:
 ### Deploying a release
 
 1) Execute `npm run tag-release` on the main branch after the above merge.
-2) Push the tag via 'git push --follow-tags origin feature-x'. The command should be shown in the terminal after step 1. A push of a release tag with the correct format will automatically trigger an official release GitHub workflow.
-3) Check if the GitHub package was uploaded successfully.
+2) Push the tag via 'git push --follow-tags origin feature-x'. The command should be shown in the terminal after step 1. 
+   A push of a release tag with the correct format will automatically trigger an official release GitHub workflow.
+3) Check if the GitHub release page with all artifacts was created successfully.
