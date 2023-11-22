@@ -1,8 +1,8 @@
 {
-  "name": "kuksa-sdk-android",
+  "name": "kuksa-android-companion",
   "version": "0.1.0",
   "main": "index.js",
-  "repository": "https://github.com/SoftwareDefinedVehicle/kuksa-sdk-android.git",
+  "repository": "https://github.com/eclipse-kuksa/kuksa-android-companion.git",
   "author": "",
   "license": "Apache-2.0",
   "devDependencies": {
@@ -10,14 +10,14 @@
     "@commitlint/config-conventional": "^17.6.6",
     "husky": "^8.0.3"
   },
+  "dependencies": {
+    "commit-and-tag-version": "^12.0.0"
+  },
   "scripts": {
     "postinstall": "husky install",
     "tag-release": "npx commit-and-tag-version --packageFiles version.txt -t release/v --skip.commit=true --skip.changelog=true --skip.bump=true",
-    "commit-release": "npx commit-and-tag-version --packageFiles version.txt --bumpFiles version.txt --skip.tag=true", 
-    "bump-release": "npx commit-and-tag-version --packageFiles version.txt --bumpFiles version.txt --skip.tag=true --skip.commit=true",
+    "commit-release": "npx commit-and-tag-version --packageFiles version.txt --skip.tag=true",
+    "bump-release": "npx commit-and-tag-version --packageFiles version.txt --skip.tag=true --skip.commit=true",
     "generate-changelog": "npx commit-and-tag-version --skip.bump=true --skip.commit=true --skip.tag=true"
-  },
-  "dependencies": {
-    "commit-and-tag-version": "^12.0.0"
   }
 }

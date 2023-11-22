@@ -5,7 +5,7 @@ concurrency: production
 on:
   push:
     branches:
-      - main
+      - feature-23
 
 permissions:
   packages: write

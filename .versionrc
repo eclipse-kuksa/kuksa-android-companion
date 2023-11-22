@@ -1,8 +1,12 @@
 {
   "bumpFiles": [
     {
-      "filename": "version",
+      "filename": "version.txt",
       "type": "plain-text"
+    },
+    {
+      "filename": "versioncode.txt",
+      "updater": "buildscripts/version/version-code-updater.js"
     }
   ],
   "types": [
@@ -16,8 +20,5 @@
     {"type": "chore", "hidden": true},
     {"type": "style", "hidden": true}
   ],
-  "preMajor": true,
-  "commitUrlFormat": "https://github.com/eclipse-kuksa/kuksa-android-companion/commit/{{hash}}",
-  "compareUrlFormat": "https://github.com/eclipse-kuksa/kuksa-android-companion/compare/release/{{previousTag}}...{{currentTag}}",
-  "issueUrlFormat": "https://github.com/eclipse-kuksa/kuksa-android-companion/issues/{{id}}"
+  "preMajor": true
 }

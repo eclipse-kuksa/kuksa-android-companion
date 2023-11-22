@@ -20,6 +20,7 @@
 plugins {
     base
     detekt
+    version
 }
 
 subprojects {
