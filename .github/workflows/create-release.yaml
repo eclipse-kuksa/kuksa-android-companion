@@ -1,4 +1,4 @@
-name: deploy-release
+name: create-release
 
 concurrency: production
 
@@ -8,10 +8,14 @@ on:
       - 'release/v*'
 
 permissions:
-  packages: write
+  contents: write
 
 jobs:
   deployment:
+    env:
+      GPR_USERNAME: ${{ github.actor }}
+      GPR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -28,8 +32,17 @@ jobs:
       - name: Set Release Version
         run: ./gradlew setReleaseVersion # Do not chain this command because it writes into a file which needs to be re-read inside the next gradle command
 
-      - name: Publish Library
-        run: ./gradlew publishReleasePublicationToGithubPackagesRepository
-          -Pgpr.repository=${{ github.repository }}
-          -Pgpr.user=${{ github.actor }}
-          -Pgpr.token=${{ secrets.GITHUB_TOKEN }}
+      - name: Create .apk file
+        run: ./gradlew assembleRelease
+
+      - name: Rename release artefact
+        run: mv app/build/outputs/apk/release/app-release-unsigned.apk kuksa_companion_app.apk
+
+      - name: Publish Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG.md
+          files: |
+            CHANGELOG.md
+            kuksa_companion_app.apk
+            
