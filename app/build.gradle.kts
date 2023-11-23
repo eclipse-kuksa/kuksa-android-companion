@@ -75,7 +75,9 @@ android {
 }
 
 dependencies {
-    ksp(libs.vss.processor)
+    ksp(libs.vss.processor) {
+        isChanging = true
+    }
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)

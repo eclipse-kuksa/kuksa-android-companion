@@ -41,6 +41,7 @@ jobs:
       - name: Publish Release
         uses: softprops/action-gh-release@v1
         with:
+          prerelease: true
           body_path: CHANGELOG.md
           files: |
             CHANGELOG.md
