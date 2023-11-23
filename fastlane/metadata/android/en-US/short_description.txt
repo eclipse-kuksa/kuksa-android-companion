@@ -1,0 +1,1 @@
+The Companion App for the KUKSA Databroker.
