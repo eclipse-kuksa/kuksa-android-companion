@@ -1,17 +1,17 @@
 The KUKSA Companion App demonstrates the capabilities of the Android SDK to connect to an
-Android Automotive vehicle with an integrated databroker, read data and interact with the
-actuators of the vehicle.
+Android Automotive vehicle with an integrated KUKSA Databroker, read data and interact with
+the actuators of the vehicle. The KUKSA Framework is based on the COVESA Vehicle Signal
+Specification (VSS).
 
-The COVESA Vehicle Signal Specification (VSS) defines the names and semantics of a large
-set of data entries that represent the current and/or intended state of a vehicle's
-sensors and actuators organized in a tree-like structure. For example, the vehicle's
-current speed is represented by the Vehicle.Speed entry.
+The VSS defines the names and semantics of a large set of data entries that represent the
+current and/or intended state of a vehicle's sensors and actuators organized in a tree-like
+structure. For example, the vehicle's current speed is represented by the Vehicle.Speed entry.
 
 However, VSS does not define how these signals are to be collected and managed within a
 vehicle, nor does it prescribe how other components in the vehicle can read or write
 signal values from and to the tree.
 
-KUKSA Databroker is a resource efficient implementation of the VSS signal tree and is
+The KUKSA Databroker is a resource efficient implementation of the VSS signal tree and is
 intended to be run within a vehicle on a microprocessor based platform. It allows
 applications in the vehicle to interact with the vehicle's sensors and actuators using a
 uniform, high level gRPC API for querying signals, updating current and target values of
