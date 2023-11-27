@@ -10,10 +10,6 @@ jobs:
     uses: ./.github/workflows/reusable_build_validation.yaml
 
   deploy-artifacts:
-    env:
-      GPR_USERNAME: ${{ github.actor }}
-      GPR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     runs-on: ubuntu-latest
     needs: build-project
     steps:
