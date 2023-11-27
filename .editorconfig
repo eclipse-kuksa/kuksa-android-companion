@@ -8,7 +8,7 @@ root = true
 end_of_line = lf
 insert_final_newline = true
 
-[*.{java, kt, kts, xml}]
+[*.{java,kt,kts,xml}]
 charset = utf-8
 trim_trailing_whitespace = true
 indent_style = space
@@ -22,3 +22,7 @@ trim_trailing_whitespace = false
 ktlint_code_style = ktlint_official
 ktlint_standard_no-wildcard-imports = disabled
 ktlint_standard_annotation = disabled # false positive with @JvmOverloads and default constructor
+
+[{version.txt,versioncode.txt}]
+trim_trailing_whitespace = true
+insert_final_newline = false

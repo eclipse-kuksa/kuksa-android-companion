@@ -1,5 +1,3 @@
-# kuksa-android-companion
-
 The KUKSA Companion App demonstrates the capabilities of the Android SDK to connect to an
 Android Automotive vehicle with an integrated KUKSA Databroker, read data and interact with
 the actuators of the vehicle. The KUKSA Framework is based on the COVESA Vehicle Signal
@@ -30,6 +28,3 @@ Find out more about KUKSA:
 - KUKSA Databroker: https://github.com/eclipse/kuksa.val/
 - KUKSA Android SDK: https://github.com/eclipse-kuksa/kuksa-android-sdk/
 - KUKSA Companion App: https://github.com/eclipse-kuksa/kuksa-android-companion/
-
-Includes digital car model by BMW AG licensed under CC-BY-4.0 
-(https://github.com/bmwcarit/digital-car-3d).
