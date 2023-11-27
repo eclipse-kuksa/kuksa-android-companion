@@ -1,0 +1,24 @@
+{
+  "bumpFiles": [
+    {
+      "filename": "version.txt",
+      "type": "plain-text"
+    },
+    {
+      "filename": "versioncode.txt",
+      "updater": "buildscripts/version/version-code-updater.js"
+    }
+  ],
+  "types": [
+    {"type": "feature", "section": "Features"},
+    {"type": "fix", "section": "Bug Fixes"},
+    {"type": "docs", "section": "Documentation"},
+    {"type": "perf", "section": "Performance"},
+    {"type": "refactor", "section": "Refactoring"},
+    {"type": "revert", "section": "Reverts"},
+    {"type": "test", "hidden": true},
+    {"type": "chore", "hidden": true},
+    {"type": "style", "hidden": true}
+  ],
+  "preMajor": true
+}

@@ -19,6 +19,7 @@
 
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
+import org.eclipse.kuksa.companion.extension.lib
 
 val baselineFile = project.file("$rootDir/config/detekt/baseline.xml")
 
@@ -44,7 +45,7 @@ tasks.withType<Detekt>().configureEach {
     parallel = true
     setSource(projectDir)
     include("**/*.kt", "**/*.kts")
-    exclude("**/resources/**", "**/build/**")
+    exclude("**/resources/**", "**/build/**", "**/node_modules/**")
     config.setFrom(project.file("$rootDir/config/detekt/config.yml"))
     baseline.set(baselineFile)
 
@@ -57,6 +58,6 @@ tasks.withType<DetektCreateBaselineTask>().configureEach {
     setSource(projectDir)
     baseline.set(baselineFile)
     include("**/*.kt", "**/*.kts")
-    exclude("**/resources/**", "**/build/**")
+    exclude("**/resources/**", "**/build/**", "**/node_modules/**")
     config.setFrom(project.file("$rootDir/config/detekt/config.yml"))
 }

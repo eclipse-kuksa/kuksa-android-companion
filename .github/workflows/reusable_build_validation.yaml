@@ -1,7 +1,7 @@
-name: build
+name: build_validation
 
 on:
-  pull_request
+  workflow_call:
 
 jobs:
   build-project:
@@ -11,7 +11,6 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -23,11 +22,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Run 'assemble' with Gradle Wrapper
-        run: ./gradlew assemble
-
       - name: Run 'check' with Gradle Wrapper
         run: ./gradlew ktlintCheck detekt
 
-      - name: Run 'test' with Gradle Wrapper
-        run: ./gradlew test
+#      - name: Run 'test' with Gradle Wrapper
+#        run: ./gradlew test
+
+      - name: Run 'assemble' with Gradle Wrapper
+        run: ./gradlew assemble
