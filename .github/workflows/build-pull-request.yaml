@@ -5,4 +5,4 @@ on:
 
 jobs:
   build-project:
-    uses: ./.github/workflows/reusable_build_validation.yaml
+    uses: ./.github/workflows/reusable-build-validation.yaml
