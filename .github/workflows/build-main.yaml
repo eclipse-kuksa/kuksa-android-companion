@@ -1,0 +1,49 @@
+name: build_main
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  GPR_USERNAME: ${{ github.actor }}
+  GPR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  validate-project:
+    uses: ./.github/workflows/reusable-build-validation.yaml
+
+  deploy-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-project
+
+      - name: Decode Keystore
+        uses: timheuer/base64-to-file@v1
+        with:
+          fileName: 'keystore.jks'
+          encodedString: ${{ secrets.KEYSTORE_RELEASE }}
+
+      - name: Assemble release artifacts
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+        run: ./gradlew assembleRelease
+
+      - name: Archive .apk file
+        uses: actions/upload-artifact@v3
+        with:
+          name: kuksa_companion_app.apk
+          path: app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Archive changelog
+        uses: actions/upload-artifact@v3
+        with:
+          name: CHANGELOG.md
+          path: CHANGELOG.md
+          retention-days: 14

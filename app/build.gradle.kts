@@ -17,6 +17,8 @@
  *
  */
 
+import org.eclipse.kuksa.companion.property.PropertiesLoader
+
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")
@@ -40,7 +42,30 @@ android {
             useSupportLibrary = true
         }
     }
+    signingConfigs {
+        create("release") {
+            val localProperties = PropertiesLoader().load("$rootDir/local.properties")
 
+            val runnerTempPath = System.getenv("RUNNER_TEMP") ?: System.getProperty("user.home")
+            val runnerKeystoreFilePath = "$runnerTempPath/keystore.jks"
+            val runnerKeystoreFile = File(runnerKeystoreFilePath)
+            val keystoreFile = if (runnerKeystoreFile.exists()) {
+                runnerKeystoreFile
+            } else { // For building locally - Just add the keys to the local.properties
+                println("No keystore property file found - looking for a local one")
+                val propertyKeystorePath = localProperties?.getProperty("release.keystore.path") ?: return@create
+                File("$runnerTempPath/$propertyKeystorePath")
+            }
+
+            storeFile = keystoreFile
+            keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+                ?: localProperties?.getProperty("release.keystore.key.alias")
+            keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
+                ?: localProperties?.getProperty("release.keystore.key.password")
+            storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+                ?: localProperties?.getProperty("release.keystore.store.password")
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -48,6 +73,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            signingConfig = signingConfigs.getByName("release")
+        }
+        // For store releases like F-Droid where an unsigned artifact is needed
+        create("unsigned") {
+            initWith(getByName("release"))
+            applicationIdSuffix = ".unsigned"
         }
     }
     compileOptions {
