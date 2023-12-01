@@ -26,6 +26,11 @@ jobs:
         run: ./gradlew setReleaseVersion # Do not chain this command because it writes into a file which needs to be re-read inside the next gradle command
 
       - name: Create .apk file
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+          KEYSTORE_PATH: ${{ env:RUNNER_TEMP }}/keystore.jks
         run: ./gradlew assembleRelease
 
       - name: Rename release artefact

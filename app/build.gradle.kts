@@ -44,20 +44,16 @@ android {
     }
     signingConfigs {
         create("release") {
-            val localProperties = PropertiesLoader().load("$rootDir/local.properties")
+            val propertiesLoader = PropertiesLoader()
+            val localProperties = propertiesLoader.load("$rootDir/local.properties")
 
-            val runnerTempPath = System.getenv("RUNNER_TEMP") ?: System.getProperty("user.home")
-            val runnerKeystoreFilePath = "$runnerTempPath/keystore.jks"
-            val runnerKeystoreFile = File(runnerKeystoreFilePath)
-            val keystoreFile = if (runnerKeystoreFile.exists()) {
-                runnerKeystoreFile
-            } else { // For building locally - Just add the keys to the local.properties
-                println("No keystore property file found - looking for a local one")
-                val propertyKeystorePath = localProperties?.getProperty("release.keystore.path") ?: return@create
-                File("$runnerTempPath/$propertyKeystorePath")
+            val keystorePath = System.getenv("KEYSTORE_PATH") ?: localProperties?.getProperty("release.keystore.path")
+            if (keystorePath == null) {
+                println("No keystore path defined - Check your local.properties if building locally")
+                return@create
             }
 
-            storeFile = keystoreFile
+            storeFile = File(keystorePath)
             keyAlias = System.getenv("SIGNING_KEY_ALIAS")
                 ?: localProperties?.getProperty("release.keystore.key.alias")
             keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
@@ -75,10 +71,10 @@ android {
             )
             signingConfig = signingConfigs.getByName("release")
         }
-        // For store releases like F-Droid where an unsigned artifact is needed
-        create("unsigned") {
+        // For the F-Droid store release where an unsigned artifact is needed
+        create("fDroid") {
             initWith(getByName("release"))
-            applicationIdSuffix = ".unsigned"
+            signingConfig = null
         }
     }
     compileOptions {
