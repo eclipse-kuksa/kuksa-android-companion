@@ -19,6 +19,7 @@ captures/
 *.apk
 output.json
 stdout
+app/release/
 
 # IntelliJ
 *.iml

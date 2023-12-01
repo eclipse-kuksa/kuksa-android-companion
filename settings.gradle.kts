@@ -61,6 +61,7 @@ dependencyResolutionManagement {
 
 include(":app")
 
+// Needs to be redundant with buildSrc because the settings.gradle is compiled before the buildSrc folder
 fun loadLocalProperties(): Properties? {
     val localProperties = file("$rootDir/local.properties")
     if (!localProperties.exists()) return null
