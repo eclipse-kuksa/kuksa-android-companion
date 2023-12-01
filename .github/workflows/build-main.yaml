@@ -3,7 +3,7 @@ name: build_main
 on:
   push:
     branches:
-      - main
+      - testdeploy
 
 env:
   GPR_USERNAME: ${{ github.actor }}
