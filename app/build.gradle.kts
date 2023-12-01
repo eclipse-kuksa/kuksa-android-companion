@@ -48,10 +48,8 @@ android {
             val localProperties = propertiesLoader.load("$rootDir/local.properties")
 
             val keystorePath = System.getenv("KEYSTORE_PATH") ?: localProperties?.getProperty("release.keystore.path")
-            if (keystorePath == null) {
-                println("No keystore path defined - Check your local.properties if building locally")
-                return@create
-            }
+            println("Defined keystore path: $keystorePath")
+            if (keystorePath == null) return@create
 
             storeFile = File(keystorePath)
             keyAlias = System.getenv("SIGNING_KEY_ALIAS")

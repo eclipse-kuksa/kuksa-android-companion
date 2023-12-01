@@ -37,7 +37,7 @@ jobs:
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-          KEYSTORE_PATH: ${{ env:RUNNER_TEMP }}/keystore.jks
+          KEYSTORE_PATH: ${{ runner.temp }}/keystore.jks
         run: ./gradlew assembleRelease
 
       - name: Archive .apk file
