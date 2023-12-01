@@ -26,6 +26,12 @@ jobs:
           fileName: 'keystore.jks'
           encodedString: ${{ secrets.KEYSTORE_RELEASE }}
 
+      - name: Update Version
+        run: npm run bump-release # Updates the semantic version depending on the last commits e.g. feature / bugfix
+
+      - name: Set Snapshot Version
+        run: ./gradlew setSnapshotVersion # Do not chain this command because it writes into a file which needs to be re-read inside the next gradle command
+
       - name: Assemble release artifacts
         env:
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
