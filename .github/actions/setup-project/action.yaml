@@ -1,4 +1,4 @@
-name: setup_project
+name: Setup project
 description: Setups the gradle and java environment
 
 runs:

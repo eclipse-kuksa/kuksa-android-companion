@@ -1,4 +1,4 @@
-name: create-release
+name: GitHub release
 
 concurrency: production
 
@@ -25,13 +25,12 @@ jobs:
       - name: Set Release Version
         run: ./gradlew setReleaseVersion # Do not chain this command because it writes into a file which needs to be re-read inside the next gradle command
 
-      - name: Create .apk file
-        env:
-          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-          KEYSTORE_PATH: ${{ runner.temp }}/keystore.jks
-        run: ./gradlew assembleRelease
+      - uses: ./.github/actions/create-release-apk
+        with:
+          keystore: ${{ secrets.KEYSTORE_RELEASE }}
+          key_alias: ${{ secrets.SIGNING_KEY_ALIAS }}
+          key_password: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          store_password: ${{ secrets.SIGNING_STORE_PASSWORD }}
 
       - name: Rename release artefact
         run: mv app/build/outputs/apk/release/app-release.apk kuksa_companion_app.apk

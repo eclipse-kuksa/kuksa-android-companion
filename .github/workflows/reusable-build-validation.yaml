@@ -1,4 +1,4 @@
-name: build_validation
+name: Code Quality
 
 on:
   workflow_call:

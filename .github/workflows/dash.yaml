@@ -1,4 +1,4 @@
-name: dash
+name: Dash license check
 
 on:
   pull_request
