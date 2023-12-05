@@ -66,11 +66,14 @@ import org.eclipse.kuksa.vss.VssStation
 import org.eclipse.kuksa.vss.VssTrunk
 import org.eclipse.kuksa.vsscore.annotation.VssDefinition
 import org.eclipse.kuksa.vsscore.model.VssSpecification
+import javax.inject.Inject
 
 @AndroidEntryPoint
 @VssDefinition("vss_rel_4.0.yaml")
 class MainActivity : ComponentActivity() {
-    private lateinit var connectionInfoRepository: ConnectionInfoRepository
+    @Inject
+    lateinit var connectionInfoRepository: ConnectionInfoRepository
+
     private lateinit var doorVehicleScene: DoorVehicleScene
 
     private val disconnectListener = DisconnectListener {
@@ -173,8 +176,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-
-        connectionInfoRepository = ConnectionInfoRepository(this)
 
         connectionStatusViewModel.onClickReconnect = {
             connectToDataBroker {
