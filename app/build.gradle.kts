@@ -23,6 +23,8 @@ plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")
     alias(libs.plugins.kotlin.serialization)
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
     kotlin("android")
 }
 
@@ -133,4 +135,12 @@ dependencies {
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.tooling.test.manifest)
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

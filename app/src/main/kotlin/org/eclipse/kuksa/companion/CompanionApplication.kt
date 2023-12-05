@@ -17,31 +17,10 @@
  *
  */
 
-plugins {
-    base
-    detekt
-    version
-    alias(libs.plugins.hilt.android) apply false
-    alias(libs.plugins.ksp) apply false
-}
+package org.eclipse.kuksa.companion
 
-subprojects {
-    apply {
-        plugin("ktlint")
-        plugin("dash")
-    }
-    afterEvaluate {
-        tasks.check {
-            finalizedBy("ktlintCheck")
-        }
-    }
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-    // see: https://kotest.io/docs/framework/tags.html#gradle
-    tasks.withType<Test> {
-        val systemPropertiesMap = HashMap<String, Any>()
-        System.getProperties().forEach { key, value ->
-            systemPropertiesMap[key.toString()] = value.toString()
-        }
-        systemProperties = systemPropertiesMap
-    }
-}
+@HiltAndroidApp
+class CompanionApplication : Application()

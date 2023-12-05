@@ -27,6 +27,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.eclipse.kuksa.DataBrokerConnection
@@ -66,6 +67,7 @@ import org.eclipse.kuksa.vss.VssTrunk
 import org.eclipse.kuksa.vsscore.annotation.VssDefinition
 import org.eclipse.kuksa.vsscore.model.VssSpecification
 
+@AndroidEntryPoint
 @VssDefinition("vss_rel_4.0.yaml")
 class MainActivity : ComponentActivity() {
     private lateinit var connectionInfoRepository: ConnectionInfoRepository

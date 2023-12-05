@@ -38,4 +38,5 @@ dependencies {
     implementation(libs.android.gradlePlugin)
     implementation(libs.kotlin.gradlePlugin)
     implementation(libs.detekt.gradlePlugin)
+    implementation(libs.javapoet)
 }
