@@ -1,0 +1,8 @@
+name: Validate pull request
+
+on:
+  pull_request
+
+jobs:
+  build-project:
+    uses: ./.github/workflows/reusable-build-validation.yaml

@@ -17,6 +17,8 @@
  *
  */
 
+import org.eclipse.kuksa.companion.property.PropertiesLoader
+
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")
@@ -40,7 +42,24 @@ android {
             useSupportLibrary = true
         }
     }
+    signingConfigs {
+        create("release") {
+            val propertiesLoader = PropertiesLoader()
+            val localProperties = propertiesLoader.load("$rootDir/local.properties")
 
+            val keystorePath = System.getenv("KEYSTORE_PATH") ?: localProperties?.getProperty("release.keystore.path")
+            println("Defined keystore path: $keystorePath")
+            if (keystorePath == null) return@create
+
+            storeFile = File(keystorePath)
+            keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+                ?: localProperties?.getProperty("release.keystore.key.alias")
+            keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
+                ?: localProperties?.getProperty("release.keystore.key.password")
+            storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+                ?: localProperties?.getProperty("release.keystore.store.password")
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -48,6 +67,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            signingConfig = signingConfigs.getByName("release")
+        }
+        // For the F-Droid store release where an unsigned artifact is needed
+        create("fDroid") {
+            initWith(getByName("release"))
+            signingConfig = null
         }
     }
     compileOptions {

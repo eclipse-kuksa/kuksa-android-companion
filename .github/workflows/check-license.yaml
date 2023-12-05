@@ -1,4 +1,4 @@
-name: spdx
+name: SPDX licenses
 
 on:
   pull_request

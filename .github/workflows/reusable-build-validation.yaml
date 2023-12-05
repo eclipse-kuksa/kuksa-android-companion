@@ -1,0 +1,19 @@
+name: Code Quality
+
+on:
+  workflow_call:
+
+jobs:
+  build-project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Project
+        uses: ./.github/actions/setup-project
+
+      - name: Run 'check' with Gradle Wrapper
+        run: ./gradlew ktlintCheck detekt
+
+#      - name: Run 'test' with Gradle Wrapper
+#        run: ./gradlew test

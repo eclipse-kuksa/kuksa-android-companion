@@ -1,0 +1,49 @@
+name: Build Main
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  GPR_USERNAME: ${{ github.actor }}
+  GPR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  validate-project:
+    uses: ./.github/workflows/reusable-build-validation.yaml
+
+  deploy-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-project
+
+      - name: Update Version
+        run: npm run bump-release # Updates the semantic version depending on the last commits e.g. feature / bugfix
+
+      - name: Set Snapshot Version
+        run: ./gradlew setSnapshotVersion # Do not chain this command because it writes into a file which needs to be re-read inside the next gradle command
+
+      - uses: ./.github/actions/create-release-apk
+        with:
+          keystore: ${{ secrets.KEYSTORE_RELEASE }}
+          key_alias:  ${{ secrets.SIGNING_KEY_ALIAS }}
+          key_password: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          store_password: ${{ secrets.SIGNING_STORE_PASSWORD }}
+
+      - name: Archive .apk file
+        uses: actions/upload-artifact@v3
+        with:
+          name: kuksa_companion_app.apk
+          path: app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Archive changelog
+        uses: actions/upload-artifact@v3
+        with:
+          name: CHANGELOG.md
+          path: CHANGELOG.md
+          retention-days: 14
