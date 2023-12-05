@@ -24,7 +24,7 @@ plugins {
     id("com.google.devtools.ksp")
     alias(libs.plugins.kotlin.serialization)
     kotlin("kapt")
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.hilt.android)
     kotlin("android")
 }
 
@@ -36,8 +36,8 @@ android {
         applicationId = "org.eclipse.kuksa.companion"
         minSdk = 27
         targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = rootProject.extra["projectVersionCode"].toString().toInt()
+        versionName = rootProject.extra["projectVersion"].toString()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
