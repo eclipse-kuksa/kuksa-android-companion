@@ -87,9 +87,7 @@ class MainActivity : ComponentActivity() {
     private val lightControlViewModel: LightControlViewModel by viewModels()
     private val wheelPressureViewModel: WheelPressureViewModel by viewModels()
 
-    private val settingsViewModel: SettingsViewModel by viewModels {
-        SettingsViewModel.Factory(connectionInfoRepository)
-    }
+    private val settingsViewModel: SettingsViewModel by viewModels()
 
     private var dataBrokerConnection: DataBrokerConnection? = null
     private val dataBrokerConnectorFactory = DataBrokerConnectorFactory()

@@ -20,13 +20,15 @@
 package org.eclipse.kuksa.companion.feature.settings.viewModel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.eclipse.kuksa.companion.feature.connection.model.ConnectionInfo
 import org.eclipse.kuksa.companion.feature.connection.repository.ConnectionInfoRepository
+import javax.inject.Inject
 
-class SettingsViewModel(
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
     private val repository: ConnectionInfoRepository,
 ) : ViewModel() {
     val connectionInfoFlow = repository.connectionInfoFlow
@@ -34,15 +36,6 @@ class SettingsViewModel(
     fun updateConnectionInfo(connectionInfo: ConnectionInfo) {
         viewModelScope.launch {
             repository.updateConnectionInfo(connectionInfo)
-        }
-    }
-
-    class Factory(
-        private val connectionInfoRepository: ConnectionInfoRepository,
-    ) : ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return SettingsViewModel(connectionInfoRepository) as T
         }
     }
 }
