@@ -23,6 +23,8 @@ plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")
     alias(libs.plugins.kotlin.serialization)
+    kotlin("kapt")
+    alias(libs.plugins.hilt.android)
     kotlin("android")
 }
 
@@ -34,8 +36,8 @@ android {
         applicationId = "org.eclipse.kuksa.companion"
         minSdk = 27
         targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = rootProject.extra["projectVersionCode"].toString().toInt()
+        versionName = rootProject.extra["projectVersion"].toString()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -133,4 +135,12 @@ dependencies {
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.tooling.test.manifest)
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

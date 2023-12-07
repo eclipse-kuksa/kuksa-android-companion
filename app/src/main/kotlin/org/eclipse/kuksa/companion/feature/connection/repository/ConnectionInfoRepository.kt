@@ -22,11 +22,17 @@ package org.eclipse.kuksa.companion.feature.connection.repository
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import org.eclipse.kuksa.companion.feature.connection.model.ConnectionInfo
 import org.eclipse.kuksa.companion.feature.connection.model.ConnectionInfoSerializer
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ConnectionInfoRepository(context: Context) {
+@Singleton
+class ConnectionInfoRepository @Inject constructor(
+    @ApplicationContext context: Context,
+) {
 
     private val Context.dataStore: DataStore<ConnectionInfo> by dataStore(PREFERENCES_NAME, ConnectionInfoSerializer)
     private val dataStore = context.dataStore

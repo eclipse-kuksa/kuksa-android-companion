@@ -27,6 +27,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.eclipse.kuksa.DataBrokerConnection
@@ -65,10 +66,14 @@ import org.eclipse.kuksa.vss.VssStation
 import org.eclipse.kuksa.vss.VssTrunk
 import org.eclipse.kuksa.vsscore.annotation.VssDefinition
 import org.eclipse.kuksa.vsscore.model.VssSpecification
+import javax.inject.Inject
 
+@AndroidEntryPoint
 @VssDefinition("vss_rel_4.0.yaml")
 class MainActivity : ComponentActivity() {
-    private lateinit var connectionInfoRepository: ConnectionInfoRepository
+    @Inject
+    lateinit var connectionInfoRepository: ConnectionInfoRepository
+
     private lateinit var doorVehicleScene: DoorVehicleScene
 
     private val disconnectListener = DisconnectListener {
@@ -82,9 +87,7 @@ class MainActivity : ComponentActivity() {
     private val lightControlViewModel: LightControlViewModel by viewModels()
     private val wheelPressureViewModel: WheelPressureViewModel by viewModels()
 
-    private val settingsViewModel: SettingsViewModel by viewModels {
-        SettingsViewModel.Factory(connectionInfoRepository)
-    }
+    private val settingsViewModel: SettingsViewModel by viewModels()
 
     private var dataBrokerConnection: DataBrokerConnection? = null
     private val dataBrokerConnectorFactory = DataBrokerConnectorFactory()
@@ -171,8 +174,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-
-        connectionInfoRepository = ConnectionInfoRepository(this)
 
         connectionStatusViewModel.onClickReconnect = {
             connectToDataBroker {
