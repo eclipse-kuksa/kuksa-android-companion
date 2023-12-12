@@ -67,6 +67,7 @@ fun TabRowHost(
     temperatureViewModel: TemperatureViewModel,
     lightControlViewModel: LightControlViewModel,
     wheelPressureViewModel: WheelPressureViewModel,
+    modifier: Modifier = Modifier,
     fabContent: @Composable () -> Unit,
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(TAB_INDEX_DOORS) }
@@ -78,7 +79,7 @@ fun TabRowHost(
         TabData(R.drawable.baseline_sports_volleyball_24, "Wheel Pressure"),
     )
 
-    Column {
+    Column(modifier = modifier) {
         TabRow(
             selectedTabIndex = selectedTabIndex,
             modifier = Modifier

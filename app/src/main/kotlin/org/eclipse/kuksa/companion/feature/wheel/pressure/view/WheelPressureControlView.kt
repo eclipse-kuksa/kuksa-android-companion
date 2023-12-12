@@ -33,31 +33,41 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressureViewModel
 
 @Composable
-fun WheelPressureControlView(viewModel: WheelPressureViewModel) {
-    WheelPressureOverlay(viewModel = viewModel)
+fun WheelPressureControlView(
+    viewModel: WheelPressureViewModel,
+    modifier: Modifier = Modifier,
+) {
+    WheelPressureOverlay(
+        viewModel.pressureLeftFront,
+        viewModel.pressureRightFront,
+        viewModel.pressureLeftBack,
+        viewModel.pressureRightBack,
+        modifier,
+    )
 }
 
 @Composable
-private fun WheelPressureOverlay(viewModel: WheelPressureViewModel) {
+private fun WheelPressureOverlay(
+    pressureLeftFront: Int,
+    pressureRightFront: Int,
+    pressureLeftBack: Int,
+    pressureRightBack: Int,
+    modifier: Modifier = Modifier,
+) {
     ConstraintLayout(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(start = 35.dp, end = 35.dp, top = 225.dp, bottom = 90.dp),
     ) {
         val (driverSideRef, passengerSideRef, driverSideBackRef, passengerSideBackRef) = createRefs()
-        val modifier = Modifier
         val doorsPaddingBottom = 50.dp
 
         val unit = "kPa"
-        val pressureLeftFront = viewModel.pressureLeftFront
-        val pressureRightFront = viewModel.pressureRightFront
-        val pressureLeftBack = viewModel.pressureLeftBack
-        val pressureRightBack = viewModel.pressureRightBack
         Text(
             text = "$pressureLeftFront $unit",
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
             color = Color.Black,
-            modifier = modifier
+            modifier = Modifier
                 .constrainAs(driverSideRef) {
                     start.linkTo(parent.start)
                 },
@@ -66,7 +76,7 @@ private fun WheelPressureOverlay(viewModel: WheelPressureViewModel) {
             text = "$pressureRightFront $unit",
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
             color = Color.Black,
-            modifier = modifier
+            modifier = Modifier
                 .constrainAs(passengerSideRef) {
                     end.linkTo(parent.end)
                 },
@@ -75,7 +85,7 @@ private fun WheelPressureOverlay(viewModel: WheelPressureViewModel) {
             text = "$pressureLeftBack $unit",
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
             color = Color.Black,
-            modifier = modifier
+            modifier = Modifier
                 .constrainAs(driverSideBackRef) {
                     start.linkTo(parent.start)
                     bottom.linkTo(parent.bottom, doorsPaddingBottom)
@@ -85,7 +95,7 @@ private fun WheelPressureOverlay(viewModel: WheelPressureViewModel) {
             text = "$pressureRightBack $unit",
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
             color = Color.Black,
-            modifier = modifier
+            modifier = Modifier
                 .constrainAs(passengerSideBackRef) {
                     end.linkTo(parent.end)
                     bottom.linkTo(parent.bottom, doorsPaddingBottom)

@@ -28,14 +28,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 
 @Composable
-fun RamsesView(callback: SurfaceHolder.Callback) {
+fun RamsesView(
+    callback: SurfaceHolder.Callback,
+    modifier: Modifier = Modifier,
+) {
     AndroidView(
         { context ->
             SurfaceView(context).apply {
                 holder.addCallback(callback)
             }
         },
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
     )
 }
 

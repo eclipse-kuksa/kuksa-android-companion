@@ -54,13 +54,16 @@ private val StatusBarHeight = 30.dp
 private val DelayDuration = 500.milliseconds
 
 @Composable
-fun ConnectionStatusView(viewModel: ConnectionStatusViewModel) {
+fun ConnectionStatusView(
+    viewModel: ConnectionStatusViewModel,
+    modifier: Modifier = Modifier,
+) {
     val connectionState = viewModel.connectionState
     val connectionStateLabel = connectionState.toString().lowercase()
     val backgroundColor = viewModel.backgroundColor
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(StatusBarHeight)
             .background(backgroundColor)

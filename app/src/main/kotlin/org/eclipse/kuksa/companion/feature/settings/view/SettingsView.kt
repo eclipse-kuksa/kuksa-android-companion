@@ -81,6 +81,7 @@ import org.eclipse.kuksa.companion.feature.settings.viewModel.SettingsViewModel
 @Composable
 fun SettingsView(
     settingsViewModel: SettingsViewModel,
+    modifier: Modifier = Modifier,
     onNavigateBack: () -> Unit,
 ) {
     val connectionInfoState
@@ -91,8 +92,8 @@ fun SettingsView(
     }
 
     Scaffold(
-        topBar = { TopBar(onNavigateBack) },
-        modifier = Modifier.fillMaxSize(),
+        topBar = { TopBar(onNavigateBack = onNavigateBack) },
+        modifier = modifier.fillMaxSize(),
     ) { paddingValues ->
         Surface(
             modifier = Modifier
@@ -209,6 +210,7 @@ fun TextDialog(
     label: String,
     value: String,
     onClickOk: (String) -> Unit,
+    modifier: Modifier = Modifier,
     onClickCancel: () -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -216,7 +218,7 @@ fun TextDialog(
     var newValue by remember { mutableStateOf(value) }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .clip(RoundedCornerShape(4.dp))
             .background(MaterialTheme.colorScheme.background)
             .padding(8.dp),
@@ -275,10 +277,11 @@ fun TextDialog(
 private fun SwitchSetting(
     label: String,
     enabled: Boolean,
+    modifier: Modifier = Modifier,
     onValueChanged: (Boolean) -> Unit,
 ) {
     Row(
-        modifier = Modifier.padding(10.dp),
+        modifier = modifier.padding(10.dp),
     ) {
         Text(
             text = label,
@@ -337,7 +340,10 @@ private fun FileSelectorSetting(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(onNavigateBack: () -> Unit) {
+fun TopBar(
+    modifier: Modifier = Modifier,
+    onNavigateBack: () -> Unit,
+) {
     TopAppBar(
         title = { Text("Settings") },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
@@ -348,6 +354,7 @@ fun TopBar(onNavigateBack: () -> Unit) {
                 Icon(Icons.Filled.ArrowBack, "Back")
             }
         },
+        modifier = modifier,
     )
 }
 
