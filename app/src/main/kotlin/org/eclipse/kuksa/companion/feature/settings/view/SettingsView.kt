@@ -266,8 +266,10 @@ fun TextDialog(
 }
 
 @Suppress(
-    "SameParameterValue", // re-usability
-    "MagicNumber", // it does not make sense to create a constant for each elements weight
+    // re-usability
+    "SameParameterValue",
+    // it does not make sense to create a constant for each elements weight
+    "MagicNumber",
 )
 @Composable
 private fun SwitchSetting(
