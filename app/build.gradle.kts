@@ -99,6 +99,10 @@ android {
         noCompress += "ramses"
         noCompress += "rlogic"
     }
+    sourceSets.getByName("main") {
+        java.srcDir("src/main/java")
+        java.srcDir("src/main/kotlin")
+    }
 }
 
 dependencies {

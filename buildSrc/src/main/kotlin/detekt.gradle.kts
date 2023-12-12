@@ -29,6 +29,7 @@ plugins {
 
 dependencies {
     detektPlugins(lib("detekt-formatting"))
+    detektPlugins(lib("detekt-compose-rules"))
 }
 
 detekt {
