@@ -27,6 +27,7 @@ import org.eclipse.kuksa.companion.feature.settings.view.SettingsView
 import org.eclipse.kuksa.companion.feature.settings.viewModel.SettingsViewModel
 
 const val SettingsView = "settings"
+
 fun NavGraphBuilder.settingsScreen(
     settingsViewModel: SettingsViewModel,
     onNavigateBack: () -> Unit,

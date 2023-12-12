@@ -33,7 +33,6 @@ import javax.inject.Singleton
 class ConnectionInfoRepository @Inject constructor(
     @ApplicationContext context: Context,
 ) {
-
     private val Context.dataStore: DataStore<ConnectionInfo> by dataStore(PREFERENCES_NAME, ConnectionInfoSerializer)
     private val dataStore = context.dataStore
 

@@ -270,7 +270,11 @@ fun TextDialog(
     "MagicNumber", // it does not make sense to create a constant for each elements weight
 )
 @Composable
-private fun SwitchSetting(label: String, enabled: Boolean, onValueChanged: (Boolean) -> Unit) {
+private fun SwitchSetting(
+    label: String,
+    enabled: Boolean,
+    onValueChanged: (Boolean) -> Unit,
+) {
     Row(
         modifier = Modifier.padding(10.dp),
     ) {
