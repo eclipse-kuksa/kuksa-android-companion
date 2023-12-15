@@ -29,7 +29,7 @@ import org.eclipse.kuksa.companion.feature.light.viewmodel.LightControlViewModel
 import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureViewModel
 import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressureViewModel
 
-const val HomeScreen = "home"
+const val HOME_SCREEN = "home"
 
 @Suppress("LongParameterList") // calls compose code for which LongParameterList is disabled
 fun NavGraphBuilder.homeScreen(
@@ -40,7 +40,7 @@ fun NavGraphBuilder.homeScreen(
     wheelPressureViewModel: WheelPressureViewModel,
     onNavigateToSettingsScreen: () -> Unit,
 ) {
-    composable(HomeScreen) {
+    composable(HOME_SCREEN) {
         HomeScreen(
             connectionStatusViewModel = connectionStatusViewModel,
             doorControlViewModel = doorControlViewModel,
@@ -53,5 +53,5 @@ fun NavGraphBuilder.homeScreen(
 }
 
 fun NavController.navigateToMainScreen(navOptions: NavOptions? = null) {
-    navigate(HomeScreen, navOptions)
+    navigate(HOME_SCREEN, navOptions)
 }

@@ -30,7 +30,10 @@ import org.eclipse.kuksa.companion.feature.connection.model.ConnectionInfo
 import java.io.IOException
 
 class DataBrokerConnectorFactory {
-    fun create(context: Context, connectionInfo: ConnectionInfo): DataBrokerConnector {
+    fun create(
+        context: Context,
+        connectionInfo: ConnectionInfo,
+    ): DataBrokerConnector {
         val isTlsEnabled = connectionInfo.isTlsEnabled
         return if (isTlsEnabled) {
             createSecureConnector(context, connectionInfo)
@@ -48,7 +51,10 @@ class DataBrokerConnectorFactory {
         return DataBrokerConnector(managedChannel)
     }
 
-    private fun createSecureConnector(context: Context, connectionInfo: ConnectionInfo): DataBrokerConnector {
+    private fun createSecureConnector(
+        context: Context,
+        connectionInfo: ConnectionInfo,
+    ): DataBrokerConnector {
         val host = connectionInfo.host
         val port = connectionInfo.port
 

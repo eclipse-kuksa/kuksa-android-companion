@@ -37,7 +37,6 @@ plugins {
 dependencyResolutionManagement {
     repositories {
         mavenLocal()
-        gradlePluginPortal()
         google()
         mavenCentral()
     }

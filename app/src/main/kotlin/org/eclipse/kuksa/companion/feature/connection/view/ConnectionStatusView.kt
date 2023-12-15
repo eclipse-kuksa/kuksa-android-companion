@@ -48,20 +48,22 @@ import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatus
 import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel.ConnectionState
 import kotlin.time.Duration.Companion.milliseconds
 
-const val MaxNumberOfDots = 3
-val StatusBarHeight = 30.dp
-val DelayDuration = 500.milliseconds
+private const val MAX_NUMBER_OF_DOTS = 3
+
+private val StatusBarHeight = 30.dp
+private val DelayDuration = 500.milliseconds
 
 @Composable
 fun ConnectionStatusView(
     viewModel: ConnectionStatusViewModel,
+    modifier: Modifier = Modifier,
 ) {
     val connectionState = viewModel.connectionState
     val connectionStateLabel = connectionState.toString().lowercase()
     val backgroundColor = viewModel.backgroundColor
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(StatusBarHeight)
             .background(backgroundColor)
@@ -79,7 +81,7 @@ fun ConnectionStatusView(
             }
             LaunchedEffect(Unit) {
                 while (true) {
-                    if (numberOfDots.intValue < MaxNumberOfDots) {
+                    if (numberOfDots.intValue < MAX_NUMBER_OF_DOTS) {
                         numberOfDots.intValue += 1
                     } else {
                         numberOfDots.intValue = 0
