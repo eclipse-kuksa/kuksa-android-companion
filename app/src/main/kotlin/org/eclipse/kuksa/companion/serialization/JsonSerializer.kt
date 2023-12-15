@@ -46,7 +46,10 @@ abstract class JsonSerializer<T>(private val serializer: KSerializer<T>) : Seria
         }
     }
 
-    override suspend fun writeTo(t: T, output: OutputStream) {
+    override suspend fun writeTo(
+        t: T,
+        output: OutputStream,
+    ) {
         withContext(Dispatchers.IO) {
             val encodedString = Json.encodeToString(serializer, t)
             output.write(encodedString.encodeToByteArray())

@@ -49,10 +49,14 @@ private val DefaultEdgePadding = 25.dp
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun TemperatureControlView(viewModel: TemperatureViewModel) {
+fun TemperatureControlView(
+    viewModel: TemperatureViewModel,
+    modifier: Modifier = Modifier,
+) {
     BottomSheetScaffold(
         sheetContent = { BottomSheetContent(viewModel) },
         containerColor = Color.White.copy(alpha = 0f),
+        modifier = modifier,
     ) {
         Column(
             modifier = Modifier

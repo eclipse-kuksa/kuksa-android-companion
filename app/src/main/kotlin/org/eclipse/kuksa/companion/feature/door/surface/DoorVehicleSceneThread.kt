@@ -51,7 +51,6 @@ class DoorVehicleSceneThread(
     threadName: String,
     private val viewModel: DoorControlViewModel,
 ) : RamsesThread(threadName, viewModel.getApplication()), DoorVehicleScene {
-
     private var doorRow1DriverSide: VssProperty<Boolean> = VssDoor.VssRow1.VssDriverSide.VssIsOpen()
     private var doorRow1PassengerSide: VssProperty<Boolean> = VssDoor.VssRow1.VssPassengerSide.VssIsOpen()
     private var doorRow2DriverSide: VssProperty<Boolean> = VssDoor.VssRow2.VssDriverSide.VssIsOpen()
@@ -101,7 +100,11 @@ class DoorVehicleSceneThread(
         doorTrunkRearProperty?.set(doorTrunkRear.value.toFloat)
     }
 
-    fun moveCamera(yawValue: Float, pitchValue: Float, camDistanceValue: Float) {
+    fun moveCamera(
+        yawValue: Float,
+        pitchValue: Float,
+        camDistanceValue: Float,
+    ) {
         addRunnableToThreadQueue {
             this.yawValue = yawValue
             this.pitchValue = pitchValue
@@ -170,7 +173,10 @@ class DoorVehicleSceneThread(
      * Overrides the base class method which calls this based on thread scheduling
      * This method is executed from the correct thread (the one which talks to ramses)
      */
-    override fun onDisplayResize(width: Int, height: Int) {
+    override fun onDisplayResize(
+        width: Int,
+        height: Int,
+    ) {
         cameraViewportWProperty?.set(width)
         cameraViewportHProperty?.set(height)
         screenWidth = width

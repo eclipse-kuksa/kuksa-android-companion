@@ -30,6 +30,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 @Composable
 fun RamsesView(
     callback: SurfaceHolder.Callback,
+    modifier: Modifier = Modifier,
 ) {
     AndroidView(
         { context ->
@@ -37,7 +38,7 @@ fun RamsesView(
                 holder.addCallback(callback)
             }
         },
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
     )
 }
 
@@ -50,7 +51,12 @@ private fun RamsesViewPreview() {
                 // ignored
             }
 
-            override fun surfaceChanged(p0: SurfaceHolder, p1: Int, p2: Int, p3: Int) {
+            override fun surfaceChanged(
+                p0: SurfaceHolder,
+                p1: Int,
+                p2: Int,
+                p3: Int,
+            ) {
                 // ignored
             }
 

@@ -10,7 +10,8 @@ junitVersion = "1.1.5"
 junit = "4.13.2"
 kotlin = "1.9.20"
 detekt = "1.23.3"
-ktlint = "0.0" # maintained inside ktlint.gradle.kts
+composeRules = "0.0.26"
+ktlintGradle = "12.0.2" # ktLint Gradle Plugin Version: https://github.com/JLLeitschuh/ktlint-gradle/releases
 androidxAppCompat = "1.6.1"
 androidxLifecycle = "2.6.2"
 kotlinCompilerExtension = "1.5.4"
@@ -41,6 +42,8 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+ktlint-compose-rules = { module = "com.twitter.compose.rules:ktlint", version.ref = "composeRules" }
+detekt-compose-rules = { module = "com.twitter.compose.rules:detekt", version.ref = "composeRules" }
 kuksa-sdk = { module = "org.eclipse.kuksa:kuksa-sdk", version.ref = "kuksaSdk" }
 vss-processor = { module = "org.eclipse.kuksa:vss-processor", version.ref = "kuksaSdk" }
 ramses-aar = { module = "io.github.bmwcarit:ramses-aar", version.ref = "ramsesAar" }
@@ -60,6 +63,7 @@ androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constr
 # buildSrc
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+ktlint-gradlePlugin = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlintGradle" }
 detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 

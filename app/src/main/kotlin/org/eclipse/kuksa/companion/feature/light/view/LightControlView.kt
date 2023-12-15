@@ -53,10 +53,14 @@ import org.eclipse.kuksa.vsscore.model.VssProperty
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun LightControlView(viewModel: LightControlViewModel) {
+fun LightControlView(
+    viewModel: LightControlViewModel,
+    modifier: Modifier = Modifier,
+) {
     BottomSheetScaffold(
         sheetContent = { BottomSheetContent(viewModel) },
         containerColor = Color.White.copy(alpha = 0f),
+        modifier = modifier,
     ) {
         Column(
             modifier = Modifier

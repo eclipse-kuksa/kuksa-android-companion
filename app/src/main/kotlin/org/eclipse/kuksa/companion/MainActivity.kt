@@ -45,7 +45,7 @@ import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.C
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.DOOR_ALL_OPEN
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.TRUNK_CLOSED
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.TRUNK_OPEN
-import org.eclipse.kuksa.companion.feature.home.view.HomeScreen
+import org.eclipse.kuksa.companion.feature.home.view.HOME_SCREEN
 import org.eclipse.kuksa.companion.feature.home.view.RamsesView
 import org.eclipse.kuksa.companion.feature.home.view.homeScreen
 import org.eclipse.kuksa.companion.feature.light.viewmodel.LightControlViewModel
@@ -151,7 +151,7 @@ class MainActivity : ComponentActivity() {
             KuksaCompanionTheme {
                 val navController = rememberNavController()
                 RamsesView(callback = doorVehicleSurface)
-                NavHost(navController, startDestination = HomeScreen) {
+                NavHost(navController, startDestination = HOME_SCREEN) {
                     homeScreen(
                         connectionStatusViewModel = connectionStatusViewModel,
                         doorControlViewModel = doorControlViewModel,

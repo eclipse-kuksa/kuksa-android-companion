@@ -26,11 +26,12 @@ plugins {
 }
 
 subprojects {
-    apply {
-        plugin("ktlint")
-        plugin("dash")
-    }
     afterEvaluate {
+        apply {
+            plugin("ktlint")
+            plugin("dash")
+        }
+
         tasks.check {
             finalizedBy("ktlintCheck")
         }

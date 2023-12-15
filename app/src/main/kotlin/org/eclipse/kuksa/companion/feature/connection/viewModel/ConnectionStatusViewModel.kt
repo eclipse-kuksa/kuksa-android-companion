@@ -28,7 +28,6 @@ import androidx.lifecycle.ViewModel
 import org.eclipse.kuksa.companion.extension.DarkGreen
 
 class ConnectionStatusViewModel : ViewModel() {
-
     enum class ConnectionState {
         DISCONNECTED,
         CONNECTING,
