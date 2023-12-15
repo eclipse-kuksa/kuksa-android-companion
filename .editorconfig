@@ -18,11 +18,14 @@ max_line_length = 120
 [*.md]
 trim_trailing_whitespace = false
 
+[{version.txt,versioncode.txt}]
+trim_trailing_whitespace = true
+insert_final_newline = false
+
 [*.{kt,kts}]
 ktlint_code_style = ktlint_official
 ktlint_standard_no-wildcard-imports = disabled
 ktlint_standard_annotation = disabled # false positive with @JvmOverloads and default constructor
-
-[{version.txt,versioncode.txt}]
-trim_trailing_whitespace = true
-insert_final_newline = false
+ktlint_function_naming_ignore_when_annotated_with = Composable
+ktlint_standard_multiline-expression-wrapping = disabled
+ktlint_standard_string-template-indent = disabled

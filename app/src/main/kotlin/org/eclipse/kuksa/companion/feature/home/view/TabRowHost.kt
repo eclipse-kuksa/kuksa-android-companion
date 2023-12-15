@@ -53,13 +53,13 @@ import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureView
 import org.eclipse.kuksa.companion.feature.wheel.pressure.view.WheelPressureControlView
 import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressureViewModel
 
-private const val TabIndexDoors = 0
-private const val TabIndexTemperature = 1
-private const val TabIndexLight = 2
-private const val TabIndexWheelPressure = 3
+private const val TAB_INDEX_DOORS = 0
+private const val TAB_INDEX_TEMPERATURE = 1
+private const val TAB_INDEX_LIGHT = 2
+private const val TAB_INDEX_WHEEL_PRESSURE = 3
 
-private const val FabOffsetX = -10
-private const val FabOffsetY = 10
+private const val FAB_OFFSET_X = -10
+private const val FAB_OFFSET_Y = 10
 
 @Composable
 fun TabRowHost(
@@ -67,9 +67,10 @@ fun TabRowHost(
     temperatureViewModel: TemperatureViewModel,
     lightControlViewModel: LightControlViewModel,
     wheelPressureViewModel: WheelPressureViewModel,
+    modifier: Modifier = Modifier,
     fabContent: @Composable () -> Unit,
 ) {
-    var selectedTabIndex by remember { mutableIntStateOf(TabIndexDoors) }
+    var selectedTabIndex by remember { mutableIntStateOf(TAB_INDEX_DOORS) }
 
     val tabData = listOf(
         TabData(R.drawable.baseline_sensor_door_24, "Doors"),
@@ -78,7 +79,7 @@ fun TabRowHost(
         TabData(R.drawable.baseline_sports_volleyball_24, "Wheel Pressure"),
     )
 
-    Column {
+    Column(modifier = modifier) {
         TabRow(
             selectedTabIndex = selectedTabIndex,
             modifier = Modifier
@@ -100,15 +101,15 @@ fun TabRowHost(
 
         Box {
             when (selectedTabIndex) {
-                TabIndexDoors -> DoorControlView(doorControlViewModel)
-                TabIndexTemperature -> TemperatureControlView(temperatureViewModel)
-                TabIndexLight -> LightControlView(lightControlViewModel)
-                TabIndexWheelPressure -> WheelPressureControlView(wheelPressureViewModel)
+                TAB_INDEX_DOORS -> DoorControlView(doorControlViewModel)
+                TAB_INDEX_TEMPERATURE -> TemperatureControlView(temperatureViewModel)
+                TAB_INDEX_LIGHT -> LightControlView(lightControlViewModel)
+                TAB_INDEX_WHEEL_PRESSURE -> WheelPressureControlView(wheelPressureViewModel)
             }
             Column(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
-                    .offset(FabOffsetX.dp, FabOffsetY.dp),
+                    .offset(FAB_OFFSET_X.dp, FAB_OFFSET_Y.dp),
             ) {
                 fabContent()
             }

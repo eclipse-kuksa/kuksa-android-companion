@@ -48,9 +48,13 @@ fun HomeScreen(
     temperatureViewModel: TemperatureViewModel,
     lightControlViewModel: LightControlViewModel,
     wheelPressureViewModel: WheelPressureViewModel,
+    modifier: Modifier = Modifier,
     onNavigateToSettingsScreen: () -> Unit,
 ) {
-    Scaffold(containerColor = Color.White.copy(alpha = 0f)) {
+    Scaffold(
+        containerColor = Color.White.copy(alpha = 0f),
+        modifier = modifier,
+    ) {
         Column(
             modifier = Modifier
                 .consumeWindowInsets(it)

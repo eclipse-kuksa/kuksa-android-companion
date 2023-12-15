@@ -47,9 +47,7 @@ import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DoorControlView(
-    doorControlViewModel: DoorControlViewModel,
-) {
+fun DoorControlView(doorControlViewModel: DoorControlViewModel) {
     BottomSheetScaffold(
         sheetContent = { BottomSheetContent(doorControlViewModel) },
         containerColor = Color.White.copy(alpha = 0f),

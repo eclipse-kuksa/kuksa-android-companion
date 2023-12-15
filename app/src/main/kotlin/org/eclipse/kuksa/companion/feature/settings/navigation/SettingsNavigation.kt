@@ -26,12 +26,13 @@ import androidx.navigation.compose.composable
 import org.eclipse.kuksa.companion.feature.settings.view.SettingsView
 import org.eclipse.kuksa.companion.feature.settings.viewModel.SettingsViewModel
 
-const val SettingsView = "settings"
+const val SETTINGS_VIEW = "settings"
+
 fun NavGraphBuilder.settingsScreen(
     settingsViewModel: SettingsViewModel,
     onNavigateBack: () -> Unit,
 ) {
-    composable(SettingsView) {
+    composable(SETTINGS_VIEW) {
         SettingsView(
             settingsViewModel = settingsViewModel,
             onNavigateBack = onNavigateBack,
@@ -40,5 +41,5 @@ fun NavGraphBuilder.settingsScreen(
 }
 
 fun NavController.navigateToSettingsScreen(navOptions: NavOptions? = null) {
-    navigate(SettingsView, navOptions)
+    navigate(SETTINGS_VIEW, navOptions)
 }

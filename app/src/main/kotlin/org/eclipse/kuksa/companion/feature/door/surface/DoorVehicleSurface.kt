@@ -81,7 +81,12 @@ class DoorVehicleSurface : AndroidRamsesSurface<DoorVehicleScene, DoorControlVie
         }
     }
 
-    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+    override fun surfaceChanged(
+        holder: SurfaceHolder,
+        format: Int,
+        width: Int,
+        height: Int,
+    ) {
         Log.d(TAG, "surfaceChanged: holder = $holder, format = $format, width = $width, height = $height")
 
         doorVehicleSceneThread.resizeDisplay(width, height)

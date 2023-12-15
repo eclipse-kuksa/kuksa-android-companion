@@ -39,4 +39,5 @@ dependencies {
     implementation(libs.kotlin.gradlePlugin)
     implementation(libs.detekt.gradlePlugin)
     implementation(libs.javapoet)
+    implementation(libs.ktlint.gradlePlugin)
 }
