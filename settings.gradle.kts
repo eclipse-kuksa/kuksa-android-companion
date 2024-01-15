@@ -17,8 +17,6 @@
  *
  */
 
-import java.util.Properties
-
 pluginManagement {
     repositories {
         mavenLocal()
@@ -46,31 +44,10 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         mavenLocal()
-        maven {
-            url = uri("https://maven.pkg.github.com/eclipse-kuksa/kuksa-android-sdk")
-            credentials {
-                val localProperties = loadLocalProperties()
-
-                username = System.getenv("GPR_USERNAME") ?: localProperties?.getProperty("gpr.user")
-                password = System.getenv("GPR_TOKEN") ?: localProperties?.getProperty("gpr.key")
-            }
-        }
     }
 }
 
 include(":app")
-
-// Needs to be redundant with buildSrc because the settings.gradle is compiled before the buildSrc folder
-fun loadLocalProperties(): Properties? {
-    val localProperties = file("$rootDir/local.properties")
-    if (!localProperties.exists()) return null
-
-    localProperties.reader().use { reader ->
-        return Properties().apply {
-            load(reader)
-        }
-    }
-}
 
 refreshVersions {
     rejectVersionIf {

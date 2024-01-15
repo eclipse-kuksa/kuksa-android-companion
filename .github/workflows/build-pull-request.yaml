@@ -3,10 +3,6 @@ name: Validate pull request
 on:
   pull_request
 
-env:
-  GPR_USERNAME: ${{ github.actor }}
-  GPR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
 jobs:
   validate-project:
     uses: ./.github/workflows/reusable-build-validation.yaml
