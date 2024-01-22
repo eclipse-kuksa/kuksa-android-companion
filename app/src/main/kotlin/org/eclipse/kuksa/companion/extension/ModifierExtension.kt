@@ -17,13 +17,13 @@
  *
  */
 
-package org.eclipse.kuksa.companion
+package org.eclipse.kuksa.companion.extension
 
-import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 
-const val PREVIEW_WIDTH_DP = 400
-const val PREVIEW_HEIGHT_DP = 900
+fun Modifier.isVisible(isVisible: Boolean): Modifier {
+    val alpha = if (isVisible) 1F else 0F
 
-@HiltAndroidApp
-class CompanionApplication : Application()
+    return then(Modifier.alpha(alpha))
+}

@@ -22,6 +22,7 @@ package org.eclipse.kuksa.companion.feature.door.surface
 import android.app.Application
 import android.util.Log
 import android.view.SurfaceHolder
+import org.eclipse.kuksa.companion.R
 import org.eclipse.kuksa.companion.extension.TAG
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
 import org.eclipse.kuksa.companion.ramses.AndroidRamsesSurface
@@ -37,10 +38,15 @@ class DoorVehicleSurface : AndroidRamsesSurface<DoorVehicleScene, DoorControlVie
             "G05.ramses",
             "G05.rlogic",
         )
+
+        val resources = context.resources
+        val yawValue = resources.getInteger(R.integer.RAMSES_CAMERA_YAW_VALUE)
+        val pitchValue = resources.getInteger(R.integer.RAMSES_CAMERA_PITCH_VALUE)
+        val cameraDistanceValue = resources.getInteger(R.integer.RAMSES_CAMERA_DISTANCE_VALUE)
         doorVehicleSceneThread.moveCamera(
-            yawValue = 90F,
-            pitchValue = 100F,
-            camDistanceValue = 700F,
+            yawValue = yawValue.toFloat(),
+            pitchValue = pitchValue.toFloat(),
+            camDistanceValue = cameraDistanceValue.toFloat(),
         )
 
         return doorVehicleSceneThread

@@ -17,13 +17,20 @@
  *
  */
 
-package org.eclipse.kuksa.companion
+package org.eclipse.kuksa.companion.extension
 
-import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import android.content.res.Configuration
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 
-const val PREVIEW_WIDTH_DP = 400
-const val PREVIEW_HEIGHT_DP = 900
-
-@HiltAndroidApp
-class CompanionApplication : Application()
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+@Composable
+fun Configuration.getWindowSizeClass(): WindowSizeClass {
+    val screenWidth = screenWidthDp
+    val screenHeight = screenHeightDp
+    val size = DpSize(screenWidth.dp, screenHeight.dp)
+    return WindowSizeClass.calculateFromSize(size)
+}

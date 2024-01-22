@@ -24,9 +24,9 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -45,12 +45,8 @@ import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.C
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.DOOR_ALL_OPEN
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.TRUNK_CLOSED
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.TRUNK_OPEN
-import org.eclipse.kuksa.companion.feature.home.view.HOME_SCREEN
-import org.eclipse.kuksa.companion.feature.home.view.RamsesView
-import org.eclipse.kuksa.companion.feature.home.view.homeScreen
+import org.eclipse.kuksa.companion.feature.home.view.AdaptiveAppScreen
 import org.eclipse.kuksa.companion.feature.light.viewmodel.LightControlViewModel
-import org.eclipse.kuksa.companion.feature.settings.navigation.navigateToSettingsScreen
-import org.eclipse.kuksa.companion.feature.settings.navigation.settingsScreen
 import org.eclipse.kuksa.companion.feature.settings.viewModel.SettingsViewModel
 import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureViewModel
 import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressureViewModel
@@ -142,32 +138,25 @@ class MainActivity : ComponentActivity() {
     }
 
     // region: Lifecycle
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         doorVehicleScene = doorVehicleSurface.loadScene(doorControlViewModel)
 
         setContent {
+            val windowSizeClass = calculateWindowSizeClass(activity = this@MainActivity)
             KuksaCompanionTheme {
-                val navController = rememberNavController()
-                RamsesView(callback = doorVehicleSurface)
-                NavHost(navController, startDestination = HOME_SCREEN) {
-                    homeScreen(
-                        connectionStatusViewModel = connectionStatusViewModel,
-                        doorControlViewModel = doorControlViewModel,
-                        temperatureViewModel = temperatureViewModel,
-                        lightControlViewModel = lightControlViewModel,
-                        wheelPressureViewModel = wheelPressureViewModel,
-                        onNavigateToSettingsScreen = { navController.navigateToSettingsScreen() },
-                    )
-
-                    settingsScreen(
-                        settingsViewModel = settingsViewModel,
-                        onNavigateBack = {
-                            navController.navigateUp()
-                        },
-                    )
-                }
+                AdaptiveAppScreen(
+                    callback = doorVehicleSurface,
+                    connectionStatusViewModel = connectionStatusViewModel,
+                    doorControlViewModel = doorControlViewModel,
+                    temperatureViewModel = temperatureViewModel,
+                    lightControlViewModel = lightControlViewModel,
+                    wheelPressureViewModel = wheelPressureViewModel,
+                    settingsViewModel = settingsViewModel,
+                    windowSizeClass = windowSizeClass,
+                )
             }
         }
     }
