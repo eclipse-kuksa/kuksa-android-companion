@@ -8,26 +8,10 @@ All notable changes to this project will be documented in this file. See [commit
 ### Features
 
 * Add App Icon to Companion App ([11d6ee1](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/11d6ee171bb5761ee0a3b197cf2c6cfc539eb386)), closes [#17](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/17)
-* Add automatic changelog generation ([a3b1963](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/a3b1963a33780720e9298718ba273be3819ff2f7)), closes [#23](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/23)
-* Add Dependency Injection using Hilt ([f96062a](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/f96062a5c35908ec2d0422629e108b910cb3e2e5))
-* Add Fastlane for F-Droid ([3194be1](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/3194be1036f52abe0476fb762f8450c5fca99e04)), closes [#12](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/12)
-* Add GitHub deployment workflows ([dea95a2](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/dea95a2445d3e8d53fe3b48ad40ae98c9095d17d))
-* Add Kuksa SDK via GitHub Packages ([979e7b3](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/979e7b3aaba36caa2f19b3009dcf51bcefbb6048)), closes [#1](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/1)
-* Add RefreshVersions Plugin ([ded4b39](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/ded4b39fe1471d81535d2a7789f7479b90fb5c9b))
-* Add staging signing config ([fc05076](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/fc050768dd8bda2547e5a8dc9342ca25b39d00d0)), closes [#27](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/27)
 * Differentiate between DirectionIndicator Left / Right ([60e4214](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/60e4214a623c6d27b7f136f5de2a0f8b86a0eae0)), closes [#7](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/7)
-* Generate Dash License Report ([53e35c9](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/53e35c946f26f4d7b2cc949be9a349d426fb98be)), closes [#24](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/24)
 * Integrate KUKSA Android SDK 0.1.3 ([db65fe5](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/db65fe5d99af3dac37522337bc642f0f0459b6dc)), closes [#38](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/38)
-* Provide KUKSA Companion App in Build PR Pipeline ([e0f6e84](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/e0f6e84aa7fbb74fddc93aa6bfccbe650ae99b11)), closes [#31](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/31)
-* Remove Reference to GitHub Packages ([803ca4d](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/803ca4dbe62d7bfaade7fc798958a7c901bc413d)), closes [#36](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/36)
-* Update KtLint to 1.0.1 ([43eb5fc](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/43eb5fc92f860a4bbdc56b9d2710b5174dc22edd)), closes [#22](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/22)
 
 
 ### Bug Fixes
 
 * Crash when Rotating from Portrait to Landscape Mode ([1624717](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/162471747f126dd3be72eed7c467eebe1941f97d)), closes [#26](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/26)
-
-
-### Documentation
-
-* Update Documentation about Fastlane Changelogs ([b678271](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/b678271705f3466f928b3c09ee8cd341671f6088))
