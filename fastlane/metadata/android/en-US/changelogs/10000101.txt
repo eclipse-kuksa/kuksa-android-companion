@@ -1,0 +1,17 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## 0.1.1 (2024-01-23)
+
+
+### Features
+
+* Add App Icon to Companion App ([11d6ee1](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/11d6ee171bb5761ee0a3b197cf2c6cfc539eb386)), closes [#17](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/17)
+* Differentiate between DirectionIndicator Left / Right ([60e4214](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/60e4214a623c6d27b7f136f5de2a0f8b86a0eae0)), closes [#7](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/7)
+* Integrate KUKSA Android SDK 0.1.3 ([db65fe5](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/db65fe5d99af3dac37522337bc642f0f0459b6dc)), closes [#38](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/38)
+
+
+### Bug Fixes
+
+* Crash when Rotating from Portrait to Landscape Mode ([1624717](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/162471747f126dd3be72eed7c467eebe1941f97d)), closes [#26](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/26)
