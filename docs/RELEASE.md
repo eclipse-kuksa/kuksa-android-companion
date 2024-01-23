@@ -21,7 +21,8 @@ The following convenience NPM scripts are available for use here:
 
 1) Execute `npm run commit-release` to prepare the release. This will automatically bump the version to the next correct semantic version, create a CHANGELOG.md file and make a commit.
 2) Check the CHANGELOG.md for wrong entries which may have been committed in the history - We are human after all! :)
-3) Push the commit, create a PR and wait for the merge. 
+3) Add a copy of the changelog to fastlane/metadata/android/en-US/changelogs with the corresponding versioncode. 
+4) Push the commit, create a PR and wait for the merge. 
 
 ### Deploying a release
 
