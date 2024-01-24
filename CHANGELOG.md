@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 0.1.2 (2024-01-24)
+
+
+### Features
+
+* Upgrade Libraries to enable reproducible builds ([ef00208](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/ef00208649616e7b7d10336622ec5bde6fa6301d)), closes [#42](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/42)
+
+
 ## 0.1.1 (2024-01-23)
 
 
