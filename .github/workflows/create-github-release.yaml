@@ -28,6 +28,9 @@ jobs:
           key_password: ${{ secrets.SIGNING_KEY_PASSWORD }}
           store_password: ${{ secrets.SIGNING_STORE_PASSWORD }}
 
+      # this artifact is referenced by f-droid, if the name or path changes the formula of the
+      # f-droid build also needs to be updated:
+      # https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/org.eclipse.kuksa.companion.yml
       - name: Rename release artefact
         run: mv app/build/outputs/apk/release/app-release.apk kuksa_companion_app.apk
 
