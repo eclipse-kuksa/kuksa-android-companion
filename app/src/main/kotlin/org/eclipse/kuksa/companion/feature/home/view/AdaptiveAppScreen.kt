@@ -47,8 +47,8 @@ import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatus
 import org.eclipse.kuksa.companion.feature.door.view.DoorControlView
 import org.eclipse.kuksa.companion.feature.door.view.DoorOverlayView
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
-import org.eclipse.kuksa.companion.feature.home.view.navigation.NavigationPage
 import org.eclipse.kuksa.companion.feature.home.view.navigation.AdaptiveNavigationView
+import org.eclipse.kuksa.companion.feature.home.view.navigation.NavigationPage
 import org.eclipse.kuksa.companion.feature.home.view.sheet.AdaptiveSheetView
 import org.eclipse.kuksa.companion.feature.light.view.LightControlView
 import org.eclipse.kuksa.companion.feature.light.view.LightOverlayView
@@ -76,12 +76,13 @@ fun AdaptiveAppScreen(
     wheelPressureViewModel: WheelPressureViewModel,
     settingsViewModel: SettingsViewModel,
     windowSizeClass: WindowSizeClass,
+    modifier: Modifier = Modifier,
 ) {
     var selectedPage: NavigationPage by remember {
         mutableStateOf(NavigationPage.DOORS)
     }
 
-    AdaptiveColumnRow(windowSizeClass = windowSizeClass, modifier = Modifier.fillMaxSize()) {
+    AdaptiveColumnRow(windowSizeClass = windowSizeClass, modifier = modifier.fillMaxSize()) {
         val context = LocalContext.current
         val resources = context.resources
 
@@ -97,13 +98,15 @@ fun AdaptiveAppScreen(
                 modifier = Modifier
                     .zIndex(1F)
                     .fillMaxSize()
-                    .padding(bottom = paddingBottom.dp, end = paddingEnd.dp), // AdaptiveSheetPadding
+                    // AdaptiveSheetPadding
+                    .padding(bottom = paddingBottom.dp, end = paddingEnd.dp),
             )
 
             val overlayModifier = Modifier
                 .zIndex(2F)
                 .fillMaxSize()
-                .padding(bottom = paddingBottom.dp, end = paddingEnd.dp) // AdaptiveSheetPadding
+                // AdaptiveSheetPadding
+                .padding(bottom = paddingBottom.dp, end = paddingEnd.dp)
 
             val controlModifier = Modifier
                 .zIndex(2F)
@@ -154,7 +157,12 @@ private fun AdaptiveAppScreenPreview() {
             // unused
         }
 
-        override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        override fun surfaceChanged(
+            holder: SurfaceHolder,
+            format: Int,
+            width: Int,
+            height: Int,
+        ) {
             // unused
         }
 

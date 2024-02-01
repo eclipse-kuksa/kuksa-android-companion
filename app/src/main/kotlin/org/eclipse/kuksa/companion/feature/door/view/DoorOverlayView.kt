@@ -21,7 +21,6 @@ package org.eclipse.kuksa.companion.feature.door.view
 
 import android.app.Application
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -29,16 +28,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import org.eclipse.kuksa.companion.CompanionApplication
 import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.extension.alignDriverBackDoor
@@ -54,7 +50,11 @@ val verticalMarginAnchorToDoor = 10.dp
 val verticalMarginAnchorToBackDoor = 100.dp
 
 @Composable
-fun DoorOverlayView(viewModel: DoorControlViewModel, windowSizeClass: WindowSizeClass, modifier: Modifier = Modifier) {
+fun DoorOverlayView(
+    viewModel: DoorControlViewModel,
+    windowSizeClass: WindowSizeClass,
+    modifier: Modifier = Modifier,
+) {
     ConstraintLayout(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -70,7 +70,6 @@ fun DoorOverlayView(viewModel: DoorControlViewModel, windowSizeClass: WindowSize
         Spacer(
             Modifier
                 .size(2.dp)
-                .background(Color.White)
                 .constrainAs(anchorPoint) {
                     centerHorizontallyTo(parent)
                     centerVerticallyTo(parent)

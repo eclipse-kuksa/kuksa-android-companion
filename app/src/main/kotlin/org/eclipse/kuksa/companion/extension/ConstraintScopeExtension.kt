@@ -27,7 +27,10 @@ import org.eclipse.kuksa.companion.feature.door.view.horizontalMarginAnchorToDoo
 import org.eclipse.kuksa.companion.feature.door.view.verticalMarginAnchorToBackDoor
 import org.eclipse.kuksa.companion.feature.door.view.verticalMarginAnchorToDoor
 
-fun ConstrainScope.alignDriverFrontDoor(windowSizeClass: WindowSizeClass, anchorPoint: ConstrainedLayoutReference) {
+fun ConstrainScope.alignDriverFrontDoor(
+    windowSizeClass: WindowSizeClass,
+    anchorPoint: ConstrainedLayoutReference,
+) {
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
         end.linkTo(anchorPoint.start, horizontalMarginAnchorToDoor)
         top.linkTo(anchorPoint.bottom, verticalMarginAnchorToDoor)
@@ -37,7 +40,10 @@ fun ConstrainScope.alignDriverFrontDoor(windowSizeClass: WindowSizeClass, anchor
     }
 }
 
-fun ConstrainScope.alignPassengerFrontDoor(windowSizeClass: WindowSizeClass, anchorPoint: ConstrainedLayoutReference) {
+fun ConstrainScope.alignPassengerFrontDoor(
+    windowSizeClass: WindowSizeClass,
+    anchorPoint: ConstrainedLayoutReference,
+) {
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
         start.linkTo(anchorPoint.end, horizontalMarginAnchorToDoor)
         top.linkTo(anchorPoint.bottom, verticalMarginAnchorToDoor)
@@ -47,8 +53,10 @@ fun ConstrainScope.alignPassengerFrontDoor(windowSizeClass: WindowSizeClass, anc
     }
 }
 
-
-fun ConstrainScope.alignDriverBackDoor(windowSizeClass: WindowSizeClass, anchorPoint: ConstrainedLayoutReference) {
+fun ConstrainScope.alignDriverBackDoor(
+    windowSizeClass: WindowSizeClass,
+    anchorPoint: ConstrainedLayoutReference,
+) {
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
         end.linkTo(anchorPoint.start, horizontalMarginAnchorToDoor)
         top.linkTo(anchorPoint.bottom, verticalMarginAnchorToBackDoor)
@@ -58,7 +66,10 @@ fun ConstrainScope.alignDriverBackDoor(windowSizeClass: WindowSizeClass, anchorP
     }
 }
 
-fun ConstrainScope.alignPassengerBackDoor(windowSizeClass: WindowSizeClass, anchorPoint: ConstrainedLayoutReference) {
+fun ConstrainScope.alignPassengerBackDoor(
+    windowSizeClass: WindowSizeClass,
+    anchorPoint: ConstrainedLayoutReference,
+) {
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
         start.linkTo(anchorPoint.end, horizontalMarginAnchorToDoor)
         top.linkTo(anchorPoint.bottom, verticalMarginAnchorToBackDoor)
@@ -68,7 +79,10 @@ fun ConstrainScope.alignPassengerBackDoor(windowSizeClass: WindowSizeClass, anch
     }
 }
 
-fun ConstrainScope.alignTrunk(windowSizeClass: WindowSizeClass, anchorPoint: ConstrainedLayoutReference) {
+fun ConstrainScope.alignTrunk(
+    windowSizeClass: WindowSizeClass,
+    anchorPoint: ConstrainedLayoutReference,
+) {
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
         centerHorizontallyTo(anchorPoint)
         bottom.linkTo(parent.bottom)

@@ -19,27 +19,20 @@
 
 package org.eclipse.kuksa.companion.feature.wheel.pressure.view
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstrainScope
-import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.ConstraintLayoutScope
 import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.extension.alignDriverBackDoor
@@ -47,9 +40,6 @@ import org.eclipse.kuksa.companion.extension.alignDriverFrontDoor
 import org.eclipse.kuksa.companion.extension.alignPassengerBackDoor
 import org.eclipse.kuksa.companion.extension.alignPassengerFrontDoor
 import org.eclipse.kuksa.companion.extension.getWindowSizeClass
-import org.eclipse.kuksa.companion.feature.door.view.horizontalMarginAnchorToDoor
-import org.eclipse.kuksa.companion.feature.door.view.verticalMarginAnchorToBackDoor
-import org.eclipse.kuksa.companion.feature.door.view.verticalMarginAnchorToDoor
 import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressureViewModel
 
 @Composable
@@ -79,7 +69,7 @@ private fun WheelPressureOverlayView(
 ) {
     ConstraintLayout(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         val (driverSideRef, passengerSideRef, driverSideBackRef, passengerSideBackRef) = createRefs()
 
@@ -87,7 +77,6 @@ private fun WheelPressureOverlayView(
         Spacer(
             Modifier
                 .size(2.dp)
-                .background(Color.White)
                 .constrainAs(anchorPoint) {
                     centerHorizontallyTo(parent)
                     centerVerticallyTo(parent)
@@ -98,7 +87,7 @@ private fun WheelPressureOverlayView(
         Text(
             text = "$pressureLeftFront $unit",
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
-            color = Color.Black,
+            color = Color.White,
             modifier = Modifier
                 .constrainAs(driverSideRef) {
                     alignDriverFrontDoor(windowSizeClass, anchorPoint)
@@ -107,7 +96,7 @@ private fun WheelPressureOverlayView(
         Text(
             text = "$pressureRightFront $unit",
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
-            color = Color.Black,
+            color = Color.White,
             modifier = Modifier
                 .constrainAs(passengerSideRef) {
                     alignPassengerFrontDoor(windowSizeClass, anchorPoint)
@@ -116,7 +105,7 @@ private fun WheelPressureOverlayView(
         Text(
             text = "$pressureLeftBack $unit",
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
-            color = Color.Black,
+            color = Color.White,
             modifier = Modifier
                 .constrainAs(driverSideBackRef) {
                     alignDriverBackDoor(windowSizeClass, anchorPoint)
@@ -125,7 +114,7 @@ private fun WheelPressureOverlayView(
         Text(
             text = "$pressureRightBack $unit",
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
-            color = Color.Black,
+            color = Color.White,
             modifier = Modifier
                 .constrainAs(passengerSideBackRef) {
                     alignPassengerBackDoor(windowSizeClass, anchorPoint)
@@ -134,7 +123,7 @@ private fun WheelPressureOverlayView(
     }
 }
 
-@Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = PREVIEW_HEIGHT_DP)
+@Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = PREVIEW_HEIGHT_DP, showBackground = true)
 @Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
 @Composable
 private fun WheelPressureControlViewPreview() {

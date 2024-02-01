@@ -20,7 +20,6 @@
 package org.eclipse.kuksa.companion.feature.connection.view
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable

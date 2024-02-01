@@ -19,19 +19,15 @@
 
 package org.eclipse.kuksa.companion.feature.temperature.view
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,9 +39,6 @@ import org.eclipse.kuksa.companion.extension.alignDriverFrontDoor
 import org.eclipse.kuksa.companion.extension.alignPassengerBackDoor
 import org.eclipse.kuksa.companion.extension.alignPassengerFrontDoor
 import org.eclipse.kuksa.companion.extension.getWindowSizeClass
-import org.eclipse.kuksa.companion.feature.door.view.horizontalMarginAnchorToDoor
-import org.eclipse.kuksa.companion.feature.door.view.verticalMarginAnchorToBackDoor
-import org.eclipse.kuksa.companion.feature.door.view.verticalMarginAnchorToDoor
 import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureViewModel
 
 @Composable
@@ -69,7 +62,6 @@ fun TemperatureOverlayView(
         Spacer(
             Modifier
                 .size(2.dp)
-                .background(Color.White)
                 .constrainAs(anchorPoint) {
                     centerHorizontallyTo(parent)
                     centerVerticallyTo(parent)

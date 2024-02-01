@@ -115,5 +115,3 @@ private fun LightControlViewPreview() {
         LightOverlayView(viewModel, windowSizeClass)
     }
 }
-
-

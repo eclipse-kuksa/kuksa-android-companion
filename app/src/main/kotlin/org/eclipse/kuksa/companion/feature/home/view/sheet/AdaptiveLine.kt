@@ -44,11 +44,11 @@ import org.eclipse.kuksa.companion.extension.getWindowSizeClass
  */
 @Composable
 fun AdaptiveLine(
+    windowSizeClass: WindowSizeClass,
     modifier: Modifier = Modifier,
     length: Dp = 50.dp,
     thickness: Dp = 4.dp,
     color: Color = Color.LightGray,
-    windowSizeClass: WindowSizeClass,
 ) {
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
         HorizontalLine(modifier, length, thickness, color)

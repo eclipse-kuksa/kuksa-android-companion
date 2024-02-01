@@ -41,14 +41,12 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import androidx.constraintlayout.compose.ConstrainScope
 import androidx.constraintlayout.compose.ConstraintLayout
 import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
+import org.eclipse.kuksa.companion.SHEET_COLLAPSED_HEIGHT
+import org.eclipse.kuksa.companion.SHEET_EXPANDED_HEIGHT
 import org.eclipse.kuksa.companion.extension.getWindowSizeClass
-
-private val WIDTH_EXPANDED = 300.dp
-private val WIDTH_NOT_EXPANDED = 50.dp
 
 /**
  * AdaptiveSheetView adds a lash, which can be expanded on click to contain additional content. While it will be placed
@@ -71,7 +69,7 @@ fun AdaptiveSheetView(
         val sheetModifier = when (windowSizeClass.widthSizeClass) {
             WindowWidthSizeClass.Compact -> {
                 Modifier
-                    .height(if (isExpanded) WIDTH_EXPANDED else WIDTH_NOT_EXPANDED)
+                    .height(if (isExpanded) SHEET_EXPANDED_HEIGHT.dp else SHEET_COLLAPSED_HEIGHT.dp)
                     .fillMaxWidth()
                     .zIndex(2F)
                     .clickable { isExpanded = !isExpanded }
@@ -84,7 +82,7 @@ fun AdaptiveSheetView(
             else -> {
                 Modifier
                     .fillMaxHeight()
-                    .width(if (isExpanded) WIDTH_EXPANDED else WIDTH_NOT_EXPANDED)
+                    .width(if (isExpanded) SHEET_EXPANDED_HEIGHT.dp else SHEET_COLLAPSED_HEIGHT.dp)
                     .zIndex(2F)
                     .clickable { isExpanded = !isExpanded }
                     .background(Color.White)

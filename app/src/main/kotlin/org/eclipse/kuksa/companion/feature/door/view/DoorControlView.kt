@@ -34,8 +34,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
+import org.eclipse.kuksa.companion.SHEET_EXPANDED_HEIGHT
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
 
 @Composable
@@ -101,8 +101,8 @@ fun DoorControlView(
     }
 }
 
-@Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = 300)
-@Preview(widthDp = 300, heightDp = PREVIEW_WIDTH_DP)
+@Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = SHEET_EXPANDED_HEIGHT)
+@Preview(widthDp = SHEET_EXPANDED_HEIGHT, heightDp = PREVIEW_WIDTH_DP)
 @Composable
 private fun BottomSheetContentPreview() {
     val application = Application()
