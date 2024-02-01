@@ -143,7 +143,7 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
-    implementation("androidx.compose.material3:material3-window-size-class:1.1.2")
+    implementation(libs.androidx.material3.window.size.clazz)
 }
 
 // Allow references to generated code
