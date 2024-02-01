@@ -61,6 +61,10 @@ import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureView
 import org.eclipse.kuksa.companion.feature.wheel.pressure.view.WheelPressureOverlayView
 import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressureViewModel
 
+private const val ZINDEX_RAMSES_VIEW = 1F
+private const val ZINDEX_OVERLAY = 2F
+private const val ZINDEX_CONTROL = 3F
+
 /**
  * Adds an adaptive AppScreen depending on the [WindowWidthSizeClass]. When the device has a [WindowWidthSizeClass] of
  * [WindowWidthSizeClass.Compact] all elements are placed on top of each other, while for devices with a higher class
@@ -96,20 +100,20 @@ fun AdaptiveAppScreen(
             RamsesView(
                 callback = callback,
                 modifier = Modifier
-                    .zIndex(1F)
+                    .zIndex(ZINDEX_RAMSES_VIEW)
                     .fillMaxSize()
                     // AdaptiveSheetPadding
                     .padding(bottom = paddingBottom.dp, end = paddingEnd.dp),
             )
 
             val overlayModifier = Modifier
-                .zIndex(2F)
+                .zIndex(ZINDEX_OVERLAY)
                 .fillMaxSize()
                 // AdaptiveSheetPadding
                 .padding(bottom = paddingBottom.dp, end = paddingEnd.dp)
 
             val controlModifier = Modifier
-                .zIndex(2F)
+                .zIndex(ZINDEX_CONTROL)
                 .fillMaxSize()
 
             when (selectedPage) {
