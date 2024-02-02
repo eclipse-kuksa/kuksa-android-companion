@@ -1,5 +1,8 @@
 ## Getting started
 
+Read our [quickstart guide](docs/QUICKSTART.md) to find out how to use the KUKSA Companion App
+and setup it's infrastructure.
+
 ### Make Changes
 
 ### Commit Messages
