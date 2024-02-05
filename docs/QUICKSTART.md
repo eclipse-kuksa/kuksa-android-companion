@@ -54,7 +54,7 @@ self-referencing arrow in the Connection Status Bar. Depending on your connectio
 Connection Status Bar is colored red if no connection could be established or green if you are 
 successfully connected to the KUKSA Databroker.
 
-## Questions
+## FAQ
 
 ### Can't connect to KUKSA Databroker from Android Emulator
 
@@ -79,7 +79,7 @@ The host to be used is `localhost:55556` in this case.
 Reverse port forwarding requires host device and mobile device to be connected using usb,
 usb debugging to be enabled on the mobile device and adb to be accessible on the host device.
 
-## Which Signals are used inside the Companion App
+## Which Signals are used inside the Companion App?
 
 The KUKSA Companion App is based on version 4.0 of the Vehicle Signal Specification.
 
@@ -125,3 +125,9 @@ Tire Pressure:
 
 You can find more information about the signals used inside the app or other existing signals
 [here](https://covesa.github.io/vehicle_signal_specification/).
+
+## Are there alternate ways to change the data of a VSS path?
+
+You can change the data of an underlying VSS path manually by using the
+- [KUKSA CLI](https://github.com/eclipse/kuksa.val/blob/master/doc/quickstart.md#reading-and-writing-vss-data-via-cli)
+- [KUKSA Python Library](https://github.com/eclipse/kuksa.val/blob/master/doc/quickstart.md#reading-and-writing-vss-data-with-code)
