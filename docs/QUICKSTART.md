@@ -5,22 +5,22 @@ This guide explains on how to setup the infrastructure to use and test the KUKSA
 ## Requirements
 
 - Android Device with API Level >= 27 (Android 8.1)
-- a running [KUKSA.val DataBroker](https://github.com/eclipse/kuksa.val/tree/master/kuksa_databroker)
+- a running [KUKSA DataBroker](https://github.com/eclipse/kuksa.val/tree/master/kuksa_databroker)
 - a running [Vehicle Mock Service](https://github.com/eclipse/kuksa.val.services/tree/main/mock_service) (Optional)
 
-## Setup KUKSA.val Databroker
+## Setup KUKSA Databroker
 
-To use the Companion App a connection to a KUKSA.val Databroker is required. The 
-KUKSA.val Databroker might run inside a car or on your local system for testing purposes. The steps 
-to set up a local KUKSA.val Databroker can be found in
-the [KUKSA.val Quickstart Guide](https://github.com/eclipse/kuksa.val/blob/master/doc/quickstart.md)
+To use the Companion App a connection to a KUKSA Databroker is required. The 
+KUKSA Databroker might run inside a car or on your local system for testing purposes. The steps 
+to set up a local KUKSA Databroker can be found in
+the [KUKSA Quickstart Guide](https://github.com/eclipse/kuksa.val/blob/master/doc/quickstart.md)
 
 ## Setup Vehicle Mock Service (Optional)
 
-This step is only required when connecting to a local running KUKSA.val Databroker, which is not 
+This step is only required when connecting to a local running KUKSA Databroker, which is not 
 integrated into an actual vehicle.
 
-To use the Companion App the KUKSA.val Databroker needs to be connected to the Mock Service.
+To use the Companion App the KUKSA Databroker needs to be connected to the Mock Service.
 The Mock Service simulates the interaction with the car e.g. sensors and actuators of a car. 
 The steps to set up a local instance of the Vehicle Mock Service can be found here:
 [Running mockservice](https://github.com/eclipse/kuksa.val.services/tree/main/mock_service#running-mockservice)
@@ -32,7 +32,7 @@ project to use it.
 
 ## Configure Companion App
 
-When you have access to a KUKSA.val Databroker, the next step is to setup the Companion App so it 
+When you have access to a KUKSA Databroker, the next step is to setup the Companion App so it 
 can connect to the it.
 For this enter the "Settings" screen. The Settings screen can be found when clicking on the gear 
 icon in the Navigation Bar. Depending on your orientation the Navigation Bar can be found on top
@@ -40,33 +40,33 @@ icon in the Navigation Bar. Depending on your orientation the Navigation Bar can
 
 Here you have to enter the following connection information:
 
-- Host: The host on which the KUKSA.val Databroker is running.
-- Port: The port on which the KUKSA.val Databroker is running.
-  Make sure you used the same port, when starting the KUKSA.val Databroker. The default value 
-  expected by the App is 55556 while the KUKSA.val Databroker by default starts at port 55555.
-- Enable TLS: This switch needs to be enabled, when you started your KUKSA.val Databroker in 
-  secure mode. Make sure you used the same mode, when starting the KUKSA.val Databroker.
+- Host: The host on which the KUKSA Databroker is running.
+- Port: The port on which the KUKSA Databroker is running.
+  Make sure you used the same port, when starting the KUKSA Databroker. The default value 
+  expected by the App is 55556 while the KUKSA Databroker by default starts at port 55555.
+- Enable TLS: This switch needs to be enabled, when you started your KUKSA Databroker in 
+  secure mode. Make sure you used the same mode, when starting the KUKSA Databroker.
 - Certificate: If TLS is enabled, it is mandatory to set a Certificate, which is used to establish
   the secure connection.
 
 You can press the "refresh"-button, to start a new connection cycle. The "refresh"-button is the 
 self-referencing arrow in the Connection Status Bar. Depending on your connection status the
 Connection Status Bar is colored red if no connection could be established or green if you are 
-successfully connected to the KUKSA.val Databroker.
+successfully connected to the KUKSA Databroker.
 
 ## Questions
 
-### Can't connect to KUKSA.val Databroker from Android Emulator
+### Can't connect to KUKSA Databroker from Android Emulator
 
 When the App is run from an Android Emulator and the host device is running the 
-KUKSA.val Databroker. The host to be used is `10.0.2.2`. This is the internal loopback address of 
+KUKSA Databroker. The host to be used is `10.0.2.2`. This is the internal loopback address of 
 the host device. See the [android documentation](https://developer.android.com/studio/run/emulator-networking) 
 for further details
 
-### I can't connect to the KUKSA.val Databroker from my mobile device. I am using a Proxy.
+### I can't connect to the KUKSA Databroker from my mobile device. I am using a Proxy.
 
 The Proxy might prevent communication between the mobile device and the host device. Therefore even
-though the host device is running the KUKSA.val Databroker just fine, it is not possible for the 
+though the host device is running the KUKSA Databroker just fine, it is not possible for the 
 mobile device to connect to it.
 
 This can be solved by
