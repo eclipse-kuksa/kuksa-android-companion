@@ -71,11 +71,6 @@ android {
             )
             signingConfig = signingConfigs.getByName("release")
         }
-        // For the F-Droid store release where an unsigned artifact is needed
-        create("fDroid") {
-            initWith(getByName("release"))
-            signingConfig = null
-        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
