@@ -37,7 +37,7 @@ import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.R
 import org.eclipse.kuksa.companion.extension.windowSizeClass
-import org.eclipse.kuksa.companion.feature.home.view.AdaptiveFlowRowColumn
+import org.eclipse.kuksa.companion.feature.home.view.AdaptiveFlowColumnRow
 import org.eclipse.kuksa.companion.feature.light.viewmodel.LightControlViewModel
 
 @Composable
@@ -46,7 +46,7 @@ fun LightOverlayView(
     windowSizeClass: WindowSizeClass,
     modifier: Modifier = Modifier,
 ) {
-    AdaptiveFlowRowColumn(windowSizeClass, modifier = modifier.padding(10.dp)) {
+    AdaptiveFlowColumnRow(windowSizeClass, modifier = modifier.padding(10.dp)) {
         LightDashboardSymbol(
             isLightEnabled = viewModel.isHighBeamLightOn.value,
             painterResource = R.drawable.lights_beam_high_24,
