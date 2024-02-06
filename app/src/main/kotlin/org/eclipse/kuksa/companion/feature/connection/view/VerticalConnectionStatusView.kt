@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,6 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import org.eclipse.kuksa.companion.R
+import org.eclipse.kuksa.companion.extension.convertToVerticalString
 import org.eclipse.kuksa.companion.extension.isVisible
 import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel
 
@@ -66,8 +68,8 @@ fun VerticalConnectionStatusView(
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (textRef, imageRef) = createRefs()
 
-            VerticalText(
-                text,
+            Text(
+                text = text.convertToVerticalString(),
                 color = Color.White,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
@@ -99,6 +101,9 @@ fun VerticalConnectionStatusView(
         }
     }
 }
+
+
+
 
 @Preview(heightDp = 300)
 @Composable
