@@ -36,14 +36,15 @@ import org.eclipse.kuksa.companion.extension.windowSizeClass
  */
 @Composable
 fun AdaptiveNavigationView(
+    viewModel: NavigationViewModel,
     windowSizeClass: WindowSizeClass,
     modifier: Modifier = Modifier,
     onPageSelected: (NavigationPage) -> Unit = {},
 ) {
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
-        HorizontalNavigationView(modifier, onPageSelected)
+        HorizontalNavigationView(viewModel, modifier, onPageSelected)
     } else {
-        VerticalNavigationView(modifier, onPageSelected)
+        VerticalNavigationView(viewModel, modifier, onPageSelected)
     }
 }
 
@@ -51,6 +52,7 @@ fun AdaptiveNavigationView(
 @Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = PREVIEW_HEIGHT_DP)
 @Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
 private fun AdaptiveNavigationViewPreview() {
+    val viewModel = NavigationViewModel()
     val windowSizeClass = LocalConfiguration.current.windowSizeClass
-    AdaptiveNavigationView(windowSizeClass = windowSizeClass)
+    AdaptiveNavigationView(viewModel, windowSizeClass)
 }

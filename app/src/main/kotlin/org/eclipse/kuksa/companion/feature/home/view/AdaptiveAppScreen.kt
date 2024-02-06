@@ -49,6 +49,7 @@ import org.eclipse.kuksa.companion.feature.door.view.DoorOverlayView
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
 import org.eclipse.kuksa.companion.feature.home.view.navigation.AdaptiveNavigationView
 import org.eclipse.kuksa.companion.feature.home.view.navigation.NavigationPage
+import org.eclipse.kuksa.companion.feature.home.view.navigation.NavigationViewModel
 import org.eclipse.kuksa.companion.feature.home.view.sheet.AdaptiveSheetView
 import org.eclipse.kuksa.companion.feature.light.view.LightControlView
 import org.eclipse.kuksa.companion.feature.light.view.LightOverlayView
@@ -74,6 +75,7 @@ private const val ZINDEX_CONTROL = 3F
 fun AdaptiveAppScreen(
     callback: SurfaceHolder.Callback,
     connectionStatusViewModel: ConnectionStatusViewModel,
+    navigationViewModel: NavigationViewModel,
     doorControlViewModel: DoorControlViewModel,
     temperatureViewModel: TemperatureViewModel,
     lightControlViewModel: LightControlViewModel,
@@ -83,7 +85,7 @@ fun AdaptiveAppScreen(
     modifier: Modifier = Modifier,
 ) {
     var selectedPage: NavigationPage by remember {
-        mutableStateOf(NavigationPage.DOORS)
+        mutableStateOf(navigationViewModel.selectedNavigationPage)
     }
 
     AdaptiveColumnRow(windowSizeClass = windowSizeClass, modifier = modifier.fillMaxSize()) {
@@ -91,7 +93,7 @@ fun AdaptiveAppScreen(
         val resources = context.resources
 
         AdaptiveConnectionStatusView(connectionStatusViewModel, windowSizeClass)
-        AdaptiveNavigationView(windowSizeClass) { page ->
+        AdaptiveNavigationView(navigationViewModel, windowSizeClass) { page ->
             selectedPage = page
         }
         Box(modifier = Modifier.fillMaxSize()) {
@@ -181,6 +183,7 @@ private fun AdaptiveAppScreenPreview() {
     AdaptiveAppScreen(
         callback,
         ConnectionStatusViewModel(),
+        NavigationViewModel(),
         DoorControlViewModel(application),
         TemperatureViewModel(),
         LightControlViewModel(),

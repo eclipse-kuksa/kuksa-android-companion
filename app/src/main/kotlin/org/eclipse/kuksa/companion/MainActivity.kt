@@ -46,6 +46,7 @@ import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.C
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.TRUNK_CLOSED
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.TRUNK_OPEN
 import org.eclipse.kuksa.companion.feature.home.view.AdaptiveAppScreen
+import org.eclipse.kuksa.companion.feature.home.view.navigation.NavigationViewModel
 import org.eclipse.kuksa.companion.feature.light.viewmodel.LightControlViewModel
 import org.eclipse.kuksa.companion.feature.settings.viewModel.SettingsViewModel
 import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureViewModel
@@ -77,6 +78,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private val connectionStatusViewModel: ConnectionStatusViewModel by viewModels()
+    private val navigationViewModel: NavigationViewModel by viewModels()
 
     private val doorControlViewModel: DoorControlViewModel by viewModels()
     private val temperatureViewModel: TemperatureViewModel by viewModels()
@@ -150,6 +152,7 @@ class MainActivity : ComponentActivity() {
                 AdaptiveAppScreen(
                     callback = doorVehicleSurface,
                     connectionStatusViewModel = connectionStatusViewModel,
+                    navigationViewModel = navigationViewModel,
                     doorControlViewModel = doorControlViewModel,
                     temperatureViewModel = temperatureViewModel,
                     lightControlViewModel = lightControlViewModel,

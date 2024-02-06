@@ -34,10 +34,13 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun HorizontalNavigationView(
+    viewModel: NavigationViewModel,
     modifier: Modifier = Modifier,
     onPageSelected: (NavigationPage) -> Unit = {},
 ) {
-    var selectedItemIndex by remember { mutableIntStateOf(0) }
+    var selectedItemIndex by remember {
+        mutableIntStateOf(viewModel.selectedNavigationIndex)
+    }
 
     Column(modifier) {
         NavigationBar {
@@ -46,6 +49,8 @@ fun HorizontalNavigationView(
                     selected = index == selectedItemIndex,
                     onClick = {
                         selectedItemIndex = index
+                        viewModel.selectedNavigationIndex = index
+                        viewModel.selectedNavigationPage = page
                         onPageSelected(page)
                     },
                     icon = {
@@ -63,5 +68,6 @@ fun HorizontalNavigationView(
 @Preview(showBackground = true)
 @Composable
 private fun HorizontalNavigationViewPreview() {
-    HorizontalNavigationView()
+    val viewModel = NavigationViewModel()
+    HorizontalNavigationView(viewModel)
 }

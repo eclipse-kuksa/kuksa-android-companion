@@ -35,22 +35,26 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun VerticalNavigationView(
+    viewModel: NavigationViewModel,
     modifier: Modifier = Modifier,
     onPageSelected: (NavigationPage) -> Unit = {},
 ) {
-    var selectedItemIndex by remember { mutableIntStateOf(0) }
+    var selectedItemIndex by remember {
+        mutableIntStateOf(viewModel.selectedNavigationIndex)
+    }
     val pages = NavigationPage.entries.toTypedArray()
     Row(modifier) {
         NavigationRail {
-            pages.forEachIndexed { index, item ->
-
+            pages.forEachIndexed { index, page ->
                 NavigationRailItem(
-                    label = { Text(item.title) },
-                    icon = { Icon(painterResource(id = item.iconRes), contentDescription = item.title) },
+                    label = { Text(page.title) },
+                    icon = { Icon(painterResource(id = page.iconRes), contentDescription = page.title) },
                     selected = selectedItemIndex == index,
                     onClick = {
                         selectedItemIndex = index
-                        onPageSelected(item)
+                        viewModel.selectedNavigationIndex = index
+                        viewModel.selectedNavigationPage = page
+                        onPageSelected(page)
                     },
                 )
             }
@@ -61,5 +65,6 @@ fun VerticalNavigationView(
 @Preview
 @Composable
 private fun VerticalNavigationViewPreview() {
-    VerticalNavigationView()
+    val viewModel = NavigationViewModel()
+    VerticalNavigationView(viewModel)
 }
