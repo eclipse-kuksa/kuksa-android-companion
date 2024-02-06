@@ -26,30 +26,36 @@ enum class NavigationPage(
     @DrawableRes val iconRes: Int,
     val title: String,
     val description: String,
+    val isBottomSheetEnabled: Boolean,
 ) {
     DOORS(
         R.drawable.baseline_sensor_door_24,
         "Door Control",
         "Show status of the doors and trunk, (un-)lock and open/close them",
+        true,
     ),
     TEMPERATURE(
         R.drawable.baseline_device_thermostat_24,
         "Temperature Control",
         "Check the temperature inside the car, increase or decrease the temperature. ",
+        true,
     ),
     LIGHT(
         R.drawable.baseline_light_mode_24,
         "Light Control",
         "Check the status of the light, turn them on and off to check their functionality",
+        true,
     ),
     WHEELS(
         R.drawable.baseline_sports_volleyball_24,
         "Wheel Pressure",
         "Check the pressure of the wheels",
+        false,
     ),
     SETTINGS(
         R.drawable.baseline_settings_24,
         "Settings",
         "Settings",
+        false,
     ),
 }

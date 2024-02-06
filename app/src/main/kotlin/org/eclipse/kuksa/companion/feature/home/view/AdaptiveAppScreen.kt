@@ -21,9 +21,9 @@ package org.eclipse.kuksa.companion.feature.home.view
 
 import android.app.Application
 import android.view.SurfaceHolder
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
@@ -35,11 +35,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
-import org.eclipse.kuksa.companion.R
 import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.connection.repository.ConnectionInfoRepository
 import org.eclipse.kuksa.companion.feature.connection.view.AdaptiveConnectionStatusView
@@ -71,6 +69,7 @@ private const val ZINDEX_CONTROL = 3F
  * [WindowWidthSizeClass.Compact] all elements are placed on top of each other, while for devices with a higher class
  * the elements will be placed next to each other.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AdaptiveAppScreen(
     callback: SurfaceHolder.Callback,
@@ -89,65 +88,66 @@ fun AdaptiveAppScreen(
     }
 
     AdaptiveColumnRow(windowSizeClass = windowSizeClass, modifier = modifier.fillMaxSize()) {
-        val context = LocalContext.current
-        val resources = context.resources
-
         AdaptiveConnectionStatusView(connectionStatusViewModel, windowSizeClass)
         AdaptiveNavigationView(navigationViewModel, windowSizeClass) { page ->
             selectedPage = page
         }
-        Box(modifier = Modifier.fillMaxSize()) {
-            val paddingBottom = resources.getInteger(R.integer.RAMSES_VIEW_PADDING_BOTTOM)
-            val paddingEnd = resources.getInteger(R.integer.RAMSES_VIEW_PADDING_END)
+        AdaptiveSheetView(
+            windowSizeClass = windowSizeClass,
+            modifier = Modifier.fillMaxSize(),
+            isBottomSheetEnabled = selectedPage.isBottomSheetEnabled,
+            sheetContent = {
+                when (selectedPage) {
+                    NavigationPage.DOORS -> DoorControlView(doorControlViewModel)
+                    NavigationPage.TEMPERATURE -> TemperatureControlView(temperatureViewModel)
+                    NavigationPage.LIGHT -> LightControlView(lightControlViewModel)
+                    NavigationPage.WHEELS,
+                    NavigationPage.SETTINGS,
+                    -> { }
+                }
+            },
+        ) {
             RamsesView(
                 callback = callback,
                 modifier = Modifier
                     .zIndex(ZINDEX_RAMSES_VIEW)
-                    .fillMaxSize()
-                    // AdaptiveSheetPadding
-                    .padding(bottom = paddingBottom.dp, end = paddingEnd.dp),
+                    .fillMaxSize(),
             )
 
             val overlayModifier = Modifier
                 .zIndex(ZINDEX_OVERLAY)
                 .fillMaxSize()
-                // AdaptiveSheetPadding
-                .padding(bottom = paddingBottom.dp, end = paddingEnd.dp)
-
-            val controlModifier = Modifier
-                .zIndex(ZINDEX_CONTROL)
-                .fillMaxSize()
+                .padding(it)
 
             when (selectedPage) {
-                NavigationPage.DOORS -> {
-                    DoorOverlayView(doorControlViewModel, windowSizeClass, overlayModifier)
-                    AdaptiveSheetView(windowSizeClass, controlModifier) {
-                        DoorControlView(doorControlViewModel)
-                    }
-                }
+                NavigationPage.DOORS -> DoorOverlayView(
+                    doorControlViewModel,
+                    windowSizeClass,
+                    overlayModifier,
+                )
 
-                NavigationPage.TEMPERATURE -> {
-                    TemperatureOverlayView(temperatureViewModel, windowSizeClass, overlayModifier)
-                    AdaptiveSheetView(windowSizeClass, controlModifier) {
-                        TemperatureControlView(temperatureViewModel)
-                    }
-                }
+                NavigationPage.TEMPERATURE -> TemperatureOverlayView(
+                    temperatureViewModel,
+                    windowSizeClass,
+                    overlayModifier,
+                )
 
-                NavigationPage.LIGHT -> {
-                    LightOverlayView(lightControlViewModel, windowSizeClass, overlayModifier)
-                    AdaptiveSheetView(windowSizeClass, controlModifier) {
-                        LightControlView(lightControlViewModel)
-                    }
-                }
+                NavigationPage.LIGHT -> LightOverlayView(
+                    lightControlViewModel,
+                    windowSizeClass,
+                    overlayModifier,
+                )
 
-                NavigationPage.WHEELS -> {
-                    WheelPressureOverlayView(wheelPressureViewModel, windowSizeClass, overlayModifier)
-                    AdaptiveSheetView(windowSizeClass) {
-                        WheelPressureOverlayView(wheelPressureViewModel, windowSizeClass)
-                    }
-                }
+                NavigationPage.WHEELS -> WheelPressureOverlayView(
+                    wheelPressureViewModel,
+                    windowSizeClass,
+                    overlayModifier,
+                )
 
-                NavigationPage.SETTINGS -> SettingsView(settingsViewModel, overlayModifier)
+                NavigationPage.SETTINGS -> SettingsView(
+                    settingsViewModel,
+                    overlayModifier,
+                )
             }
         }
     }

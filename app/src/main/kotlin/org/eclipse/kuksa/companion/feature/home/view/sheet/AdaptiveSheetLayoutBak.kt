@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
@@ -54,7 +55,7 @@ import org.eclipse.kuksa.companion.extension.windowSizeClass
  * "end" for devices with a WindowWidthSizeClass which is higher.
  */
 @Composable
-fun AdaptiveSheetView(
+fun AdaptiveSheetViewBak(
     windowSizeClass: WindowSizeClass,
     modifier: Modifier = Modifier,
     sheetContent: @Composable () -> Unit,
@@ -104,6 +105,7 @@ fun AdaptiveSheetView(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = PREVIEW_HEIGHT_DP)
 @Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
