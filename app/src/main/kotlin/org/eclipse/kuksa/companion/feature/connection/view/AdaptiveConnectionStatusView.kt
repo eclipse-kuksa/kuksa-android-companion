@@ -47,7 +47,7 @@ fun AdaptiveConnectionStatusView(
 @Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = PREVIEW_HEIGHT_DP)
 @Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
 @Composable
-private fun AdaptiveConnectionStatusViewPreview_Disconnected() {
+private fun AdaptiveDisconnectedPreview() {
     val viewModel = ConnectionStatusViewModel()
     viewModel.connectionState = ConnectionStatusViewModel.ConnectionState.DISCONNECTED
 
@@ -60,7 +60,7 @@ private fun AdaptiveConnectionStatusViewPreview_Disconnected() {
 @Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = PREVIEW_HEIGHT_DP)
 @Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
 @Composable
-private fun AdaptiveConnectionStatusViewPreview_Connecting() {
+private fun AdaptiveConnectingPreview() {
     val viewModel = ConnectionStatusViewModel()
     viewModel.connectionState = ConnectionStatusViewModel.ConnectionState.CONNECTING
 
@@ -73,7 +73,7 @@ private fun AdaptiveConnectionStatusViewPreview_Connecting() {
 @Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = PREVIEW_HEIGHT_DP)
 @Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
 @Composable
-private fun AdaptiveConnectionStatusViewPreview_Connected() {
+private fun AdaptiveConnectedStatusPreview() {
     val viewModel = ConnectionStatusViewModel()
     viewModel.connectionState = ConnectionStatusViewModel.ConnectionState.CONNECTED
 

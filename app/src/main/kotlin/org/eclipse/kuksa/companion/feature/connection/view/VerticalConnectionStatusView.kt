@@ -102,7 +102,7 @@ fun VerticalConnectionStatusView(
 
 @Preview(heightDp = 300)
 @Composable
-private fun VerticalConnectionStatusPreview_Disconnected() {
+private fun VerticalDisconnectedPreview() {
     val viewModel = ConnectionStatusViewModel()
     viewModel.connectionState = ConnectionStatusViewModel.ConnectionState.DISCONNECTED
 
@@ -111,7 +111,7 @@ private fun VerticalConnectionStatusPreview_Disconnected() {
 
 @Preview(heightDp = 300)
 @Composable
-private fun VerticalConnectionStatusPreview_Connecting() {
+private fun VerticalConnectingPreview() {
     val viewModel = ConnectionStatusViewModel()
     viewModel.connectionState = ConnectionStatusViewModel.ConnectionState.CONNECTING
     VerticalConnectionStatusView(viewModel = viewModel)
@@ -119,7 +119,7 @@ private fun VerticalConnectionStatusPreview_Connecting() {
 
 @Preview(heightDp = 300)
 @Composable
-private fun VerticalConnectionStatusPreview_Connected() {
+private fun VerticalConnectedPreview() {
     val viewModel = ConnectionStatusViewModel()
     viewModel.connectionState = ConnectionStatusViewModel.ConnectionState.CONNECTED
     VerticalConnectionStatusView(viewModel = viewModel)
