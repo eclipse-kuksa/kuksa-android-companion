@@ -61,8 +61,9 @@ fun HorizontalConnectionStatusView(
                 viewModel.onClickReconnect()
             },
     ) {
+        val isAnimating = connectionState == ConnectionState.CONNECTING
         var text = connectionStateLabel
-        text = animateLoadingText(connectionState = connectionState, text = text)
+        text = animateLoadingText(isAnimating, text)
 
         ConstraintLayout(modifier = Modifier.height(StatusBarHeight)) {
             val (textRef, imageRef) = createRefs()

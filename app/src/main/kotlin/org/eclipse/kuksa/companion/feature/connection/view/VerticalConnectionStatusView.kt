@@ -59,8 +59,9 @@ fun VerticalConnectionStatusView(
                 viewModel.onClickReconnect()
             },
     ) {
+        val isAnimating = connectionState == ConnectionStatusViewModel.ConnectionState.CONNECTING
         var text = connectionStateLabel
-        text = animateLoadingText(connectionState, text)
+        text = animateLoadingText(isAnimating, text)
 
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (textRef, imageRef) = createRefs()

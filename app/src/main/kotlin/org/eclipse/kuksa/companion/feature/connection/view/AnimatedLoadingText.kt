@@ -24,19 +24,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import kotlinx.coroutines.delay
-import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel.ConnectionState
 import kotlin.time.Duration.Companion.milliseconds
 
-private const val MAX_NUMBER_OF_DOTS = 3
+private const val maxNumberDots = 3
 private val DelayDuration = 500.milliseconds
 
 @Composable
 fun animateLoadingText(
-    connectionState: ConnectionState,
+    isAnimating: Boolean,
     text: String,
 ): String {
     var animatedText = text
-    if (connectionState == ConnectionState.CONNECTING) {
+    if (isAnimating) {
         val numberOfDots = remember {
             mutableIntStateOf(0)
         }
@@ -45,7 +44,7 @@ fun animateLoadingText(
         }
         LaunchedEffect(Unit) {
             while (true) {
-                if (numberOfDots.intValue < MAX_NUMBER_OF_DOTS) {
+                if (numberOfDots.intValue < maxNumberDots) {
                     numberOfDots.intValue += 1
                 } else {
                     numberOfDots.intValue = 0
