@@ -31,5 +31,8 @@ Find out more about KUKSA:
 - KUKSA Android SDK: https://github.com/eclipse-kuksa/kuksa-android-sdk/
 - KUKSA Companion App: https://github.com/eclipse-kuksa/kuksa-android-companion/
 
+Read our [quickstart guide](docs/QUICKSTART.md) to find out how to use the KUKSA Companion App 
+and setup it's infrastructure. 
+
 Includes digital car model by BMW AG licensed under CC-BY-4.0 
 (https://github.com/bmwcarit/digital-car-3d).
