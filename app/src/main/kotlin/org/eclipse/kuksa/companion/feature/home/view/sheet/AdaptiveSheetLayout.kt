@@ -46,7 +46,7 @@ import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.SHEET_COLLAPSED_HEIGHT
 import org.eclipse.kuksa.companion.SHEET_EXPANDED_HEIGHT
-import org.eclipse.kuksa.companion.extension.getWindowSizeClass
+import org.eclipse.kuksa.companion.extension.windowSizeClass
 
 /**
  * AdaptiveSheetView adds a lash, which can be expanded on click to contain additional content. While it will be placed
@@ -108,7 +108,7 @@ fun AdaptiveSheetView(
 @Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = PREVIEW_HEIGHT_DP)
 @Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
 private fun AdaptiveSheetViewPreview() {
-    val windowSizeClass = LocalConfiguration.current.getWindowSizeClass()
+    val windowSizeClass = LocalConfiguration.current.windowSizeClass
     AdaptiveSheetView(windowSizeClass) {
     }
 }

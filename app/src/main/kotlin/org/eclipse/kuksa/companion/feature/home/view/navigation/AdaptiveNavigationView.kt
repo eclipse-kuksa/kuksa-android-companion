@@ -27,7 +27,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
-import org.eclipse.kuksa.companion.extension.getWindowSizeClass
+import org.eclipse.kuksa.companion.extension.windowSizeClass
 
 /**
  * AdaptiveNavigationView will add depending on the [WindowWidthSizeClass] of the device a horizontal or vertical
@@ -51,6 +51,6 @@ fun AdaptiveNavigationView(
 @Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = PREVIEW_HEIGHT_DP)
 @Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
 private fun AdaptiveNavigationViewPreview() {
-    val windowSizeClass = LocalConfiguration.current.getWindowSizeClass()
+    val windowSizeClass = LocalConfiguration.current.windowSizeClass
     AdaptiveNavigationView(windowSizeClass = windowSizeClass)
 }

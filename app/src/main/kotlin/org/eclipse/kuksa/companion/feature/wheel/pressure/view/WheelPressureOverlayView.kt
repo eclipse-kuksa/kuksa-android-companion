@@ -39,7 +39,7 @@ import org.eclipse.kuksa.companion.extension.alignDriverBackDoor
 import org.eclipse.kuksa.companion.extension.alignDriverFrontDoor
 import org.eclipse.kuksa.companion.extension.alignPassengerBackDoor
 import org.eclipse.kuksa.companion.extension.alignPassengerFrontDoor
-import org.eclipse.kuksa.companion.extension.getWindowSizeClass
+import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressureViewModel
 
 @Composable
@@ -128,7 +128,7 @@ private fun WheelPressureOverlayView(
 @Composable
 private fun WheelPressureControlViewPreview() {
     val viewModel = WheelPressureViewModel()
-    val windowSizeClass = LocalConfiguration.current.getWindowSizeClass()
+    val windowSizeClass = LocalConfiguration.current.windowSizeClass
     Surface {
         WheelPressureOverlayView(viewModel, windowSizeClass)
     }

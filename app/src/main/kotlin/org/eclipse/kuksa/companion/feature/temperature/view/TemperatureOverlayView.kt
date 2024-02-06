@@ -38,7 +38,7 @@ import org.eclipse.kuksa.companion.extension.alignDriverBackDoor
 import org.eclipse.kuksa.companion.extension.alignDriverFrontDoor
 import org.eclipse.kuksa.companion.extension.alignPassengerBackDoor
 import org.eclipse.kuksa.companion.extension.alignPassengerFrontDoor
-import org.eclipse.kuksa.companion.extension.getWindowSizeClass
+import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureViewModel
 
 @Composable
@@ -113,7 +113,7 @@ fun TemperatureOverlayView(
 @Composable
 private fun TemperatureControlPreview() {
     val viewModel = TemperatureViewModel()
-    val windowSizeClass = LocalConfiguration.current.getWindowSizeClass()
+    val windowSizeClass = LocalConfiguration.current.windowSizeClass
     Surface {
         TemperatureOverlayView(viewModel, windowSizeClass)
     }

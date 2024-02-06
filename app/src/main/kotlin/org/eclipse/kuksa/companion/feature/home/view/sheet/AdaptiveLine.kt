@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
-import org.eclipse.kuksa.companion.extension.getWindowSizeClass
+import org.eclipse.kuksa.companion.extension.windowSizeClass
 
 /**
  * AdaptiveLine draws a line depending on the [WindowWidthSizeClass] of the device. If the device has a
@@ -91,7 +91,7 @@ fun VerticalLine(
 @Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = PREVIEW_HEIGHT_DP)
 @Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
 private fun AdaptiveLinePreview() {
-    val windowSizeClass = LocalConfiguration.current.getWindowSizeClass()
+    val windowSizeClass = LocalConfiguration.current.windowSizeClass
     Box {
         AdaptiveLine(windowSizeClass = windowSizeClass)
     }

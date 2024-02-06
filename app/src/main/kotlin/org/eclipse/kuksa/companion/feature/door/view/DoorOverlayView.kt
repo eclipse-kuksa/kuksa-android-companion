@@ -42,7 +42,7 @@ import org.eclipse.kuksa.companion.extension.alignDriverFrontDoor
 import org.eclipse.kuksa.companion.extension.alignPassengerBackDoor
 import org.eclipse.kuksa.companion.extension.alignPassengerFrontDoor
 import org.eclipse.kuksa.companion.extension.alignTrunk
-import org.eclipse.kuksa.companion.extension.getWindowSizeClass
+import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
 
 val horizontalMarginAnchorToDoor = 75.dp
@@ -159,7 +159,7 @@ fun DoorOverlayView(
 @Composable
 private fun DoorOverlayPreview() {
     val viewModel = DoorControlViewModel(Application())
-    val windowSizeClass = LocalConfiguration.current.getWindowSizeClass()
+    val windowSizeClass = LocalConfiguration.current.windowSizeClass
     Surface {
         DoorOverlayView(viewModel, windowSizeClass)
     }

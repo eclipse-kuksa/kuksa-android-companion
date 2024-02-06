@@ -28,7 +28,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
-import org.eclipse.kuksa.companion.extension.getWindowSizeClass
+import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel
 
 @Composable
@@ -51,7 +51,7 @@ private fun AdaptiveConnectionStatusViewPreview_Disconnected() {
     val viewModel = ConnectionStatusViewModel()
     viewModel.connectionState = ConnectionStatusViewModel.ConnectionState.DISCONNECTED
 
-    val windowSizeClass = LocalConfiguration.current.getWindowSizeClass()
+    val windowSizeClass = LocalConfiguration.current.windowSizeClass
     Box {
         AdaptiveConnectionStatusView(viewModel = viewModel, windowSizeClass)
     }
@@ -64,7 +64,7 @@ private fun AdaptiveConnectionStatusViewPreview_Connecting() {
     val viewModel = ConnectionStatusViewModel()
     viewModel.connectionState = ConnectionStatusViewModel.ConnectionState.CONNECTING
 
-    val windowSizeClass = LocalConfiguration.current.getWindowSizeClass()
+    val windowSizeClass = LocalConfiguration.current.windowSizeClass
     Box {
         AdaptiveConnectionStatusView(viewModel = viewModel, windowSizeClass)
     }
@@ -77,7 +77,7 @@ private fun AdaptiveConnectionStatusViewPreview_Connected() {
     val viewModel = ConnectionStatusViewModel()
     viewModel.connectionState = ConnectionStatusViewModel.ConnectionState.CONNECTED
 
-    val windowSizeClass = LocalConfiguration.current.getWindowSizeClass()
+    val windowSizeClass = LocalConfiguration.current.windowSizeClass
     Box {
         AdaptiveConnectionStatusView(viewModel = viewModel, windowSizeClass)
     }

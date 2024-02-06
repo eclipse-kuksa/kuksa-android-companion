@@ -40,7 +40,7 @@ import androidx.compose.ui.zIndex
 import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.R
-import org.eclipse.kuksa.companion.extension.getWindowSizeClass
+import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.connection.repository.ConnectionInfoRepository
 import org.eclipse.kuksa.companion.feature.connection.view.AdaptiveConnectionStatusView
 import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel
@@ -155,7 +155,7 @@ fun AdaptiveAppScreen(
 @Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
 @Composable
 private fun AdaptiveAppScreenPreview() {
-    val windowSizeClass = LocalConfiguration.current.getWindowSizeClass()
+    val windowSizeClass = LocalConfiguration.current.windowSizeClass
     val callback = object : SurfaceHolder.Callback {
         override fun surfaceCreated(holder: SurfaceHolder) {
             // unused

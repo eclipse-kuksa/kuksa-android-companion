@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.R
-import org.eclipse.kuksa.companion.extension.getWindowSizeClass
+import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.home.view.AdaptiveFlowRowColumn
 import org.eclipse.kuksa.companion.feature.light.viewmodel.LightControlViewModel
 
@@ -109,7 +109,7 @@ private fun LightDashboardSymbol(
 @Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
 @Composable
 private fun LightControlViewPreview() {
-    val windowSizeClass = LocalConfiguration.current.getWindowSizeClass()
+    val windowSizeClass = LocalConfiguration.current.windowSizeClass
     val viewModel = LightControlViewModel()
     Surface {
         LightOverlayView(viewModel, windowSizeClass)
