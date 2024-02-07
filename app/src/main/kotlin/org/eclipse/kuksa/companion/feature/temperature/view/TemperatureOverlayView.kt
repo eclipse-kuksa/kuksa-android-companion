@@ -34,12 +34,12 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
-import org.eclipse.kuksa.companion.extension.alignDriverBackDoor
-import org.eclipse.kuksa.companion.extension.alignDriverFrontDoor
-import org.eclipse.kuksa.companion.extension.alignPassengerBackDoor
-import org.eclipse.kuksa.companion.extension.alignPassengerFrontDoor
 import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureViewModel
+import org.eclipse.kuksa.companion.ramses.DriverBackDoorAnchor
+import org.eclipse.kuksa.companion.ramses.DriverFrontDoorAnchor
+import org.eclipse.kuksa.companion.ramses.PassengerBackDoorAnchor
+import org.eclipse.kuksa.companion.ramses.PassengerFrontDoorAnchor
 
 @Composable
 fun TemperatureOverlayView(
@@ -68,6 +68,11 @@ fun TemperatureOverlayView(
                 },
         )
 
+        val driverFrontDoorAnchor = DriverFrontDoorAnchor(windowSizeClass, anchorPoint)
+        val passengerFrontDoorAnchor = PassengerFrontDoorAnchor(windowSizeClass, anchorPoint)
+        val driverBackDoorAnchor = DriverBackDoorAnchor(windowSizeClass, anchorPoint)
+        val passengerBackDoorAnchor = PassengerBackDoorAnchor(windowSizeClass, anchorPoint)
+
         val unit = "°C"
         Text(
             text = "$temperatureDriverSideFront $unit",
@@ -75,7 +80,7 @@ fun TemperatureOverlayView(
             color = viewModel.getTemperatureColor(temperatureDriverSideFront),
             modifier = Modifier
                 .constrainAs(driverSideRef) {
-                    alignDriverFrontDoor(windowSizeClass, anchorPoint)
+                    driverFrontDoorAnchor.align(this)
                 },
         )
         Text(
@@ -84,7 +89,7 @@ fun TemperatureOverlayView(
             color = viewModel.getTemperatureColor(temperaturePassengerSideFront),
             modifier = Modifier
                 .constrainAs(passengerSideRef) {
-                    alignPassengerFrontDoor(windowSizeClass, anchorPoint)
+                    passengerFrontDoorAnchor.align(this)
                 },
         )
         Text(
@@ -93,7 +98,7 @@ fun TemperatureOverlayView(
             color = viewModel.getTemperatureColor(temperatureDriverSideBack),
             modifier = Modifier
                 .constrainAs(driverSideBackRef) {
-                    alignDriverBackDoor(windowSizeClass, anchorPoint)
+                    driverBackDoorAnchor.align(this)
                 },
         )
         Text(
@@ -102,7 +107,7 @@ fun TemperatureOverlayView(
             color = viewModel.getTemperatureColor(temperaturePassengerSideBack),
             modifier = Modifier
                 .constrainAs(passengerSideBackRef) {
-                    alignPassengerBackDoor(windowSizeClass, anchorPoint)
+                    passengerBackDoorAnchor.align(this)
                 },
         )
     }

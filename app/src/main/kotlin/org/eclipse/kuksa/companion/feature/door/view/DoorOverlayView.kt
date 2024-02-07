@@ -37,17 +37,14 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
-import org.eclipse.kuksa.companion.extension.alignDriverBackDoor
-import org.eclipse.kuksa.companion.extension.alignDriverFrontDoor
-import org.eclipse.kuksa.companion.extension.alignPassengerBackDoor
-import org.eclipse.kuksa.companion.extension.alignPassengerFrontDoor
-import org.eclipse.kuksa.companion.extension.alignTrunk
 import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
+import org.eclipse.kuksa.companion.ramses.DriverBackDoorAnchor
+import org.eclipse.kuksa.companion.ramses.DriverFrontDoorAnchor
+import org.eclipse.kuksa.companion.ramses.PassengerBackDoorAnchor
+import org.eclipse.kuksa.companion.ramses.PassengerFrontDoorAnchor
+import org.eclipse.kuksa.companion.ramses.TrunkAnchor
 
-val horizontalMarginAnchorToDoor = 75.dp
-val verticalMarginAnchorToDoor = 10.dp
-val verticalMarginAnchorToBackDoor = 100.dp
 
 @Composable
 fun DoorOverlayView(
@@ -76,12 +73,18 @@ fun DoorOverlayView(
                 },
         )
 
+        val driverFrontDoorAnchor = DriverFrontDoorAnchor(windowSizeClass, anchorPoint)
+        val passengerFrontDoorAnchor = PassengerFrontDoorAnchor(windowSizeClass, anchorPoint)
+        val driverBackDoorAnchor = DriverBackDoorAnchor(windowSizeClass, anchorPoint)
+        val passengerBackDoorAnchor = PassengerBackDoorAnchor(windowSizeClass, anchorPoint)
+        val trunkAnchor = TrunkAnchor(windowSizeClass, anchorPoint)
+
         val imageModifier = Modifier
             .size(60.dp)
         Box(
             modifier = imageModifier
                 .constrainAs(driverSide) {
-                    alignDriverFrontDoor(windowSizeClass, anchorPoint)
+                    driverFrontDoorAnchor.align(this)
                 }
                 .clickable {
                     viewModel.onClickToggleDoor(isLockedDriverSide)
@@ -97,7 +100,7 @@ fun DoorOverlayView(
         Box(
             modifier = imageModifier
                 .constrainAs(passengerSide) {
-                    alignPassengerFrontDoor(windowSizeClass, anchorPoint)
+                    passengerFrontDoorAnchor.align(this)
                 }
                 .clickable {
                     viewModel.onClickToggleDoor(isLockedPassengerSide)
@@ -114,7 +117,7 @@ fun DoorOverlayView(
             contentDescription = "Lock bottom left",
             modifier = imageModifier
                 .constrainAs(driverSideBack) {
-                    alignDriverBackDoor(windowSizeClass, anchorPoint)
+                    driverBackDoorAnchor.align(this)
                 }
                 .clickable {
                     viewModel.onClickToggleDoor(isLockedDriverSideBack)
@@ -123,7 +126,7 @@ fun DoorOverlayView(
         Box(
             modifier = imageModifier
                 .constrainAs(passengerSideBack) {
-                    alignPassengerBackDoor(windowSizeClass, anchorPoint)
+                    passengerBackDoorAnchor.align(this)
                 }
                 .clickable {
                     viewModel.onClickToggleDoor(isLockedPassengerSideBack)
@@ -139,7 +142,7 @@ fun DoorOverlayView(
         Box(
             modifier = imageModifier
                 .constrainAs(trunkRear) {
-                    alignTrunk(windowSizeClass, anchorPoint)
+                    trunkAnchor.align(this)
                 }
                 .clickable {
                     viewModel.onClickToggleTrunk(isLockedTrunkRear)
