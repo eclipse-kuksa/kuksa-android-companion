@@ -20,7 +20,7 @@
 <resources>
     <integer name="RAMSES_CAMERA_YAW_VALUE">90</integer>
     <integer name="RAMSES_CAMERA_PITCH_VALUE">100</integer>
-    <integer name="RAMSES_CAMERA_DISTANCE_VALUE">700</integer>
+    <integer name="RAMSES_CAMERA_DISTANCE_VALUE">800</integer>
 
     <integer name="RAMSES_VIEW_PADDING_END">0</integer>
     <integer name="RAMSES_VIEW_PADDING_BOTTOM">50</integer>

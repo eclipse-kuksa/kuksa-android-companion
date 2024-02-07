@@ -20,6 +20,7 @@
 package org.eclipse.kuksa.companion.feature.home.view.navigation
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
@@ -32,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun VerticalNavigationView(
@@ -48,7 +50,13 @@ fun VerticalNavigationView(
             pages.forEachIndexed { index, page ->
                 NavigationRailItem(
                     label = { Text(page.title) },
-                    icon = { Icon(painterResource(id = page.iconRes), contentDescription = page.title) },
+                    icon = {
+                        Icon(
+                            painterResource(id = page.iconRes),
+                            contentDescription = page.title,
+                            modifier = Modifier.size(30.dp),
+                        )
+                    },
                     selected = selectedItemIndex == index,
                     onClick = {
                         selectedItemIndex = index

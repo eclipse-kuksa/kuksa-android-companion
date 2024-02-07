@@ -20,6 +20,7 @@
 package org.eclipse.kuksa.companion.feature.home.view.navigation
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -31,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun HorizontalNavigationView(
@@ -57,6 +59,7 @@ fun HorizontalNavigationView(
                         Icon(
                             painter = painterResource(id = page.iconRes),
                             contentDescription = page.description,
+                            modifier = Modifier.size(30.dp),
                         )
                     },
                 )
