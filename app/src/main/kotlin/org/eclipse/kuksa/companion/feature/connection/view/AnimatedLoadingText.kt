@@ -26,7 +26,7 @@ import androidx.compose.runtime.remember
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
-private const val maxNumberDots = 3
+private const val MaxNumberDots = 3
 private val DelayDuration = 500.milliseconds
 
 @Composable
@@ -44,7 +44,7 @@ fun animateLoadingText(
         }
         LaunchedEffect(Unit) {
             while (true) {
-                if (numberOfDots.intValue < maxNumberDots) {
+                if (numberOfDots.intValue < MaxNumberDots) {
                     numberOfDots.intValue += 1
                 } else {
                     numberOfDots.intValue = 0

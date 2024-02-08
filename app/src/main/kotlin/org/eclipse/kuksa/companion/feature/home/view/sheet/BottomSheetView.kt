@@ -45,7 +45,7 @@ import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
 fun BottomSheetView(
     modifier: Modifier = Modifier,
     initialSheetValue: SheetValue = SheetValue.PartiallyExpanded,
-    sheetContent: @Composable () -> Unit,
+    sheetContent: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val bottomSheetScaffoldState = BottomSheetScaffoldState(
@@ -59,7 +59,6 @@ fun BottomSheetView(
 
     val sheetPeekHeight = if (initialSheetValue == SheetValue.Hidden) 0.dp else BottomSheetDefaults.SheetPeekHeight
     BottomSheetScaffold(
-
         scaffoldState = bottomSheetScaffoldState,
         sheetContent = {
             sheetContent()

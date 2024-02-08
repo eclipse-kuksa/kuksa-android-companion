@@ -132,4 +132,3 @@ class TrunkAnchor(windowSizeClass: WindowSizeClass, anchorPoint: ConstrainedLayo
         }
     }
 }
-

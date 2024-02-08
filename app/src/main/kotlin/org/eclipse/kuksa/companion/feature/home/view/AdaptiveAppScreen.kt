@@ -62,7 +62,6 @@ import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressur
 
 private const val ZINDEX_RAMSES_VIEW = 1F
 private const val ZINDEX_OVERLAY = 2F
-private const val ZINDEX_CONTROL = 3F
 
 /**
  * Adds an adaptive AppScreen depending on the [WindowWidthSizeClass]. When the device has a [WindowWidthSizeClass] of

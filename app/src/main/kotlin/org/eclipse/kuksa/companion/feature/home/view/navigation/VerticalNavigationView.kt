@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.dp
 fun VerticalNavigationView(
     viewModel: NavigationViewModel,
     modifier: Modifier = Modifier,
-    onPageSelected: (NavigationPage) -> Unit = {},
+    onPageSelected: (NavigationPage) -> Unit,
 ) {
     var selectedItemIndex by remember {
         mutableIntStateOf(viewModel.selectedNavigationIndex)
@@ -49,7 +49,7 @@ fun VerticalNavigationView(
     val pages = NavigationPage.entries.toTypedArray()
 
     Box(contentAlignment = Alignment.Center, modifier = modifier) {
-        NavigationRail(modifier) {
+        NavigationRail {
             pages.forEachIndexed { index, page ->
                 NavigationRailItem(
                     label = { Text(page.title) },
@@ -77,5 +77,7 @@ fun VerticalNavigationView(
 @Composable
 private fun VerticalNavigationViewPreview() {
     val viewModel = NavigationViewModel()
-    VerticalNavigationView(viewModel)
+    VerticalNavigationView(viewModel) {
+        // not used in preview
+    }
 }

@@ -45,7 +45,6 @@ import org.eclipse.kuksa.companion.ramses.PassengerBackDoorAnchor
 import org.eclipse.kuksa.companion.ramses.PassengerFrontDoorAnchor
 import org.eclipse.kuksa.companion.ramses.TrunkAnchor
 
-
 @Composable
 fun DoorOverlayView(
     viewModel: DoorControlViewModel,

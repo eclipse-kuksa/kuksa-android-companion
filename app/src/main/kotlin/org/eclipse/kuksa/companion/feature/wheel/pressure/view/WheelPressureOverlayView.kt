@@ -41,7 +41,6 @@ import org.eclipse.kuksa.companion.ramses.DriverBackDoorAnchor
 import org.eclipse.kuksa.companion.ramses.DriverFrontDoorAnchor
 import org.eclipse.kuksa.companion.ramses.PassengerBackDoorAnchor
 import org.eclipse.kuksa.companion.ramses.PassengerFrontDoorAnchor
-import org.eclipse.kuksa.companion.ramses.TrunkAnchor
 
 @Composable
 fun WheelPressureOverlayView(

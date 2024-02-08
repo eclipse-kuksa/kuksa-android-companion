@@ -53,6 +53,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.sidesheet.SideSheetBehavior
 import org.eclipse.kuksa.companion.R
+import org.eclipse.kuksa.companion.SHEET_EXPANDED_HEIGHT
 
 @Composable
 fun SideSheetView(
@@ -86,9 +87,9 @@ fun SideSheetView(
                     sideSheetBehavior = behavior
                 },
                 modifier = Modifier
-                    .zIndex(3F)
+                    .zIndex(Float.MAX_VALUE)
                     .fillMaxHeight()
-                    .width(350.dp)
+                    .width(SHEET_EXPANDED_HEIGHT.dp)
                     .constrainAs(createRef()) {
                         top.linkTo(parent.top)
                         end.linkTo(parent.end)
@@ -152,7 +153,10 @@ private fun SideSheet(
 }
 
 @Composable
-private fun SideSheetInteractionFAB(sideSheetBehavior: SideSheetBehavior<FrameLayout>?, modifier: Modifier = Modifier) {
+private fun SideSheetInteractionFAB(
+    sideSheetBehavior: SideSheetBehavior<FrameLayout>?,
+    modifier: Modifier = Modifier,
+) {
     FloatingActionButton(
         onClick = {
             sideSheetBehavior?.state = SideSheetBehavior.STATE_EXPANDED

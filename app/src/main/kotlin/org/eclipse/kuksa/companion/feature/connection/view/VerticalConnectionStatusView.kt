@@ -102,9 +102,6 @@ fun VerticalConnectionStatusView(
     }
 }
 
-
-
-
 @Preview(heightDp = 300)
 @Composable
 private fun VerticalDisconnectedPreview() {
