@@ -128,6 +128,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.lifecycle.runtime.compose)
 
+    implementation(libs.material)
+
     implementation(libs.ramses.aar)
 
     testImplementation(libs.junit)

@@ -56,7 +56,12 @@ fun AdaptiveSheetView(
             content = content,
         )
     } else {
-
+        SideSheetView(
+            modifier = modifier,
+            isBottomSheetEnabled = isBottomSheetEnabled,
+            sheetContent = sheetContent,
+            content = content,
+        )
     }
 }
 

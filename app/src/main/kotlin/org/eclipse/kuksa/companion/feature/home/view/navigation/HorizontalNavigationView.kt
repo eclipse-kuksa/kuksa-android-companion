@@ -20,6 +20,7 @@
 package org.eclipse.kuksa.companion.feature.home.view.navigation
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -45,7 +46,7 @@ fun HorizontalNavigationView(
     }
 
     Column(modifier) {
-        NavigationBar {
+        NavigationBar(Modifier.fillMaxWidth()) {
             NavigationPage.entries.forEachIndexed { index, page ->
                 NavigationBarItem(
                     selected = index == selectedItemIndex,

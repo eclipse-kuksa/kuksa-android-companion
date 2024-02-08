@@ -19,6 +19,7 @@ composeBom = "2023.10.01"
 jvmTarget = "17"
 kuksaSdk = "0.1.3"
 lifecycleRuntimeCompose = "2.7.0"
+material = "1.11.0"
 material3WindowSizeClass = "1.1.2"
 ramsesAar = "1.1.0"
 navigationCompose = "2.7.6"
@@ -47,6 +48,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 ktlint-compose-rules = { module = "com.twitter.compose.rules:ktlint", version.ref = "composeRules" }
 detekt-compose-rules = { module = "com.twitter.compose.rules:detekt", version.ref = "composeRules" }
 kuksa-sdk = { module = "org.eclipse.kuksa:kuksa-sdk", version.ref = "kuksaSdk" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
 vss-processor = { module = "org.eclipse.kuksa:vss-processor", version.ref = "kuksaSdk" }
 ramses-aar = { module = "io.github.bmwcarit:ramses-aar", version.ref = "ramsesAar" }
 
