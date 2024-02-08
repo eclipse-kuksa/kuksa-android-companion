@@ -37,10 +37,6 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -62,9 +58,7 @@ fun SideSheetView(
     sheetContent: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
-    var sideSheetBehavior: SideSheetBehavior<FrameLayout>? by remember {
-        mutableStateOf(null)
-    }
+    val sideSheetBehavior: SideSheetBehavior<FrameLayout> = SideSheetBehavior<FrameLayout>()
     ConstraintLayout(modifier = modifier) {
         Box(Modifier.fillMaxSize()) {
             val paddingValues = PaddingValues(0.dp)
@@ -83,9 +77,7 @@ fun SideSheetView(
 
             SideSheet(
                 sheetContent = sheetContent,
-                onSideSheetInitialised = { behavior ->
-                    sideSheetBehavior = behavior
-                },
+                sideSheetBehavior = sideSheetBehavior,
                 modifier = Modifier
                     .zIndex(Float.MAX_VALUE)
                     .fillMaxHeight()
@@ -101,12 +93,10 @@ fun SideSheetView(
 
 @Composable
 private fun SideSheet(
-    sheetContent: @Composable () -> Unit,
-    onSideSheetInitialised: (SideSheetBehavior<FrameLayout>) -> Unit,
+    sideSheetBehavior: SideSheetBehavior<FrameLayout>,
     modifier: Modifier = Modifier,
+    sheetContent: @Composable () -> Unit,
 ) {
-    val sideSheetBehavior: SideSheetBehavior<FrameLayout> = SideSheetBehavior<FrameLayout>()
-
     AndroidView(
         { context ->
             val composeView = ComposeView(context).apply {
@@ -119,7 +109,8 @@ private fun SideSheet(
                                 .padding(top = 24.dp, end = 24.dp, bottom = 5.dp)
                                 .clickable {
                                     sideSheetBehavior.hide()
-                                }.align(Alignment.End),
+                                }
+                                .align(Alignment.End),
                         )
                         Box(
                             modifier = Modifier
@@ -133,18 +124,20 @@ private fun SideSheet(
             }
 
             val frameLayout = FrameLayout(context)
-                .also {
-                    it.setBackgroundColor(Color.WHITE)
+                .apply {
+                    setBackgroundColor(Color.WHITE)
+                    addView(composeView)
                 }
-            frameLayout.addView(composeView)
 
             val coordinatorLayout = CoordinatorLayout(context)
-            coordinatorLayout.addView(frameLayout)
+                .apply {
+                    addView(frameLayout)
+                }
 
-            val layoutParams = frameLayout.layoutParams as CoordinatorLayout.LayoutParams
-            layoutParams.behavior = sideSheetBehavior
-
-            onSideSheetInitialised(sideSheetBehavior)
+            (frameLayout.layoutParams as CoordinatorLayout.LayoutParams)
+                .apply {
+                    behavior = sideSheetBehavior
+                }
 
             coordinatorLayout
         },
