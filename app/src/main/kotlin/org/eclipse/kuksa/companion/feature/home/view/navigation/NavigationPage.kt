@@ -26,7 +26,7 @@ enum class NavigationPage(
     @DrawableRes val iconRes: Int,
     val title: String,
     val description: String,
-    val isBottomSheetEnabled: Boolean,
+    val isSheetEnabled: Boolean,
 ) {
     DOORS(
         R.drawable.baseline_sensor_door_24,

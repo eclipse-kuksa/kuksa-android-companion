@@ -54,7 +54,7 @@ import org.eclipse.kuksa.companion.SHEET_EXPANDED_HEIGHT
 @Composable
 fun SideSheetView(
     modifier: Modifier = Modifier,
-    isBottomSheetEnabled: Boolean = true,
+    isSideSheetEnabled: Boolean = true,
     sheetContent: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
@@ -64,7 +64,7 @@ fun SideSheetView(
             val paddingValues = PaddingValues(0.dp)
             content(paddingValues)
         }
-        if (isBottomSheetEnabled) {
+        if (isSideSheetEnabled) {
             SideSheetInteractionFAB(
                 sideSheetBehavior = sideSheetBehavior,
                 modifier = Modifier
@@ -175,5 +175,5 @@ private fun SideSheetInteractionFAB(
 @Preview
 @Composable
 private fun SideSheetViewPreview() {
-    SideSheetView(isBottomSheetEnabled = true, sheetContent = {}) {}
+    SideSheetView(isSideSheetEnabled = true, sheetContent = {}) {}
 }

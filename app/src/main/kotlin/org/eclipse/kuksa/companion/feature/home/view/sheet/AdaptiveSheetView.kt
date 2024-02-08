@@ -42,12 +42,12 @@ import org.eclipse.kuksa.companion.extension.windowSizeClass
 fun AdaptiveSheetView(
     windowSizeClass: WindowSizeClass,
     modifier: Modifier = Modifier,
-    isBottomSheetEnabled: Boolean = true,
+    isSheetEnabled: Boolean = true,
     sheetContent: @Composable () -> Unit = { },
     content: @Composable (PaddingValues) -> Unit = { },
 ) {
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
-        val initialSheetValue = if (isBottomSheetEnabled) SheetValue.PartiallyExpanded else SheetValue.Hidden
+        val initialSheetValue = if (isSheetEnabled) SheetValue.PartiallyExpanded else SheetValue.Hidden
 
         BottomSheetView(
             modifier = modifier,
@@ -58,7 +58,7 @@ fun AdaptiveSheetView(
     } else {
         SideSheetView(
             modifier = modifier,
-            isBottomSheetEnabled = isBottomSheetEnabled,
+            isSideSheetEnabled = isSheetEnabled,
             sheetContent = sheetContent,
             content = content,
         )

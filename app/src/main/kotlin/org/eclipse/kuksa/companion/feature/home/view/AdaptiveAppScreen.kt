@@ -94,7 +94,7 @@ fun AdaptiveAppScreen(
         AdaptiveSheetView(
             windowSizeClass = windowSizeClass,
             modifier = Modifier.fillMaxSize(),
-            isBottomSheetEnabled = selectedPage.isBottomSheetEnabled,
+            isSheetEnabled = selectedPage.isSheetEnabled,
             sheetContent = {
                 when (selectedPage) {
                     NavigationPage.DOORS -> DoorControlView(doorControlViewModel)
