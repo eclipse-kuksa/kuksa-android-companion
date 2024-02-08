@@ -21,6 +21,7 @@ package org.eclipse.kuksa.companion
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
+import org.eclipse.kuksa.DataBrokerConnection
 
 const val PREVIEW_WIDTH_DP = 400
 const val PREVIEW_HEIGHT_DP = 900
@@ -29,4 +30,6 @@ const val SHEET_EXPANDED_HEIGHT = 350
 const val SHEET_COLLAPSED_HEIGHT = 50
 
 @HiltAndroidApp
-class CompanionApplication : Application()
+class CompanionApplication : Application() {
+    var dataBrokerConnection: DataBrokerConnection? = null
+}

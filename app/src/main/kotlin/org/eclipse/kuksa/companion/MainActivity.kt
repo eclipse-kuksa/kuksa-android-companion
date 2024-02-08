@@ -68,6 +68,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 @VssDefinition("vss_rel_4.0.yaml")
 class MainActivity : ComponentActivity() {
+    private val companionApplication
+        get() = applicationContext as CompanionApplication
+
     @Inject
     lateinit var connectionInfoRepository: ConnectionInfoRepository
 
@@ -87,7 +90,13 @@ class MainActivity : ComponentActivity() {
 
     private val settingsViewModel: SettingsViewModel by viewModels()
 
-    private var dataBrokerConnection: DataBrokerConnection? = null
+    // storing the connection in the Application keeps the Connection alive on orientation changes
+    private var dataBrokerConnection: DataBrokerConnection?
+        get() = companionApplication.dataBrokerConnection
+        set(value) {
+            companionApplication.dataBrokerConnection = value
+        }
+
     private val dataBrokerConnectorFactory = DataBrokerConnectorFactory()
 
     private val doorVehicleSurface = DoorVehicleSurface()
@@ -289,6 +298,12 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun connectToDataBroker(onConnected: () -> Unit = {}) {
+        // dataBrokerConnection is already established e.g. after an orientation change
+        if (dataBrokerConnection != null) {
+            onConnected()
+            return
+        }
+
         lifecycleScope.launch {
             val connectionInfo = connectionInfoRepository.connectionInfoFlow.first()
 
