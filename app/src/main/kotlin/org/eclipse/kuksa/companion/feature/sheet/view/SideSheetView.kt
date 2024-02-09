@@ -64,30 +64,33 @@ fun SideSheetView(
             val paddingValues = PaddingValues(0.dp)
             content(paddingValues)
         }
-        if (isSideSheetEnabled) {
-            SideSheetInteractionFAB(
-                sideSheetBehavior = sideSheetBehavior,
-                modifier = Modifier
-                    .zIndex(2F)
-                    .constrainAs(createRef()) {
-                        end.linkTo(parent.end, 10.dp)
-                        bottom.linkTo(parent.bottom, 10.dp)
-                    },
-            )
 
-            SideSheet(
-                sheetContent = sheetContent,
-                sideSheetBehavior = sideSheetBehavior,
-                modifier = Modifier
-                    .zIndex(Float.MAX_VALUE)
-                    .fillMaxHeight()
-                    .width(SHEET_EXPANDED_HEIGHT.dp)
-                    .constrainAs(createRef()) {
-                        top.linkTo(parent.top)
-                        end.linkTo(parent.end)
-                    },
-            )
+        if (!isSideSheetEnabled) {
+            return@ConstraintLayout
         }
+
+        SideSheetInteractionFAB(
+            sideSheetBehavior = sideSheetBehavior,
+            modifier = Modifier
+                .zIndex(2F)
+                .constrainAs(createRef()) {
+                    end.linkTo(parent.end, 10.dp)
+                    bottom.linkTo(parent.bottom, 10.dp)
+                },
+        )
+
+        SideSheet(
+            sheetContent = sheetContent,
+            sideSheetBehavior = sideSheetBehavior,
+            modifier = Modifier
+                .zIndex(Float.MAX_VALUE)
+                .fillMaxHeight()
+                .width(SHEET_EXPANDED_HEIGHT.dp)
+                .constrainAs(createRef()) {
+                    top.linkTo(parent.top)
+                    end.linkTo(parent.end)
+                },
+        )
     }
 }
 
