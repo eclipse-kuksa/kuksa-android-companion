@@ -77,6 +77,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var doorVehicleScene: DoorVehicleScene
 
     private val disconnectListener = DisconnectListener {
+        dataBrokerConnection = null
         connectionStatusViewModel.connectionState = ConnectionState.DISCONNECTED
     }
 
@@ -264,6 +265,8 @@ class MainActivity : ComponentActivity() {
 
     private fun subscribe() {
         dataBrokerConnection?.apply {
+            disconnectListeners.register(disconnectListener)
+
             subscribe(VssDoor(), listener = vssDoorListener)
             subscribe(VssTrunk(), listener = vssTrunkListener)
             subscribe(VssHvac(), listener = vssTemperatureListener)
@@ -313,9 +316,7 @@ class MainActivity : ComponentActivity() {
                 connectionStatusViewModel.connectionState = ConnectionState.CONNECTING
                 val context = this@MainActivity
                 val dataBrokerConnector = dataBrokerConnectorFactory.create(context, connectionInfo)
-                dataBrokerConnection = dataBrokerConnector.connect().apply {
-                    disconnectListeners.register(disconnectListener)
-                }
+                dataBrokerConnection = dataBrokerConnector.connect()
                 connectionStatusViewModel.connectionState = ConnectionState.CONNECTED
                 onConnected()
             } catch (e: DataBrokerException) {
