@@ -19,7 +19,7 @@
 
 package org.eclipse.kuksa.companion.feature.home.view.navigation
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationRail
@@ -30,7 +30,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,28 +47,28 @@ fun VerticalNavigationView(
 
     val pages = NavigationPage.entries.toTypedArray()
 
-    Box(contentAlignment = Alignment.Center, modifier = modifier) {
-        NavigationRail {
-            pages.forEachIndexed { index, page ->
-                NavigationRailItem(
-                    label = { Text(page.title) },
-                    icon = {
-                        Icon(
-                            painterResource(id = page.iconRes),
-                            contentDescription = page.title,
-                            modifier = Modifier.size(30.dp),
-                        )
-                    },
-                    selected = selectedItemIndex == index,
-                    onClick = {
-                        selectedItemIndex = index
-                        viewModel.selectedNavigationIndex = index
-                        viewModel.selectedNavigationPage = page
-                        onPageSelected(page)
-                    },
-                )
-            }
+    NavigationRail(modifier) {
+        Spacer(Modifier.weight(1f))
+        pages.forEachIndexed { index, page ->
+            NavigationRailItem(
+                label = { Text(page.title) },
+                icon = {
+                    Icon(
+                        painterResource(id = page.iconRes),
+                        contentDescription = page.title,
+                        modifier = Modifier.size(30.dp),
+                    )
+                },
+                selected = selectedItemIndex == index,
+                onClick = {
+                    selectedItemIndex = index
+                    viewModel.selectedNavigationIndex = index
+                    viewModel.selectedNavigationPage = page
+                    onPageSelected(page)
+                },
+            )
         }
+        Spacer(Modifier.weight(1f))
     }
 }
 
