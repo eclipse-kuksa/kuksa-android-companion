@@ -24,9 +24,9 @@ import io.grpc.ChannelCredentials
 import io.grpc.Grpc
 import io.grpc.ManagedChannelBuilder
 import io.grpc.TlsChannelCredentials
-import org.eclipse.kuksa.DataBrokerConnector
-import org.eclipse.kuksa.DataBrokerException
 import org.eclipse.kuksa.companion.feature.connection.model.ConnectionInfo
+import org.eclipse.kuksa.connectivity.databroker.DataBrokerConnector
+import org.eclipse.kuksa.connectivity.databroker.DataBrokerException
 import java.io.IOException
 
 class DataBrokerConnectorFactory {

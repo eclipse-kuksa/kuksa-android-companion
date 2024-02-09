@@ -29,32 +29,32 @@ import androidx.lifecycle.AndroidViewModel
 import org.eclipse.kuksa.companion.R
 import org.eclipse.kuksa.companion.extension.TAG
 import org.eclipse.kuksa.companion.feature.door.surface.DoorVehicleScene
-import org.eclipse.kuksa.companion.listener.FilteredVssSpecificationListener
+import org.eclipse.kuksa.companion.listener.FilteredVssNodeListener
 import org.eclipse.kuksa.vss.VssDoor
 import org.eclipse.kuksa.vss.VssTrunk
-import org.eclipse.kuksa.vsscore.model.VssProperty
+import org.eclipse.kuksa.vsscore.model.VssSignal
 
 class DoorControlViewModel(application: Application) : AndroidViewModel(application) {
     var doorVehicleSceneDelegate: DoorVehicleScene? = null
 
-    val vssDoorListener = object : FilteredVssSpecificationListener<VssDoor>() {
-        override fun onSpecificationChanged(vssSpecification: VssDoor) {
-            door = vssSpecification
-            doorVehicleSceneDelegate?.updateDoors(vssSpecification)
+    val vssDoorListener = object : FilteredVssNodeListener<VssDoor>() {
+        override fun onNodeChanged(vssNode: VssDoor) {
+            door = vssNode
+            doorVehicleSceneDelegate?.updateDoors(vssNode)
         }
 
         override fun onPostFilterError(throwable: Throwable) {
-            Log.e(TAG, "Failed to subscribe to specification: $throwable")
+            Log.e(TAG, "Failed to subscribe to node: $throwable")
         }
     }
-    val vssTrunkListener = object : FilteredVssSpecificationListener<VssTrunk>() {
-        override fun onSpecificationChanged(vssSpecification: VssTrunk) {
-            trunk = vssSpecification
-            doorVehicleSceneDelegate?.updateTrunk(vssSpecification)
+    val vssTrunkListener = object : FilteredVssNodeListener<VssTrunk>() {
+        override fun onNodeChanged(vssNode: VssTrunk) {
+            trunk = vssNode
+            doorVehicleSceneDelegate?.updateTrunk(vssNode)
         }
 
         override fun onPostFilterError(throwable: Throwable) {
-            Log.e(TAG, "Failed to subscribe to specification: $throwable")
+            Log.e(TAG, "Failed to subscribe to node: $throwable")
         }
     }
 
@@ -62,9 +62,9 @@ class DoorControlViewModel(application: Application) : AndroidViewModel(applicat
 
     var onClickCloseAll: () -> Unit = {}
 
-    var onClickToggleDoor: (VssProperty<Boolean>) -> Unit = {}
+    var onClickToggleDoor: (VssSignal<Boolean>) -> Unit = {}
 
-    var onClickToggleTrunk: (VssProperty<Boolean>) -> Unit = {}
+    var onClickToggleTrunk: (VssSignal<Boolean>) -> Unit = {}
 
     var trunk by mutableStateOf(VssTrunk())
         private set

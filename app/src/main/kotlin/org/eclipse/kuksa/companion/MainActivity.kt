@@ -30,8 +30,6 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import org.eclipse.kuksa.DataBrokerConnection
-import org.eclipse.kuksa.DataBrokerException
 import org.eclipse.kuksa.companion.extension.TAG
 import org.eclipse.kuksa.companion.feature.connection.factory.DataBrokerConnectorFactory
 import org.eclipse.kuksa.companion.feature.connection.repository.ConnectionInfoRepository
@@ -51,7 +49,11 @@ import org.eclipse.kuksa.companion.feature.settings.viewModel.SettingsViewModel
 import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureViewModel
 import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressureViewModel
 import org.eclipse.kuksa.companion.ui.theme.KuksaCompanionTheme
-import org.eclipse.kuksa.extension.vssProperty.not
+import org.eclipse.kuksa.connectivity.databroker.DataBrokerConnection
+import org.eclipse.kuksa.connectivity.databroker.DataBrokerException
+import org.eclipse.kuksa.connectivity.databroker.request.VssNodeSubscribeRequest
+import org.eclipse.kuksa.connectivity.databroker.request.VssNodeUpdateRequest
+import org.eclipse.kuksa.extension.vss.not
 import org.eclipse.kuksa.proto.v1.Types.Field
 import org.eclipse.kuksa.vss.VssAxle
 import org.eclipse.kuksa.vss.VssDoor
@@ -59,12 +61,12 @@ import org.eclipse.kuksa.vss.VssHvac
 import org.eclipse.kuksa.vss.VssLights
 import org.eclipse.kuksa.vss.VssStation
 import org.eclipse.kuksa.vss.VssTrunk
-import org.eclipse.kuksa.vsscore.annotation.VssDefinition
-import org.eclipse.kuksa.vsscore.model.VssSpecification
+import org.eclipse.kuksa.vsscore.annotation.VssModelGenerator
+import org.eclipse.kuksa.vsscore.model.VssNode
 import javax.inject.Inject
 
 @AndroidEntryPoint
-@VssDefinition("vss_rel_4.0.yaml")
+@VssModelGenerator
 class MainActivity : ComponentActivity() {
     @Inject
     lateinit var connectionInfoRepository: ConnectionInfoRepository
@@ -134,7 +136,7 @@ class MainActivity : ComponentActivity() {
         }
 
         doorControlViewModel.onClickOpenAll = {
-            updateSpecification(
+            updateVssNode(
                 DOOR_ALL_OPEN.row1.driverSide.isOpen,
                 DOOR_ALL_OPEN.row1.passengerSide.isOpen,
                 DOOR_ALL_OPEN.row2.driverSide.isOpen,
@@ -145,7 +147,7 @@ class MainActivity : ComponentActivity() {
         }
 
         doorControlViewModel.onClickCloseAll = {
-            updateSpecification(
+            updateVssNode(
                 DOOR_ALL_CLOSED.row1.driverSide.isOpen,
                 DOOR_ALL_CLOSED.row1.passengerSide.isOpen,
                 DOOR_ALL_CLOSED.row2.driverSide.isOpen,
@@ -155,20 +157,20 @@ class MainActivity : ComponentActivity() {
             )
         }
 
-        doorControlViewModel.onClickToggleDoor = { toggledProperty ->
-            updateSpecification(!toggledProperty, fields = listOf(Field.FIELD_ACTUATOR_TARGET))
+        doorControlViewModel.onClickToggleDoor = { toggledSignal ->
+            updateVssNode(!toggledSignal, fields = listOf(Field.FIELD_ACTUATOR_TARGET))
         }
 
-        doorControlViewModel.onClickToggleTrunk = { toggledProperty ->
-            updateSpecification(!toggledProperty, fields = listOf(Field.FIELD_ACTUATOR_TARGET))
+        doorControlViewModel.onClickToggleTrunk = { toggledSignal ->
+            updateVssNode(!toggledSignal, fields = listOf(Field.FIELD_ACTUATOR_TARGET))
         }
 
         temperatureViewModel.onPlannedTemperatureChanged = { plannedTemperature ->
             updatePlannedTemperature(plannedTemperature)
         }
 
-        lightControlViewModel.onClickToggleLight = { vssProperty ->
-            updateSpecification(!vssProperty, fields = listOf(Field.FIELD_ACTUATOR_TARGET))
+        lightControlViewModel.onClickToggleLight = { vssSignal ->
+            updateVssNode(!vssSignal, fields = listOf(Field.FIELD_ACTUATOR_TARGET))
         }
 
         connectToDataBroker {
@@ -192,37 +194,46 @@ class MainActivity : ComponentActivity() {
 
     private fun updatePlannedTemperature(plannedTemperature: Int) {
         lifecycleScope.launch {
-            val vssProperties = listOf(
+            val vssNodes = listOf(
                 VssStation.VssRow1.VssDriver.VssTemperature(plannedTemperature),
                 VssStation.VssRow1.VssPassenger.VssTemperature(plannedTemperature),
                 VssStation.VssRow2.VssDriver.VssTemperature(plannedTemperature),
                 VssStation.VssRow2.VssPassenger.VssTemperature(plannedTemperature),
             )
 
-            vssProperties.forEach { vssProperty ->
-                dataBrokerConnection?.update(vssProperty, listOf(Field.FIELD_ACTUATOR_TARGET))
+            vssNodes.forEach { vssNode ->
+                val updateRequest = VssNodeUpdateRequest(vssNode, Field.FIELD_ACTUATOR_TARGET)
+                dataBrokerConnection?.update(updateRequest)
             }
         }
     }
 
     private fun subscribe() {
         dataBrokerConnection?.apply {
-            subscribe(VssDoor(), listener = doorControlViewModel.vssDoorListener)
-            subscribe(VssTrunk(), listener = doorControlViewModel.vssTrunkListener)
-            subscribe(VssHvac(), listener = temperatureViewModel.vssTemperatureListener)
-            subscribe(VssAxle(), listener = wheelPressureViewModel.vssWheelPressureListener)
-            subscribe(VssLights(), listener = lightControlViewModel.vssLightListener)
+            val vssDoorSubscribeRequest = VssNodeSubscribeRequest(VssDoor())
+            val vssTrunkSubscribeRequest = VssNodeSubscribeRequest(VssTrunk())
+            val vssHvacSubscribeRequest = VssNodeSubscribeRequest(VssHvac())
+            val vssAxleSubscribeRequest = VssNodeSubscribeRequest(VssAxle())
+            val vssLightsSubscribeRequest = VssNodeSubscribeRequest(VssLights())
+
+            subscribe(vssDoorSubscribeRequest, listener = doorControlViewModel.vssDoorListener)
+            subscribe(vssTrunkSubscribeRequest, listener = doorControlViewModel.vssTrunkListener)
+            subscribe(vssHvacSubscribeRequest, listener = temperatureViewModel.vssTemperatureListener)
+            subscribe(vssAxleSubscribeRequest, listener = wheelPressureViewModel.vssWheelPressureListener)
+            subscribe(vssLightsSubscribeRequest, listener = lightControlViewModel.vssLightListener)
         }
     }
 
-    private fun updateSpecification(
-        vararg specifications: VssSpecification,
+    @Suppress("performance:SpreadOperator") // Neglectable: Field types are 1-2 elements mostly
+    private fun updateVssNode(
+        vararg vssNodes: VssNode,
         fields: List<Field> = listOf(Field.FIELD_VALUE),
     ) {
         lifecycleScope.launch {
             try {
-                specifications.forEach { specifications ->
-                    dataBrokerConnection?.update(specifications, fields)
+                vssNodes.forEach { vssNode ->
+                    val updateRequest = VssNodeUpdateRequest(vssNode, *fields.toTypedArray())
+                    dataBrokerConnection?.update(updateRequest)
                 }
             } catch (e: DataBrokerException) {
                 Log.w(TAG, "Failed to update door: $e")

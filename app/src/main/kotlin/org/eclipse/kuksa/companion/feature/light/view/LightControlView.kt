@@ -38,7 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.eclipse.kuksa.companion.extension.DarkGreen
 import org.eclipse.kuksa.companion.feature.light.viewmodel.LightControlViewModel
-import org.eclipse.kuksa.vsscore.model.VssProperty
+import org.eclipse.kuksa.vsscore.model.VssSignal
 
 @Composable
 fun LightControlView(
@@ -104,7 +104,7 @@ fun LightControlView(
 @Composable
 private fun LightButton(
     viewModel: LightControlViewModel,
-    vssProperty: VssProperty<Boolean>,
+    vssProperty: VssSignal<Boolean>,
     text: String,
 ) {
     val containerColor = if (vssProperty.value) Color.DarkGreen else Color.Red

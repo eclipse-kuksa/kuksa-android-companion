@@ -19,10 +19,10 @@
 
 package org.eclipse.kuksa.companion.listener
 
-import org.eclipse.kuksa.VssSpecificationListener
-import org.eclipse.kuksa.vsscore.model.VssSpecification
+import org.eclipse.kuksa.connectivity.databroker.listener.VssNodeListener
+import org.eclipse.kuksa.vsscore.model.VssNode
 
-abstract class FilteredVssSpecificationListener<T : VssSpecification> : VssSpecificationListener<T> {
+abstract class FilteredVssNodeListener<T : VssNode> : VssNodeListener<T> {
     override fun onError(throwable: Throwable) {
         val message = throwable.message
         val isChannelClosedMessage = message?.startsWith("UNAVAILABLE") == true

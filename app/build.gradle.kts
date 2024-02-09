@@ -22,9 +22,10 @@ import org.eclipse.kuksa.companion.property.PropertiesLoader
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")
+    id("org.eclipse.kuksa.vss-processor-plugin") version "0.2.1"
     alias(libs.plugins.kotlin.serialization)
-    kotlin("kapt")
     alias(libs.plugins.hilt.android)
+    kotlin("kapt")
     kotlin("android")
 }
 
@@ -98,6 +99,10 @@ android {
         java.srcDir("src/main/java")
         java.srcDir("src/main/kotlin")
     }
+}
+
+vssProcessor {
+    searchPath = "$rootDir/spec"
 }
 
 dependencies {
