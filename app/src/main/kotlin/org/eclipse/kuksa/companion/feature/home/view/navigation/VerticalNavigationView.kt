@@ -20,6 +20,7 @@
 package org.eclipse.kuksa.companion.feature.home.view.navigation
 
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationRail
@@ -34,6 +35,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+
+private val IconSize = 30.dp
+private val Padding = 5.dp
 
 @Composable
 fun VerticalNavigationView(
@@ -56,7 +60,7 @@ fun VerticalNavigationView(
                     Icon(
                         painterResource(id = page.iconRes),
                         contentDescription = page.title,
-                        modifier = Modifier.size(30.dp),
+                        modifier = Modifier.size(IconSize),
                     )
                 },
                 selected = selectedItemIndex == index,
@@ -66,6 +70,7 @@ fun VerticalNavigationView(
                     viewModel.selectedNavigationPage = page
                     onPageSelected(page)
                 },
+                modifier = Modifier.padding(start = Padding, end = Padding),
             )
         }
         Spacer(Modifier.weight(1f))
