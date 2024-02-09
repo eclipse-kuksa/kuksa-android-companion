@@ -19,8 +19,8 @@
 
 package org.eclipse.kuksa.companion.feature.home.view.sheet
 
-import android.graphics.Color
 import android.widget.FrameLayout
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -125,7 +125,7 @@ private fun SideSheet(
 
             val frameLayout = FrameLayout(context)
                 .apply {
-                    setBackgroundColor(Color.WHITE)
+                    background = AppCompatResources.getDrawable(context, R.drawable.rounded_shape)
                     addView(composeView)
                 }
 
