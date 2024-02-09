@@ -17,7 +17,7 @@
  *
  */
 
-package org.eclipse.kuksa.companion.feature.home.view.navigation
+package org.eclipse.kuksa.companion.feature.navigation
 
 import androidx.annotation.DrawableRes
 import org.eclipse.kuksa.companion.R

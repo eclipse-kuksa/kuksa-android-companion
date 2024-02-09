@@ -45,10 +45,10 @@ import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatus
 import org.eclipse.kuksa.companion.feature.door.view.DoorControlView
 import org.eclipse.kuksa.companion.feature.door.view.DoorOverlayView
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
-import org.eclipse.kuksa.companion.feature.home.view.navigation.AdaptiveNavigationView
-import org.eclipse.kuksa.companion.feature.home.view.navigation.NavigationPage
-import org.eclipse.kuksa.companion.feature.home.view.navigation.NavigationViewModel
-import org.eclipse.kuksa.companion.feature.home.view.sheet.AdaptiveSheetView
+import org.eclipse.kuksa.companion.feature.navigation.view.AdaptiveNavigationView
+import org.eclipse.kuksa.companion.feature.navigation.NavigationPage
+import org.eclipse.kuksa.companion.feature.navigation.viewmodel.NavigationViewModel
+import org.eclipse.kuksa.companion.feature.sheet.view.AdaptiveSheetView
 import org.eclipse.kuksa.companion.feature.light.view.LightControlView
 import org.eclipse.kuksa.companion.feature.light.view.LightOverlayView
 import org.eclipse.kuksa.companion.feature.light.viewmodel.LightControlViewModel

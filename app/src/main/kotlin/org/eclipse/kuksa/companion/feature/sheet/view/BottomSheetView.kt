@@ -17,7 +17,7 @@
  *
  */
 
-package org.eclipse.kuksa.companion.feature.home.view.sheet
+package org.eclipse.kuksa.companion.feature.sheet.view
 
 import android.app.Application
 import androidx.compose.foundation.layout.PaddingValues

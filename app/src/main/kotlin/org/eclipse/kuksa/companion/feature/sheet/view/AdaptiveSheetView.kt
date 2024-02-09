@@ -17,8 +17,11 @@
  *
  */
 
-package org.eclipse.kuksa.companion.feature.home.view.navigation
+package org.eclipse.kuksa.companion.feature.sheet.view
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
@@ -30,29 +33,43 @@ import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.extension.windowSizeClass
 
 /**
- * AdaptiveNavigationView will add depending on the [WindowWidthSizeClass] of the device a horizontal or vertical
- * NavigationBar. If the device has a [WindowWidthSizeClass] of [WindowWidthSizeClass.Compact] it will use a horizontal
- * NavigationBar, while otherwise a Vertical NavigationRail is used.
+ * AdaptiveSheetView adds a lash, which can be expanded on click to contain additional content. While it will be placed
+ * on the bottom for devices with a [WindowWidthSizeClass] of [WindowWidthSizeClass.Compact] it will be placed on the
+ * "end" for devices with a WindowWidthSizeClass which is higher.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AdaptiveNavigationView(
-    viewModel: NavigationViewModel,
+fun AdaptiveSheetView(
     windowSizeClass: WindowSizeClass,
     modifier: Modifier = Modifier,
-    onPageSelected: (NavigationPage) -> Unit = {},
+    isSheetEnabled: Boolean = true,
+    sheetContent: @Composable () -> Unit = { },
+    content: @Composable (PaddingValues) -> Unit = { },
 ) {
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
-        HorizontalNavigationView(viewModel, modifier, onPageSelected)
+        val initialSheetValue = if (isSheetEnabled) SheetValue.PartiallyExpanded else SheetValue.Hidden
+
+        BottomSheetView(
+            modifier = modifier,
+            initialSheetValue = initialSheetValue,
+            sheetContent = sheetContent,
+            content = content,
+        )
     } else {
-        VerticalNavigationView(viewModel, modifier, onPageSelected)
+        SideSheetView(
+            modifier = modifier,
+            isSideSheetEnabled = isSheetEnabled,
+            sheetContent = sheetContent,
+            content = content,
+        )
     }
 }
 
 @Composable
 @Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = PREVIEW_HEIGHT_DP)
 @Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
-private fun AdaptiveNavigationViewPreview() {
-    val viewModel = NavigationViewModel()
+private fun AdaptiveSheetViewPreview() {
     val windowSizeClass = LocalConfiguration.current.windowSizeClass
-    AdaptiveNavigationView(viewModel, windowSizeClass)
+    AdaptiveSheetView(windowSizeClass) {
+    }
 }

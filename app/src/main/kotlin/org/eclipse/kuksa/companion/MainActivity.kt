@@ -46,7 +46,7 @@ import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.C
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.TRUNK_CLOSED
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.TRUNK_OPEN
 import org.eclipse.kuksa.companion.feature.home.view.AdaptiveAppScreen
-import org.eclipse.kuksa.companion.feature.home.view.navigation.NavigationViewModel
+import org.eclipse.kuksa.companion.feature.navigation.viewmodel.NavigationViewModel
 import org.eclipse.kuksa.companion.feature.light.viewmodel.LightControlViewModel
 import org.eclipse.kuksa.companion.feature.settings.viewModel.SettingsViewModel
 import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureViewModel

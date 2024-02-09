@@ -17,13 +17,14 @@
  *
  */
 
-package org.eclipse.kuksa.companion.feature.home.view.navigation
+package org.eclipse.kuksa.companion.feature.navigation.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import org.eclipse.kuksa.companion.feature.navigation.NavigationPage
 
 class NavigationViewModel : ViewModel() {
     var selectedNavigationIndex by mutableIntStateOf(0)

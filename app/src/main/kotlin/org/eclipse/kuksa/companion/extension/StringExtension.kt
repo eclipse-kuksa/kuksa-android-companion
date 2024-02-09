@@ -19,7 +19,7 @@
 
 package org.eclipse.kuksa.companion.extension
 
-fun String.convertToVerticalString(): String {
+fun String.toVertical(): String {
     if (isEmpty()) return this
 
     val charArray = toCharArray()

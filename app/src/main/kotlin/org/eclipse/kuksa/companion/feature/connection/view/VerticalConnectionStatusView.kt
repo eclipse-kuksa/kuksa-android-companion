@@ -39,7 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import org.eclipse.kuksa.companion.R
-import org.eclipse.kuksa.companion.extension.convertToVerticalString
+import org.eclipse.kuksa.companion.extension.toVertical
 import org.eclipse.kuksa.companion.extension.isVisible
 import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel
 
@@ -69,7 +69,7 @@ fun VerticalConnectionStatusView(
             val (textRef, imageRef) = createRefs()
 
             Text(
-                text = text.convertToVerticalString(),
+                text = text.toVertical(),
                 color = Color.White,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,

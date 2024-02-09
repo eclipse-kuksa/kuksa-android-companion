@@ -17,7 +17,7 @@
  *
  */
 
-package org.eclipse.kuksa.companion.feature.home.view.navigation
+package org.eclipse.kuksa.companion.feature.navigation.view
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -35,6 +35,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.eclipse.kuksa.companion.feature.navigation.NavigationPage
+import org.eclipse.kuksa.companion.feature.navigation.viewmodel.NavigationViewModel
 
 private val IconSize = 30.dp
 private val Padding = 5.dp

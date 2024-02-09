@@ -17,7 +17,7 @@
  *
  */
 
-package org.eclipse.kuksa.companion.feature.home.view.sheet
+package org.eclipse.kuksa.companion.feature.sheet.view
 
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
@@ -97,6 +97,8 @@ private fun SideSheet(
     modifier: Modifier = Modifier,
     sheetContent: @Composable () -> Unit,
 ) {
+    // replace with Compose Side-Sheet once it is released:
+    // https://m3.material.io/components/side-sheets/overview#32f078ba-e45e-40be-a66b-f04814fabf7a
     AndroidView(
         { context ->
             val composeView = ComposeView(context).apply {
