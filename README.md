@@ -34,5 +34,11 @@ Find out more about KUKSA:
 Read our [quickstart guide](docs/QUICKSTART.md) to find out how to use the KUKSA Companion App 
 and setup it's infrastructure. 
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/org.eclipse.kuksa.companion/)
+
+Or download the latest APK from the [Releases Section](https://github.com/eclipse-kuksa/kuksa-android-companion/releases/latest).
+
 Includes digital car model by BMW AG licensed under CC-BY-4.0 
 (https://github.com/bmwcarit/digital-car-3d).
