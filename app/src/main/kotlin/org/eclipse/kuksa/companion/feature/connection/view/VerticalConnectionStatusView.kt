@@ -39,8 +39,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import org.eclipse.kuksa.companion.R
-import org.eclipse.kuksa.companion.extension.toVertical
 import org.eclipse.kuksa.companion.extension.isVisible
+import org.eclipse.kuksa.companion.extension.toVertical
 import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel
 
 @Composable

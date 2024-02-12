@@ -46,8 +46,8 @@ import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.C
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.TRUNK_CLOSED
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.TRUNK_OPEN
 import org.eclipse.kuksa.companion.feature.home.view.AdaptiveAppScreen
-import org.eclipse.kuksa.companion.feature.navigation.viewmodel.NavigationViewModel
 import org.eclipse.kuksa.companion.feature.light.viewmodel.LightControlViewModel
+import org.eclipse.kuksa.companion.feature.navigation.viewmodel.NavigationViewModel
 import org.eclipse.kuksa.companion.feature.settings.viewModel.SettingsViewModel
 import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureViewModel
 import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressureViewModel
@@ -277,6 +277,8 @@ class MainActivity : ComponentActivity() {
 
     private fun unsubscribe() {
         dataBrokerConnection?.apply {
+            disconnectListeners.unregister(disconnectListener)
+
             unsubscribe(VssDoor(), listener = vssDoorListener)
             unsubscribe(VssTrunk(), listener = vssTrunkListener)
             unsubscribe(VssHvac(), listener = vssTemperatureListener)
