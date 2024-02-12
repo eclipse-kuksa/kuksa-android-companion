@@ -17,19 +17,13 @@
  *
  */
 
-package org.eclipse.kuksa.companion
+package org.eclipse.kuksa.companion.extension
 
-import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
-import org.eclipse.kuksa.DataBrokerConnection
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 
-const val PREVIEW_WIDTH_DP = 400
-const val PREVIEW_HEIGHT_DP = 900
+fun Modifier.isVisible(isVisible: Boolean): Modifier {
+    val alpha = if (isVisible) 1F else 0F
 
-const val SHEET_EXPANDED_HEIGHT = 350
-const val SHEET_COLLAPSED_HEIGHT = 50
-
-@HiltAndroidApp
-class CompanionApplication : Application() {
-    var dataBrokerConnection: DataBrokerConnection? = null
+    return then(Modifier.alpha(alpha))
 }

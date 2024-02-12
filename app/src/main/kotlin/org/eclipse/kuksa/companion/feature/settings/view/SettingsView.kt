@@ -41,20 +41,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -82,7 +75,6 @@ import org.eclipse.kuksa.companion.feature.settings.viewModel.SettingsViewModel
 fun SettingsView(
     settingsViewModel: SettingsViewModel,
     modifier: Modifier = Modifier,
-    onNavigateBack: () -> Unit,
 ) {
     val connectionInfoState
         by settingsViewModel.connectionInfoFlow.collectAsStateWithLifecycle(initialValue = ConnectionInfo())
@@ -92,7 +84,6 @@ fun SettingsView(
     }
 
     Scaffold(
-        topBar = { TopBar(onNavigateBack = onNavigateBack) },
         modifier = modifier.fillMaxSize(),
     ) { paddingValues ->
         Surface(
@@ -338,33 +329,11 @@ private fun FileSelectorSetting(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopBar(
-    modifier: Modifier = Modifier,
-    onNavigateBack: () -> Unit,
-) {
-    TopAppBar(
-        title = { Text("Settings") },
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-        ),
-        navigationIcon = {
-            IconButton(onClick = { onNavigateBack() }) {
-                Icon(Icons.Filled.ArrowBack, "Back")
-            }
-        },
-        modifier = modifier,
-    )
-}
-
 @Preview
 @Composable
 private fun SettingsViewPreview() {
     val context = LocalContext.current
     val repository = ConnectionInfoRepository(context)
     val settingsViewModel = SettingsViewModel(repository)
-    SettingsView(settingsViewModel) {
-        // unused in preview
-    }
+    SettingsView(settingsViewModel)
 }

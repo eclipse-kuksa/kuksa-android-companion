@@ -17,19 +17,16 @@
  *
  */
 
-package org.eclipse.kuksa.companion
+package org.eclipse.kuksa.companion.feature.navigation.viewmodel
 
-import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
-import org.eclipse.kuksa.DataBrokerConnection
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import org.eclipse.kuksa.companion.feature.navigation.NavigationPage
 
-const val PREVIEW_WIDTH_DP = 400
-const val PREVIEW_HEIGHT_DP = 900
-
-const val SHEET_EXPANDED_HEIGHT = 350
-const val SHEET_COLLAPSED_HEIGHT = 50
-
-@HiltAndroidApp
-class CompanionApplication : Application() {
-    var dataBrokerConnection: DataBrokerConnection? = null
+class NavigationViewModel : ViewModel() {
+    var selectedNavigationIndex by mutableIntStateOf(0)
+    var selectedNavigationPage by mutableStateOf(NavigationPage.DOORS)
 }

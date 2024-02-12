@@ -17,19 +17,16 @@
  *
  */
 
-package org.eclipse.kuksa.companion
+package org.eclipse.kuksa.companion.extension
 
-import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
-import org.eclipse.kuksa.DataBrokerConnection
+fun String.toVertical(): String {
+    if (isEmpty()) return this
 
-const val PREVIEW_WIDTH_DP = 400
-const val PREVIEW_HEIGHT_DP = 900
+    val charArray = toCharArray()
+    val builder = StringBuilder()
+    charArray.forEach {
+        builder.appendLine(it)
+    }
 
-const val SHEET_EXPANDED_HEIGHT = 350
-const val SHEET_COLLAPSED_HEIGHT = 50
-
-@HiltAndroidApp
-class CompanionApplication : Application() {
-    var dataBrokerConnection: DataBrokerConnection? = null
+    return builder.toString().dropLast(1)
 }

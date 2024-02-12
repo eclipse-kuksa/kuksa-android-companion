@@ -24,9 +24,9 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -45,12 +45,9 @@ import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.C
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.DOOR_ALL_OPEN
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.TRUNK_CLOSED
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel.Companion.TRUNK_OPEN
-import org.eclipse.kuksa.companion.feature.home.view.HOME_SCREEN
-import org.eclipse.kuksa.companion.feature.home.view.RamsesView
-import org.eclipse.kuksa.companion.feature.home.view.homeScreen
+import org.eclipse.kuksa.companion.feature.home.view.AdaptiveAppScreen
 import org.eclipse.kuksa.companion.feature.light.viewmodel.LightControlViewModel
-import org.eclipse.kuksa.companion.feature.settings.navigation.navigateToSettingsScreen
-import org.eclipse.kuksa.companion.feature.settings.navigation.settingsScreen
+import org.eclipse.kuksa.companion.feature.navigation.viewmodel.NavigationViewModel
 import org.eclipse.kuksa.companion.feature.settings.viewModel.SettingsViewModel
 import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureViewModel
 import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressureViewModel
@@ -71,16 +68,21 @@ import javax.inject.Inject
 @AndroidEntryPoint
 @VssDefinition("vss_rel_4.0.yaml")
 class MainActivity : ComponentActivity() {
+    private val companionApplication
+        get() = applicationContext as CompanionApplication
+
     @Inject
     lateinit var connectionInfoRepository: ConnectionInfoRepository
 
     private lateinit var doorVehicleScene: DoorVehicleScene
 
     private val disconnectListener = DisconnectListener {
+        dataBrokerConnection = null
         connectionStatusViewModel.connectionState = ConnectionState.DISCONNECTED
     }
 
     private val connectionStatusViewModel: ConnectionStatusViewModel by viewModels()
+    private val navigationViewModel: NavigationViewModel by viewModels()
 
     private val doorControlViewModel: DoorControlViewModel by viewModels()
     private val temperatureViewModel: TemperatureViewModel by viewModels()
@@ -89,7 +91,13 @@ class MainActivity : ComponentActivity() {
 
     private val settingsViewModel: SettingsViewModel by viewModels()
 
-    private var dataBrokerConnection: DataBrokerConnection? = null
+    // storing the connection in the Application keeps the Connection alive on orientation changes
+    private var dataBrokerConnection: DataBrokerConnection?
+        get() = companionApplication.dataBrokerConnection
+        set(value) {
+            companionApplication.dataBrokerConnection = value
+        }
+
     private val dataBrokerConnectorFactory = DataBrokerConnectorFactory()
 
     private val doorVehicleSurface = DoorVehicleSurface()
@@ -142,32 +150,26 @@ class MainActivity : ComponentActivity() {
     }
 
     // region: Lifecycle
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         doorVehicleScene = doorVehicleSurface.loadScene(doorControlViewModel)
 
         setContent {
+            val windowSizeClass = calculateWindowSizeClass(activity = this@MainActivity)
             KuksaCompanionTheme {
-                val navController = rememberNavController()
-                RamsesView(callback = doorVehicleSurface)
-                NavHost(navController, startDestination = HOME_SCREEN) {
-                    homeScreen(
-                        connectionStatusViewModel = connectionStatusViewModel,
-                        doorControlViewModel = doorControlViewModel,
-                        temperatureViewModel = temperatureViewModel,
-                        lightControlViewModel = lightControlViewModel,
-                        wheelPressureViewModel = wheelPressureViewModel,
-                        onNavigateToSettingsScreen = { navController.navigateToSettingsScreen() },
-                    )
-
-                    settingsScreen(
-                        settingsViewModel = settingsViewModel,
-                        onNavigateBack = {
-                            navController.navigateUp()
-                        },
-                    )
-                }
+                AdaptiveAppScreen(
+                    callback = doorVehicleSurface,
+                    connectionStatusViewModel = connectionStatusViewModel,
+                    navigationViewModel = navigationViewModel,
+                    doorControlViewModel = doorControlViewModel,
+                    temperatureViewModel = temperatureViewModel,
+                    lightControlViewModel = lightControlViewModel,
+                    wheelPressureViewModel = wheelPressureViewModel,
+                    settingsViewModel = settingsViewModel,
+                    windowSizeClass = windowSizeClass,
+                )
             }
         }
     }
@@ -263,6 +265,8 @@ class MainActivity : ComponentActivity() {
 
     private fun subscribe() {
         dataBrokerConnection?.apply {
+            disconnectListeners.register(disconnectListener)
+
             subscribe(VssDoor(), listener = vssDoorListener)
             subscribe(VssTrunk(), listener = vssTrunkListener)
             subscribe(VssHvac(), listener = vssTemperatureListener)
@@ -273,6 +277,8 @@ class MainActivity : ComponentActivity() {
 
     private fun unsubscribe() {
         dataBrokerConnection?.apply {
+            disconnectListeners.unregister(disconnectListener)
+
             unsubscribe(VssDoor(), listener = vssDoorListener)
             unsubscribe(VssTrunk(), listener = vssTrunkListener)
             unsubscribe(VssHvac(), listener = vssTemperatureListener)
@@ -297,6 +303,12 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun connectToDataBroker(onConnected: () -> Unit = {}) {
+        // dataBrokerConnection is already established e.g. after an orientation change
+        if (dataBrokerConnection != null) {
+            onConnected()
+            return
+        }
+
         lifecycleScope.launch {
             val connectionInfo = connectionInfoRepository.connectionInfoFlow.first()
 
@@ -306,9 +318,7 @@ class MainActivity : ComponentActivity() {
                 connectionStatusViewModel.connectionState = ConnectionState.CONNECTING
                 val context = this@MainActivity
                 val dataBrokerConnector = dataBrokerConnectorFactory.create(context, connectionInfo)
-                dataBrokerConnection = dataBrokerConnector.connect().apply {
-                    disconnectListeners.register(disconnectListener)
-                }
+                dataBrokerConnection = dataBrokerConnector.connect()
                 connectionStatusViewModel.connectionState = ConnectionState.CONNECTED
                 onConnected()
             } catch (e: DataBrokerException) {

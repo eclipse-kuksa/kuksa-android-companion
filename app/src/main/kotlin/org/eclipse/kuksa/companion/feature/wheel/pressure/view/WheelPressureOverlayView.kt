@@ -19,95 +19,122 @@
 
 package org.eclipse.kuksa.companion.feature.wheel.pressure.view
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
+import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
+import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressureViewModel
+import org.eclipse.kuksa.companion.ramses.DriverBackDoorAnchor
+import org.eclipse.kuksa.companion.ramses.DriverFrontDoorAnchor
+import org.eclipse.kuksa.companion.ramses.PassengerBackDoorAnchor
+import org.eclipse.kuksa.companion.ramses.PassengerFrontDoorAnchor
 
 @Composable
-fun WheelPressureControlView(
+fun WheelPressureOverlayView(
     viewModel: WheelPressureViewModel,
+    windowSizeClass: WindowSizeClass,
     modifier: Modifier = Modifier,
 ) {
-    WheelPressureOverlay(
+    WheelPressureOverlayView(
         viewModel.pressureLeftFront,
         viewModel.pressureRightFront,
         viewModel.pressureLeftBack,
         viewModel.pressureRightBack,
+        windowSizeClass,
         modifier,
     )
 }
 
 @Composable
-private fun WheelPressureOverlay(
+private fun WheelPressureOverlayView(
     pressureLeftFront: Int,
     pressureRightFront: Int,
     pressureLeftBack: Int,
     pressureRightBack: Int,
+    windowSizeClass: WindowSizeClass,
     modifier: Modifier = Modifier,
 ) {
     ConstraintLayout(
         modifier = modifier
-            .fillMaxSize()
-            .padding(start = 35.dp, end = 35.dp, top = 225.dp, bottom = 90.dp),
+            .fillMaxSize(),
     ) {
         val (driverSideRef, passengerSideRef, driverSideBackRef, passengerSideBackRef) = createRefs()
-        val doorsPaddingBottom = 50.dp
+
+        val anchorPoint = createRef()
+        Spacer(
+            Modifier
+                .size(2.dp)
+                .constrainAs(anchorPoint) {
+                    centerHorizontallyTo(parent)
+                    centerVerticallyTo(parent)
+                },
+        )
+
+        val driverFrontDoorAnchor = DriverFrontDoorAnchor(windowSizeClass, anchorPoint)
+        val passengerFrontDoorAnchor = PassengerFrontDoorAnchor(windowSizeClass, anchorPoint)
+        val driverBackDoorAnchor = DriverBackDoorAnchor(windowSizeClass, anchorPoint)
+        val passengerBackDoorAnchor = PassengerBackDoorAnchor(windowSizeClass, anchorPoint)
 
         val unit = "kPa"
         Text(
             text = "$pressureLeftFront $unit",
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
-            color = Color.Black,
+            color = Color.White,
             modifier = Modifier
                 .constrainAs(driverSideRef) {
-                    start.linkTo(parent.start)
+                    driverFrontDoorAnchor.align(this)
                 },
         )
         Text(
             text = "$pressureRightFront $unit",
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
-            color = Color.Black,
+            color = Color.White,
             modifier = Modifier
                 .constrainAs(passengerSideRef) {
-                    end.linkTo(parent.end)
+                    passengerFrontDoorAnchor.align(this)
                 },
         )
         Text(
             text = "$pressureLeftBack $unit",
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
-            color = Color.Black,
+            color = Color.White,
             modifier = Modifier
                 .constrainAs(driverSideBackRef) {
-                    start.linkTo(parent.start)
-                    bottom.linkTo(parent.bottom, doorsPaddingBottom)
+                    driverBackDoorAnchor.align(this)
                 },
         )
         Text(
             text = "$pressureRightBack $unit",
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
-            color = Color.Black,
+            color = Color.White,
             modifier = Modifier
                 .constrainAs(passengerSideBackRef) {
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom, doorsPaddingBottom)
+                    passengerBackDoorAnchor.align(this)
                 },
         )
     }
 }
 
-@Preview
+@Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = PREVIEW_HEIGHT_DP, showBackground = true)
+@Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
 @Composable
 private fun WheelPressureControlViewPreview() {
+    val viewModel = WheelPressureViewModel()
+    val windowSizeClass = LocalConfiguration.current.windowSizeClass
     Surface {
-        WheelPressureControlView(WheelPressureViewModel())
+        WheelPressureOverlayView(viewModel, windowSizeClass)
     }
 }

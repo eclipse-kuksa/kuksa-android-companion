@@ -17,19 +17,19 @@
  *
  */
 
-package org.eclipse.kuksa.companion
+package org.eclipse.kuksa.companion.extension
 
-import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
-import org.eclipse.kuksa.DataBrokerConnection
+import android.content.res.Configuration
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 
-const val PREVIEW_WIDTH_DP = 400
-const val PREVIEW_HEIGHT_DP = 900
-
-const val SHEET_EXPANDED_HEIGHT = 350
-const val SHEET_COLLAPSED_HEIGHT = 50
-
-@HiltAndroidApp
-class CompanionApplication : Application() {
-    var dataBrokerConnection: DataBrokerConnection? = null
-}
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+val Configuration.windowSizeClass: WindowSizeClass
+    get() {
+        val screenWidth = screenWidthDp
+        val screenHeight = screenHeightDp
+        val size = DpSize(screenWidth.dp, screenHeight.dp)
+        return WindowSizeClass.calculateFromSize(size)
+    }
