@@ -57,6 +57,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -70,6 +71,7 @@ fun EditableTextSetting(
     label: String,
     value: String,
     modifier: Modifier = Modifier,
+    keyboardType: KeyboardType = KeyboardType.Text,
     onValueChanged: (String) -> Unit,
 ) {
     var isDialogOpen: Boolean by remember { mutableStateOf(false) }
@@ -102,6 +104,7 @@ fun EditableTextSetting(
         EditTextDialog(
             label = label,
             initialValue = value,
+            keyboardType = keyboardType,
             onDismissRequest = {
                 isDialogOpen = false
             },
@@ -116,6 +119,7 @@ fun EditTextDialog(
     label: String,
     initialValue: String,
     modifier: Modifier = Modifier,
+    keyboardType: KeyboardType = KeyboardType.Text,
     onDismissRequest: () -> Unit = {},
     onClickCancel: () -> Unit = {},
     onClickOk: (String) -> Unit = {},
@@ -172,6 +176,7 @@ fun EditTextDialog(
                     ),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done,
+                        keyboardType = keyboardType,
                     ),
                     keyboardActions = KeyboardActions(
                         onDone = {

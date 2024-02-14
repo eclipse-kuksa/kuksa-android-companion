@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -68,16 +69,17 @@ fun SettingsView(
             ) {
                 CategorySetting(label = "Connection")
                 EditableTextSetting(
-                    "Host",
-                    connectionInfo.host,
+                    label = "Host",
+                    value = connectionInfo.host,
                 ) { newValue ->
                     connectionInfo = connectionInfoState.copy(host = newValue)
                     settingsViewModel.updateConnectionInfo(connectionInfo)
                 }
 
                 EditableTextSetting(
-                    "Port",
-                    connectionInfo.port.toString(),
+                    label = "Port",
+                    value = connectionInfo.port.toString(),
+                    keyboardType = KeyboardType.Number,
                 ) { newValue ->
                     try {
                         val port = newValue.toInt()
@@ -89,8 +91,8 @@ fun SettingsView(
                 }
 
                 SwitchSetting(
-                    "Enable TLS",
-                    connectionInfo.isTlsEnabled,
+                    label = "Enable TLS",
+                    enabled = connectionInfo.isTlsEnabled,
                 ) { newValue ->
                     connectionInfo = connectionInfoState.copy(isTlsEnabled = newValue)
                     settingsViewModel.updateConnectionInfo(connectionInfo)
