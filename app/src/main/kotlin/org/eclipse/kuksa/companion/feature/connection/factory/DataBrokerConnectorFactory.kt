@@ -35,10 +35,14 @@ class DataBrokerConnectorFactory {
         connectionInfo: ConnectionInfo,
     ): DataBrokerConnector {
         val isTlsEnabled = connectionInfo.isTlsEnabled
-        return if (isTlsEnabled) {
-            createSecureConnector(context, connectionInfo)
-        } else {
-            createInsecureConnector(connectionInfo)
+        try {
+            return if (isTlsEnabled) {
+                createSecureConnector(context, connectionInfo)
+            } else {
+                createInsecureConnector(connectionInfo)
+            }
+        } catch (e: IllegalArgumentException) {
+            throw DataBrokerException("Can't establish connection to Databroker", e)
         }
     }
 
