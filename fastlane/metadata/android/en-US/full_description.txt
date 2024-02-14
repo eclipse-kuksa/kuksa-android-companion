@@ -1,5 +1,5 @@
-The KUKSA Companion App demonstrates the capabilities of the Android SDK to connect to an
-Android Automotive vehicle with an integrated KUKSA Databroker, read data and interact with
+The KUKSA Companion App demonstrates the capabilities of the Android SDK to connect to a 
+vehicle with an integrated KUKSA Databroker, read data and interact with
 the actuators of the vehicle. The KUKSA Framework is based on the COVESA Vehicle Signal
 Specification (VSS).
 
