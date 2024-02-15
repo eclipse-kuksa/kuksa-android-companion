@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.3](https://github.com/eclipse-kuksa/kuksa-android-companion/compare/release/v0.1.2...release/v0.1.3) (2024-02-15)
+
+
+### Features
+
+* Add Icon for F-Droid to Fastlane ([6b8f443](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/6b8f443f20d9e0dd8a336b686a0c110d8889b87f)), closes [#51](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/51)
+* **Build:** Remove F-Droid BuildType ([686113b](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/686113b376edbf2e58599ea053a87c7224b34e21)), closes [#44](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/44)
+* Improve Design of Settings Screen ([3553d55](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/3553d554436e6771350f3922db12f3a1c4f1f8a4)), closes [#56](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/56)
+* Optimize Views for Landscape ([86538dc](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/86538dcb2e9e3de01c3a75e05d41819ab9cfb51d)), closes [#20](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/20)
+
+
+### Bug Fixes
+
+* Fix Crash when using an invalid Databroker IP ([fc790f6](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/fc790f62f56eea1ed95f6a7bc31fb8bbb21a5c86))
+* Remove misleading mention of Android Automotive ([bdfdfc4](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/bdfdfc44ae41a62ba0f1e6c0bdb7ed1d60c4c310))
+
+
+### Documentation
+
+* Add Quickstart Guide ([b3d3df7](https://github.com/eclipse-kuksa/kuksa-android-companion/commit/b3d3df75a46530962add1bf8069bade247087699)), closes [#18](https://github.com/eclipse-kuksa/kuksa-android-companion/issues/18)
+
 ## 0.1.2 (2024-01-24)
 
 
