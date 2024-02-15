@@ -135,7 +135,6 @@ fun AdaptiveAppScreen(
                 val overlayModifier = Modifier
                     .zIndex(ZINDEX_OVERLAY)
                     .fillMaxSize()
-                    .padding(connectionStatusViewPaddingValues)
 
                 when (selectedPage) {
                     NavigationPage.DOORS -> DoorOverlayView(
@@ -164,7 +163,8 @@ fun AdaptiveAppScreen(
 
                     NavigationPage.SETTINGS -> SettingsView(
                         settingsViewModel,
-                        overlayModifier,
+                        overlayModifier
+                            .padding(connectionStatusViewPaddingValues),
                     )
                 }
             }
