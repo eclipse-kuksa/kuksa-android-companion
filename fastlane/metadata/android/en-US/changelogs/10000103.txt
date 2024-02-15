@@ -1,0 +1,10 @@
+### Features
+
+* Add Icon for F-Droid to Fastlane
+* Improve Design of Settings Screen
+* Optimize Views for Landscape
+
+
+### Bug Fixes
+
+* Fix Crash when using an invalid Databroker IP
