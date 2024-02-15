@@ -19,7 +19,6 @@
 
 package org.eclipse.kuksa.companion.feature.sheet.view
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
@@ -44,7 +43,7 @@ fun AdaptiveSheetView(
     modifier: Modifier = Modifier,
     isSheetEnabled: Boolean = true,
     sheetContent: @Composable () -> Unit = { },
-    content: @Composable (PaddingValues) -> Unit = { },
+    content: @Composable () -> Unit = { },
 ) {
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
         val initialSheetValue = if (isSheetEnabled) SheetValue.PartiallyExpanded else SheetValue.Hidden

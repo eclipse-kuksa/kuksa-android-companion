@@ -20,16 +20,21 @@
 package org.eclipse.kuksa.companion.feature.connection.view
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel
+import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel.ConnectionState
+
+val StatusBarHeight = 50.dp
 
 @Composable
 fun AdaptiveConnectionStatusView(
@@ -44,12 +49,29 @@ fun AdaptiveConnectionStatusView(
     }
 }
 
+class ConnectionStatusView private constructor() {
+    companion object {
+        fun calculatePaddingValues(
+            viewModel: ConnectionStatusViewModel,
+            windowSizeClass: WindowSizeClass,
+        ): PaddingValues {
+            if (viewModel.connectionState == ConnectionState.CONNECTED) return PaddingValues(0.dp)
+
+            return if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
+                PaddingValues(top = StatusBarHeight)
+            } else {
+                PaddingValues(start = StatusBarHeight)
+            }
+        }
+    }
+}
+
 @Preview(widthDp = PREVIEW_WIDTH_DP, heightDp = PREVIEW_HEIGHT_DP)
 @Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
 @Composable
 private fun AdaptiveDisconnectedPreview() {
     val viewModel = ConnectionStatusViewModel()
-    viewModel.connectionState = ConnectionStatusViewModel.ConnectionState.DISCONNECTED
+    viewModel.connectionState = ConnectionState.DISCONNECTED
 
     val windowSizeClass = LocalConfiguration.current.windowSizeClass
     Box {
@@ -62,7 +84,7 @@ private fun AdaptiveDisconnectedPreview() {
 @Composable
 private fun AdaptiveConnectingPreview() {
     val viewModel = ConnectionStatusViewModel()
-    viewModel.connectionState = ConnectionStatusViewModel.ConnectionState.CONNECTING
+    viewModel.connectionState = ConnectionState.CONNECTING
 
     val windowSizeClass = LocalConfiguration.current.windowSizeClass
     Box {
@@ -75,7 +97,7 @@ private fun AdaptiveConnectingPreview() {
 @Composable
 private fun AdaptiveConnectedStatusPreview() {
     val viewModel = ConnectionStatusViewModel()
-    viewModel.connectionState = ConnectionStatusViewModel.ConnectionState.CONNECTED
+    viewModel.connectionState = ConnectionState.CONNECTED
 
     val windowSizeClass = LocalConfiguration.current.windowSizeClass
     Box {

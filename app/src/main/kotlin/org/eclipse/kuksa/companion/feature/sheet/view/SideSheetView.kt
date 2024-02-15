@@ -25,7 +25,6 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -56,13 +55,12 @@ fun SideSheetView(
     modifier: Modifier = Modifier,
     isSideSheetEnabled: Boolean = true,
     sheetContent: @Composable () -> Unit = {},
-    content: @Composable (PaddingValues) -> Unit,
+    content: @Composable () -> Unit,
 ) {
     val sideSheetBehavior: SideSheetBehavior<FrameLayout> = SideSheetBehavior<FrameLayout>()
     ConstraintLayout(modifier = modifier) {
         Box(Modifier.fillMaxSize()) {
-            val paddingValues = PaddingValues(0.dp)
-            content(paddingValues)
+            content()
         }
 
         if (!isSideSheetEnabled) {

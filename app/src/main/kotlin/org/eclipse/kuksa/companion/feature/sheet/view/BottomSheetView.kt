@@ -20,7 +20,6 @@
 package org.eclipse.kuksa.companion.feature.sheet.view
 
 import android.app.Application
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomSheetDefaults
@@ -46,7 +45,7 @@ fun BottomSheetView(
     modifier: Modifier = Modifier,
     initialSheetValue: SheetValue = SheetValue.PartiallyExpanded,
     sheetContent: @Composable () -> Unit = {},
-    content: @Composable (PaddingValues) -> Unit,
+    content: @Composable () -> Unit,
 ) {
     val bottomSheetScaffoldState = BottomSheetScaffoldState(
         bottomSheetState = SheetState(
@@ -66,7 +65,7 @@ fun BottomSheetView(
         sheetPeekHeight = sheetPeekHeight,
         modifier = modifier.fillMaxSize(),
     ) {
-        content(it)
+        content()
     }
 }
 
@@ -83,7 +82,7 @@ private fun ExpandedPreview() {
         DoorOverlayView(
             viewModel = viewModel,
             windowSizeClass = windowSizeClass,
-            modifier = Modifier.padding(it),
+            modifier = Modifier.padding(),
         )
     }
 }
@@ -101,7 +100,7 @@ private fun CollapsedPreview() {
         DoorOverlayView(
             viewModel = viewModel,
             windowSizeClass = windowSizeClass,
-            modifier = Modifier.padding(it),
+            modifier = Modifier.padding(),
         )
     }
 }

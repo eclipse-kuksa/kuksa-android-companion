@@ -25,6 +25,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,10 +39,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import org.eclipse.kuksa.companion.R
+import org.eclipse.kuksa.companion.extension.isVisible
 import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel
 import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel.ConnectionState
-
-val StatusBarHeight = 30.dp
 
 @Composable
 fun HorizontalConnectionStatusView(
@@ -49,7 +49,7 @@ fun HorizontalConnectionStatusView(
     modifier: Modifier = Modifier,
 ) {
     val connectionState = viewModel.connectionState
-    val connectionStateLabel = connectionState.toString().lowercase()
+    val connectionStateLabel = connectionState.toString()
     val backgroundColor = viewModel.backgroundColor
 
     Row(
@@ -83,21 +83,21 @@ fun HorizontalConnectionStatusView(
                     },
             )
 
-            if (connectionState == ConnectionState.DISCONNECTED) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_refresh_24),
-                    contentDescription = "Reconnect",
-                    colorFilter = ColorFilter.tint(Color.White),
-                    alignment = Alignment.CenterEnd,
-                    modifier = Modifier
-                        .constrainAs(imageRef) {
-                            top.linkTo(parent.top)
-                            bottom.linkTo(parent.bottom)
+            Image(
+                painter = painterResource(id = R.drawable.baseline_refresh_24),
+                contentDescription = "Reconnect",
+                colorFilter = ColorFilter.tint(Color.White),
+                alignment = Alignment.CenterEnd,
+                modifier = Modifier
+                    .constrainAs(imageRef) {
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
 
-                            end.linkTo(parent.end)
-                        },
-                )
-            }
+                        end.linkTo(parent.end)
+                    }
+                    .padding(10.dp)
+                    .isVisible(connectionState == ConnectionState.DISCONNECTED),
+            )
         }
     }
 }

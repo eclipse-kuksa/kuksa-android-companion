@@ -21,9 +21,9 @@ package org.eclipse.kuksa.companion.feature.home.view
 
 import android.app.Application
 import android.view.SurfaceHolder
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
@@ -41,7 +41,9 @@ import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.connection.repository.ConnectionInfoRepository
 import org.eclipse.kuksa.companion.feature.connection.view.AdaptiveConnectionStatusView
+import org.eclipse.kuksa.companion.feature.connection.view.ConnectionStatusView
 import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel
+import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel.ConnectionState
 import org.eclipse.kuksa.companion.feature.door.view.DoorControlView
 import org.eclipse.kuksa.companion.feature.door.view.DoorOverlayView
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
@@ -60,15 +62,14 @@ import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureView
 import org.eclipse.kuksa.companion.feature.wheel.pressure.view.WheelPressureOverlayView
 import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressureViewModel
 
-private const val ZINDEX_RAMSES_VIEW = 1F
-private const val ZINDEX_OVERLAY = 2F
+private const val ZINDEX_CONTENT = 0F
+private const val ZINDEX_OVERLAY = 1F
 
 /**
  * Adds an adaptive AppScreen depending on the [WindowWidthSizeClass]. When the device has a [WindowWidthSizeClass] of
  * [WindowWidthSizeClass.Compact] all elements are placed on top of each other, while for devices with a higher class
  * the elements will be placed next to each other.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AdaptiveAppScreen(
     callback: SurfaceHolder.Callback,
@@ -86,67 +87,86 @@ fun AdaptiveAppScreen(
         mutableStateOf(navigationViewModel.selectedNavigationPage)
     }
 
-    AdaptiveColumnRow(windowSizeClass = windowSizeClass, modifier = modifier.fillMaxSize()) {
-        AdaptiveConnectionStatusView(connectionStatusViewModel, windowSizeClass)
-        AdaptiveNavigationView(navigationViewModel, windowSizeClass) { page ->
-            selectedPage = page
-        }
-        AdaptiveSheetView(
-            windowSizeClass = windowSizeClass,
-            modifier = Modifier.fillMaxSize(),
-            isSheetEnabled = selectedPage.isSheetEnabled,
-            sheetContent = {
-                when (selectedPage) {
-                    NavigationPage.DOORS -> DoorControlView(doorControlViewModel)
-                    NavigationPage.TEMPERATURE -> TemperatureControlView(temperatureViewModel)
-                    NavigationPage.LIGHT -> LightControlView(lightControlViewModel)
-                    NavigationPage.WHEELS,
-                    NavigationPage.SETTINGS,
-                    -> { }
-                }
-            },
-        ) {
-            RamsesView(
-                callback = callback,
-                modifier = Modifier
-                    .zIndex(ZINDEX_RAMSES_VIEW)
-                    .fillMaxSize(),
+    Box {
+        val navigationViewPaddingValues = AdaptiveNavigationView.calculatePaddingValues(windowSizeClass)
+        if (connectionStatusViewModel.connectionState != ConnectionState.CONNECTED) {
+            AdaptiveConnectionStatusView(
+                connectionStatusViewModel,
+                windowSizeClass,
+                Modifier
+                    .zIndex(ZINDEX_OVERLAY)
+                    .padding(navigationViewPaddingValues),
             )
+        }
 
-            val overlayModifier = Modifier
-                .zIndex(ZINDEX_OVERLAY)
-                .fillMaxSize()
-                .padding(it)
-
-            when (selectedPage) {
-                NavigationPage.DOORS -> DoorOverlayView(
-                    doorControlViewModel,
-                    windowSizeClass,
-                    overlayModifier,
+        val connectionStatusViewPaddingValues =
+            ConnectionStatusView.calculatePaddingValues(connectionStatusViewModel, windowSizeClass)
+        AdaptiveColumnRow(
+            windowSizeClass = windowSizeClass,
+            modifier = modifier.fillMaxSize(),
+        ) {
+            AdaptiveNavigationView(navigationViewModel, windowSizeClass) { page ->
+                selectedPage = page
+            }
+            AdaptiveSheetView(
+                windowSizeClass = windowSizeClass,
+                modifier = Modifier
+                    .fillMaxSize(),
+                isSheetEnabled = selectedPage.isSheetEnabled,
+                sheetContent = {
+                    when (selectedPage) {
+                        NavigationPage.DOORS -> DoorControlView(doorControlViewModel)
+                        NavigationPage.TEMPERATURE -> TemperatureControlView(temperatureViewModel)
+                        NavigationPage.LIGHT -> LightControlView(lightControlViewModel)
+                        NavigationPage.WHEELS,
+                        NavigationPage.SETTINGS,
+                        -> {
+                        }
+                    }
+                },
+            ) {
+                RamsesView(
+                    callback = callback,
+                    modifier = Modifier
+                        .zIndex(ZINDEX_CONTENT)
+                        .fillMaxSize(),
                 )
 
-                NavigationPage.TEMPERATURE -> TemperatureOverlayView(
-                    temperatureViewModel,
-                    windowSizeClass,
-                    overlayModifier,
-                )
+                val overlayModifier = Modifier
+                    .zIndex(ZINDEX_OVERLAY)
+                    .fillMaxSize()
+                    .padding(connectionStatusViewPaddingValues)
 
-                NavigationPage.LIGHT -> LightOverlayView(
-                    lightControlViewModel,
-                    windowSizeClass,
-                    overlayModifier,
-                )
+                when (selectedPage) {
+                    NavigationPage.DOORS -> DoorOverlayView(
+                        doorControlViewModel,
+                        windowSizeClass,
+                        overlayModifier,
+                    )
 
-                NavigationPage.WHEELS -> WheelPressureOverlayView(
-                    wheelPressureViewModel,
-                    windowSizeClass,
-                    overlayModifier,
-                )
+                    NavigationPage.TEMPERATURE -> TemperatureOverlayView(
+                        temperatureViewModel,
+                        windowSizeClass,
+                        overlayModifier,
+                    )
 
-                NavigationPage.SETTINGS -> SettingsView(
-                    settingsViewModel,
-                    overlayModifier,
-                )
+                    NavigationPage.LIGHT -> LightOverlayView(
+                        lightControlViewModel,
+                        windowSizeClass,
+                        overlayModifier,
+                    )
+
+                    NavigationPage.WHEELS -> WheelPressureOverlayView(
+                        wheelPressureViewModel,
+                        windowSizeClass,
+                        overlayModifier,
+                    )
+
+                    NavigationPage.SETTINGS -> SettingsView(
+                        settingsViewModel,
+                        overlayModifier,
+                    )
+                }
             }
         }
     }
@@ -182,7 +202,10 @@ private fun AdaptiveAppScreenPreview() {
     AdaptiveAppScreen(
         callback,
         ConnectionStatusViewModel(),
-        NavigationViewModel(),
+        NavigationViewModel().apply {
+            selectedNavigationIndex = NavigationPage.SETTINGS.ordinal
+            selectedNavigationPage = NavigationPage.SETTINGS
+        },
         DoorControlViewModel(application),
         TemperatureViewModel(),
         LightControlViewModel(),

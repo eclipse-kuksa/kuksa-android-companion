@@ -19,12 +19,14 @@
 
 package org.eclipse.kuksa.companion.feature.navigation.view
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
 import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.extension.windowSizeClass
@@ -47,6 +49,18 @@ fun AdaptiveNavigationView(
         HorizontalNavigationView(viewModel, modifier, onPageSelected)
     } else {
         VerticalNavigationView(viewModel, modifier, onPageSelected)
+    }
+}
+
+class AdaptiveNavigationView private constructor() {
+    companion object {
+        fun calculatePaddingValues(windowSizeClass: WindowSizeClass): PaddingValues {
+            return if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
+                PaddingValues(top = 80.dp) // NavigationBarTokens#ContainerHeight + padding
+            } else {
+                PaddingValues(start = 92.dp) // NavigationRailTokens#ContainerWidth + padding
+            }
+        }
     }
 }
 
