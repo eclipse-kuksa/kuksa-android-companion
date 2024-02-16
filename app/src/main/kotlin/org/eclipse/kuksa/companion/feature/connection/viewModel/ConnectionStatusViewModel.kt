@@ -19,13 +19,10 @@
 
 package org.eclipse.kuksa.companion.feature.connection.viewModel
 
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import org.eclipse.kuksa.companion.extension.DarkGreen
 
 class ConnectionStatusViewModel : ViewModel() {
     enum class ConnectionState {
@@ -37,14 +34,4 @@ class ConnectionStatusViewModel : ViewModel() {
     var onClickReconnect: () -> Unit = { }
 
     var connectionState by mutableStateOf(ConnectionState.DISCONNECTED)
-
-    val backgroundColor by derivedStateOf {
-        when (connectionState) {
-            ConnectionState.CONNECTED -> Color.DarkGreen
-
-            ConnectionState.CONNECTING,
-            ConnectionState.DISCONNECTED,
-            -> Color.Red
-        }
-    }
 }
