@@ -32,8 +32,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
-import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
+import org.eclipse.kuksa.companion.application.PREVIEW_HEIGHT_DP
+import org.eclipse.kuksa.companion.application.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureViewModel
 import org.eclipse.kuksa.companion.ramses.DriverBackDoorAnchor

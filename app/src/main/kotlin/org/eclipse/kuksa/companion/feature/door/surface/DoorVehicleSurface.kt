@@ -48,6 +48,8 @@ class DoorVehicleSurface : AndroidRamsesSurface<DoorVehicleScene, DoorControlVie
             pitchValue = pitchValue.toFloat(),
             camDistanceValue = cameraDistanceValue.toFloat(),
         )
+        doorVehicleSceneThread.updateDoors(viewModel.door)
+        doorVehicleSceneThread.updateTrunk(viewModel.trunk)
 
         return doorVehicleSceneThread
     }

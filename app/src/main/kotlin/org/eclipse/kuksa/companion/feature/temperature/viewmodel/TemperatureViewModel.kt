@@ -19,6 +19,7 @@
 
 package org.eclipse.kuksa.companion.feature.temperature.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -26,13 +27,27 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import org.eclipse.kuksa.VssSpecificationListener
 import org.eclipse.kuksa.companion.extension.LightBlue
+import org.eclipse.kuksa.companion.extension.TAG
+import org.eclipse.kuksa.companion.listener.FilteredVssSpecificationListener
 import org.eclipse.kuksa.vss.VssHvac
 
 private const val MIN_TEMP_OK = 17F
 private const val MIN_TEMP_WARM = 25F
 
 class TemperatureViewModel : ViewModel() {
+    var vssTemperatureListener: VssSpecificationListener<VssHvac> =
+        object : FilteredVssSpecificationListener<VssHvac>() {
+            override fun onSpecificationChanged(vssSpecification: VssHvac) {
+                hvac = vssSpecification
+            }
+
+            override fun onPostFilterError(throwable: Throwable) {
+                Log.e(TAG, "Failed to subscribe to specification: $throwable")
+            }
+        }
+
     val minTemperature = 10
     val maxTemperature = 35
 

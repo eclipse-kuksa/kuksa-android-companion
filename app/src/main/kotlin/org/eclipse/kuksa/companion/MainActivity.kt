@@ -33,6 +33,7 @@ import kotlinx.coroutines.launch
 import org.eclipse.kuksa.DataBrokerConnection
 import org.eclipse.kuksa.DataBrokerException
 import org.eclipse.kuksa.DisconnectListener
+import org.eclipse.kuksa.companion.application.ApplicationViewModel
 import org.eclipse.kuksa.companion.extension.TAG
 import org.eclipse.kuksa.companion.feature.connection.factory.DataBrokerConnectorFactory
 import org.eclipse.kuksa.companion.feature.connection.repository.ConnectionInfoRepository
@@ -51,7 +52,6 @@ import org.eclipse.kuksa.companion.feature.navigation.viewmodel.NavigationViewMo
 import org.eclipse.kuksa.companion.feature.settings.viewModel.SettingsViewModel
 import org.eclipse.kuksa.companion.feature.temperature.viewmodel.TemperatureViewModel
 import org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel.WheelPressureViewModel
-import org.eclipse.kuksa.companion.listener.FilteredVssSpecificationListener
 import org.eclipse.kuksa.companion.ui.theme.KuksaCompanionTheme
 import org.eclipse.kuksa.extension.vssProperty.not
 import org.eclipse.kuksa.proto.v1.Types.Field
@@ -68,86 +68,29 @@ import javax.inject.Inject
 @AndroidEntryPoint
 @VssDefinition("vss_rel_4.0.yaml")
 class MainActivity : ComponentActivity() {
-    private val companionApplication
-        get() = applicationContext as CompanionApplication
-
     @Inject
     lateinit var connectionInfoRepository: ConnectionInfoRepository
 
     private lateinit var doorVehicleScene: DoorVehicleScene
+    private val doorVehicleSurface = DoorVehicleSurface()
 
-    private val disconnectListener = DisconnectListener {
-        dataBrokerConnection = null
-        connectionStatusViewModel.connectionState = ConnectionState.DISCONNECTED
-    }
-
+    private val applicationViewModel: ApplicationViewModel by viewModels()
     private val connectionStatusViewModel: ConnectionStatusViewModel by viewModels()
     private val navigationViewModel: NavigationViewModel by viewModels()
-
     private val doorControlViewModel: DoorControlViewModel by viewModels()
     private val temperatureViewModel: TemperatureViewModel by viewModels()
     private val lightControlViewModel: LightControlViewModel by viewModels()
     private val wheelPressureViewModel: WheelPressureViewModel by viewModels()
-
     private val settingsViewModel: SettingsViewModel by viewModels()
-
-    // storing the connection in the Application keeps the Connection alive on orientation changes
-    private var dataBrokerConnection: DataBrokerConnection?
-        get() = companionApplication.dataBrokerConnection
-        set(value) {
-            companionApplication.dataBrokerConnection = value
-        }
 
     private val dataBrokerConnectorFactory = DataBrokerConnectorFactory()
 
-    private val doorVehicleSurface = DoorVehicleSurface()
-
-    private val vssDoorListener = object : FilteredVssSpecificationListener<VssDoor>() {
-        override fun onSpecificationChanged(vssSpecification: VssDoor) {
-            doorVehicleScene.updateDoors(vssSpecification)
+    // storing the connection in the Application keeps the Connection alive on orientation changes
+    private var dataBrokerConnection: DataBrokerConnection?
+        get() = applicationViewModel.dataBrokerConnection
+        set(value) {
+            applicationViewModel.dataBrokerConnection = value
         }
-
-        override fun onPostFilterError(throwable: Throwable) {
-            Log.e(TAG, "Failed to subscribe to specification: $throwable")
-        }
-    }
-    private val vssTrunkListener = object : FilteredVssSpecificationListener<VssTrunk>() {
-        override fun onSpecificationChanged(vssSpecification: VssTrunk) {
-            doorVehicleScene.updateTrunk(vssSpecification)
-        }
-
-        override fun onPostFilterError(throwable: Throwable) {
-            Log.e(TAG, "Failed to subscribe to specification: $throwable")
-        }
-    }
-    private val vssTemperatureListener = object : FilteredVssSpecificationListener<VssHvac>() {
-        override fun onSpecificationChanged(vssSpecification: VssHvac) {
-            temperatureViewModel.hvac = vssSpecification
-        }
-
-        override fun onPostFilterError(throwable: Throwable) {
-            Log.e(TAG, "Failed to subscribe to specification: $throwable")
-        }
-    }
-    private val vssWheelPressureListener = object : FilteredVssSpecificationListener<VssAxle>() {
-        override fun onSpecificationChanged(vssSpecification: VssAxle) {
-            wheelPressureViewModel.axle = vssSpecification
-        }
-
-        override fun onPostFilterError(throwable: Throwable) {
-            Log.e(TAG, "Failed to subscribe to specification: $throwable")
-        }
-    }
-
-    private val vssLightListener = object : FilteredVssSpecificationListener<VssLights>() {
-        override fun onSpecificationChanged(vssSpecification: VssLights) {
-            lightControlViewModel.vssLight = vssSpecification
-        }
-
-        override fun onPostFilterError(throwable: Throwable) {
-            Log.e(TAG, "Failed to subscribe to specification: $throwable")
-        }
-    }
 
     // region: Lifecycle
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -176,6 +119,21 @@ class MainActivity : ComponentActivity() {
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
+
+        doorControlViewModel.doorVehicleSceneDelegate = object : DoorVehicleScene {
+            override fun updateDoors(door: VssDoor) {
+                doorVehicleScene.updateDoors(door)
+            }
+
+            override fun updateTrunk(trunk: VssTrunk) {
+                doorVehicleScene.updateTrunk(trunk)
+            }
+        }
+
+        applicationViewModel.disconnectListener = DisconnectListener {
+            applicationViewModel.dataBrokerConnection = null
+            connectionStatusViewModel.connectionState = ConnectionState.DISCONNECTED
+        }
 
         connectionStatusViewModel.onClickReconnect = {
             connectToDataBroker {
@@ -238,14 +196,6 @@ class MainActivity : ComponentActivity() {
         doorVehicleSurface.stopRendering()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        dataBrokerConnection?.disconnectListeners?.unregister(disconnectListener)
-
-        unsubscribe()
-    }
-
     // endregion
 
     private fun updatePlannedTemperature(plannedTemperature: Int) {
@@ -265,25 +215,25 @@ class MainActivity : ComponentActivity() {
 
     private fun subscribe() {
         dataBrokerConnection?.apply {
-            disconnectListeners.register(disconnectListener)
+            disconnectListeners.register(applicationViewModel.disconnectListener)
 
-            subscribe(VssDoor(), listener = vssDoorListener)
-            subscribe(VssTrunk(), listener = vssTrunkListener)
-            subscribe(VssHvac(), listener = vssTemperatureListener)
-            subscribe(VssAxle(), listener = vssWheelPressureListener)
-            subscribe(VssLights(), listener = vssLightListener)
+            subscribe(VssDoor(), listener = doorControlViewModel.vssDoorListener)
+            subscribe(VssTrunk(), listener = doorControlViewModel.vssTrunkListener)
+            subscribe(VssHvac(), listener = temperatureViewModel.vssTemperatureListener)
+            subscribe(VssAxle(), listener = wheelPressureViewModel.vssWheelPressureListener)
+            subscribe(VssLights(), listener = lightControlViewModel.vssLightListener)
         }
     }
 
     private fun unsubscribe() {
         dataBrokerConnection?.apply {
-            disconnectListeners.unregister(disconnectListener)
+            disconnectListeners.unregister(applicationViewModel.disconnectListener)
 
-            unsubscribe(VssDoor(), listener = vssDoorListener)
-            unsubscribe(VssTrunk(), listener = vssTrunkListener)
-            unsubscribe(VssHvac(), listener = vssTemperatureListener)
-            unsubscribe(VssAxle(), listener = vssWheelPressureListener)
-            unsubscribe(VssLights(), listener = vssLightListener)
+            unsubscribe(VssDoor(), listener = doorControlViewModel.vssDoorListener)
+            unsubscribe(VssTrunk(), listener = doorControlViewModel.vssTrunkListener)
+            unsubscribe(VssHvac(), listener = temperatureViewModel.vssTemperatureListener)
+            unsubscribe(VssAxle(), listener = wheelPressureViewModel.vssWheelPressureListener)
+            unsubscribe(VssLights(), listener = lightControlViewModel.vssLightListener)
         }
     }
 
