@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -46,6 +47,7 @@ import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatus
 
 val StatusBarHeight = 50.dp
 private val iconSize = 30.dp
+private val progressBarHeight = 25.dp
 private val paddingEnd = 5.dp
 
 @Composable
@@ -85,7 +87,8 @@ fun HorizontalConnectionStatusView(
                     CircularProgressIndicator(
                         color = MaterialTheme.colorScheme.error,
                         modifier = Modifier
-                            .size(iconSize)
+                            .width(iconSize)
+                            .height(progressBarHeight) // otherwise takes to much height => circle is not centered
                             .padding(end = paddingEnd),
                     )
                 }
