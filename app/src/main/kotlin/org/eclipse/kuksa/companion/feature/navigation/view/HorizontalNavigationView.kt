@@ -19,12 +19,13 @@
 
 package org.eclipse.kuksa.companion.feature.navigation.view
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -47,26 +48,27 @@ fun HorizontalNavigationView(
         mutableIntStateOf(viewModel.selectedNavigationIndex)
     }
 
-    Column(modifier) {
-        NavigationBar(Modifier.fillMaxWidth()) {
-            NavigationPage.entries.forEachIndexed { index, page ->
-                NavigationBarItem(
-                    selected = index == selectedItemIndex,
-                    onClick = {
-                        selectedItemIndex = index
-                        viewModel.selectedNavigationIndex = index
-                        viewModel.selectedNavigationPage = page
-                        onPageSelected(page)
-                    },
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = page.iconRes),
-                            contentDescription = page.description,
-                            modifier = Modifier.size(30.dp),
-                        )
-                    },
-                )
-            }
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+        modifier = modifier.fillMaxWidth(),
+    ) {
+        NavigationPage.entries.forEachIndexed { index, page ->
+            NavigationBarItem(
+                selected = index == selectedItemIndex,
+                onClick = {
+                    selectedItemIndex = index
+                    viewModel.selectedNavigationIndex = index
+                    viewModel.selectedNavigationPage = page
+                    onPageSelected(page)
+                },
+                icon = {
+                    Icon(
+                        painter = painterResource(id = page.iconRes),
+                        contentDescription = page.description,
+                        modifier = Modifier.size(30.dp),
+                    )
+                },
+            )
         }
     }
 }

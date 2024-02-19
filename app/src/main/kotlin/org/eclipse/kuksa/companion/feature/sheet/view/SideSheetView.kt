@@ -25,7 +25,6 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -40,30 +39,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.sidesheet.SideSheetBehavior
+import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
+import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.R
 import org.eclipse.kuksa.companion.SHEET_EXPANDED_HEIGHT
+import org.eclipse.kuksa.companion.feature.connection.repository.ConnectionInfoRepository
+import org.eclipse.kuksa.companion.feature.settings.view.SettingsView
+import org.eclipse.kuksa.companion.feature.settings.viewModel.SettingsViewModel
 
 @Composable
 fun SideSheetView(
     modifier: Modifier = Modifier,
     isSideSheetEnabled: Boolean = true,
     sheetContent: @Composable () -> Unit = {},
-    content: @Composable (PaddingValues) -> Unit,
+    content: @Composable () -> Unit,
 ) {
     val sideSheetBehavior: SideSheetBehavior<FrameLayout> = SideSheetBehavior<FrameLayout>()
     ConstraintLayout(modifier = modifier) {
-        Box(Modifier.fillMaxSize()) {
-            val paddingValues = PaddingValues(0.dp)
-            content(paddingValues)
-        }
+        content()
 
         if (!isSideSheetEnabled) {
             return@ConstraintLayout
@@ -72,7 +73,6 @@ fun SideSheetView(
         SideSheetInteractionFAB(
             sideSheetBehavior = sideSheetBehavior,
             modifier = Modifier
-                .zIndex(2F)
                 .constrainAs(createRef()) {
                     end.linkTo(parent.end, 10.dp)
                     bottom.linkTo(parent.bottom, 10.dp)
@@ -83,7 +83,6 @@ fun SideSheetView(
             sheetContent = sheetContent,
             sideSheetBehavior = sideSheetBehavior,
             modifier = Modifier
-                .zIndex(Float.MAX_VALUE)
                 .fillMaxHeight()
                 .width(SHEET_EXPANDED_HEIGHT.dp)
                 .constrainAs(createRef()) {
@@ -177,8 +176,14 @@ private fun SideSheetInteractionFAB(
     }
 }
 
-@Preview
+@Preview(widthDp = PREVIEW_HEIGHT_DP, heightDp = PREVIEW_WIDTH_DP)
 @Composable
 private fun SideSheetViewPreview() {
-    SideSheetView(isSideSheetEnabled = true, sheetContent = {}) {}
+    val context = LocalContext.current
+    val repository = ConnectionInfoRepository(context)
+    val settingsViewModel = SettingsViewModel(repository)
+
+    SideSheetView(isSideSheetEnabled = true, sheetContent = {}) {
+        SettingsView(settingsViewModel = settingsViewModel, Modifier.fillMaxSize())
+    }
 }

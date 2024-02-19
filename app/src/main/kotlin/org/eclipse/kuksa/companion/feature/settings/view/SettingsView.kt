@@ -65,7 +65,7 @@ fun SettingsView(
         Surface(modifier) {
             Column(
                 modifier = Modifier
-                    .padding(10.dp, 0.dp),
+                    .padding(horizontal = 10.dp),
             ) {
                 CategorySetting(label = "Connection")
                 EditableTextSetting(

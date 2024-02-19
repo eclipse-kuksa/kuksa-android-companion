@@ -22,26 +22,33 @@ package org.eclipse.kuksa.companion.feature.connection.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 import org.eclipse.kuksa.companion.R
 import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel
 import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel.ConnectionState
 
-val StatusBarHeight = 30.dp
+val StatusBarHeight = 50.dp
+private val iconSize = 30.dp
+private val progressBarHeight = 25.dp
+private val paddingEnd = 5.dp
 
 @Composable
 fun HorizontalConnectionStatusView(
@@ -49,10 +56,11 @@ fun HorizontalConnectionStatusView(
     modifier: Modifier = Modifier,
 ) {
     val connectionState = viewModel.connectionState
-    val connectionStateLabel = connectionState.toString().lowercase()
-    val backgroundColor = viewModel.backgroundColor
+    val connectionStateLabel = connectionState.toString()
+    val backgroundColor = MaterialTheme.colorScheme.errorContainer
 
-    Row(
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = modifier
             .fillMaxWidth()
             .height(StatusBarHeight)
@@ -61,43 +69,43 @@ fun HorizontalConnectionStatusView(
                 viewModel.onClickReconnect()
             },
     ) {
-        val isAnimating = connectionState == ConnectionState.CONNECTING
-        var text = connectionStateLabel
-        text = animateLoadingText(isAnimating, text)
+        Row {
+            when (connectionState) {
+                ConnectionState.DISCONNECTED -> {
+                    Image(
+                        painter = painterResource(id = R.drawable.baseline_refresh_24),
+                        contentDescription = "Reconnect",
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.error),
+                        alignment = Alignment.CenterEnd,
+                        modifier = Modifier
+                            .size(iconSize)
+                            .padding(end = paddingEnd),
+                    )
+                }
 
-        ConstraintLayout(modifier = Modifier.height(StatusBarHeight)) {
-            val (textRef, imageRef) = createRefs()
+                ConnectionState.CONNECTING -> {
+                    CircularProgressIndicator(
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier
+                            .width(iconSize)
+                            .height(progressBarHeight) // otherwise takes to much height => circle is not centered
+                            .padding(end = paddingEnd),
+                    )
+                }
+
+                else -> {
+                    // unused
+                }
+            }
+
             Text(
-                text,
-                color = Color.White,
+                connectionStateLabel,
+                color = MaterialTheme.colorScheme.error,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .constrainAs(textRef) {
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-
-                        start.linkTo(parent.start)
-                        end.linkTo(imageRef.start)
-                    },
+                    .align(Alignment.CenterVertically),
             )
-
-            if (connectionState == ConnectionState.DISCONNECTED) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_refresh_24),
-                    contentDescription = "Reconnect",
-                    colorFilter = ColorFilter.tint(Color.White),
-                    alignment = Alignment.CenterEnd,
-                    modifier = Modifier
-                        .constrainAs(imageRef) {
-                            top.linkTo(parent.top)
-                            bottom.linkTo(parent.bottom)
-
-                            end.linkTo(parent.end)
-                        },
-                )
-            }
         }
     }
 }

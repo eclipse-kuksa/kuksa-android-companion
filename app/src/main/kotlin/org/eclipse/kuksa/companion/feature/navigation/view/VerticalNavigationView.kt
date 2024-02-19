@@ -23,9 +23,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -53,7 +55,10 @@ fun VerticalNavigationView(
 
     val pages = NavigationPage.entries.toTypedArray()
 
-    NavigationRail(modifier) {
+    NavigationRail(
+        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+        modifier = modifier,
+    ) {
         Spacer(Modifier.weight(1f))
         pages.forEachIndexed { index, page ->
             NavigationRailItem(
