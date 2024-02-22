@@ -38,13 +38,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
-import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
+import org.eclipse.kuksa.companion.application.PREVIEW_HEIGHT_DP
+import org.eclipse.kuksa.companion.application.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.extension.windowSizeClass
 import org.eclipse.kuksa.companion.feature.connection.repository.ConnectionInfoRepository
 import org.eclipse.kuksa.companion.feature.connection.view.HorizontalConnectionStatusView
 import org.eclipse.kuksa.companion.feature.connection.view.StatusBarHeight
-import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel
+import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionViewModel
 import org.eclipse.kuksa.companion.feature.door.view.DoorControlView
 import org.eclipse.kuksa.companion.feature.door.view.DoorOverlayView
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
@@ -75,7 +75,7 @@ private const val Z_INDEX_ERROR = 2F
 @Composable
 fun AdaptiveAppScreen(
     callback: SurfaceHolder.Callback,
-    connectionStatusViewModel: ConnectionStatusViewModel,
+    connectionViewModel: ConnectionViewModel,
     navigationViewModel: NavigationViewModel,
     doorControlViewModel: DoorControlViewModel,
     temperatureViewModel: TemperatureViewModel,
@@ -115,10 +115,10 @@ fun AdaptiveAppScreen(
         ) {
             Box {
                 var connectionStatusViewPaddingValues = PaddingValues(0.dp)
-                if (connectionStatusViewModel.connectionState != ConnectionStatusViewModel.ConnectionState.CONNECTED) {
+                if (connectionViewModel.connectionState != ConnectionViewModel.ConnectionState.CONNECTED) {
                     connectionStatusViewPaddingValues = PaddingValues(top = StatusBarHeight)
                     HorizontalConnectionStatusView(
-                        connectionStatusViewModel,
+                        connectionViewModel,
                         Modifier
                             .zIndex(Z_INDEX_ERROR),
                     )
@@ -201,7 +201,7 @@ private fun AdaptiveAppScreenPreview() {
     val repository = ConnectionInfoRepository(context)
     AdaptiveAppScreen(
         callback,
-        ConnectionStatusViewModel(),
+        ConnectionViewModel(),
         NavigationViewModel().apply {
             selectedNavigationIndex = NavigationPage.SETTINGS.ordinal
             selectedNavigationPage = NavigationPage.SETTINGS

@@ -47,10 +47,10 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.sidesheet.SideSheetBehavior
-import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
-import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.R
-import org.eclipse.kuksa.companion.SHEET_EXPANDED_HEIGHT
+import org.eclipse.kuksa.companion.application.PREVIEW_HEIGHT_DP
+import org.eclipse.kuksa.companion.application.PREVIEW_WIDTH_DP
+import org.eclipse.kuksa.companion.application.SHEET_EXPANDED_HEIGHT
 import org.eclipse.kuksa.companion.feature.connection.repository.ConnectionInfoRepository
 import org.eclipse.kuksa.companion.feature.settings.view.SettingsView
 import org.eclipse.kuksa.companion.feature.settings.viewModel.SettingsViewModel

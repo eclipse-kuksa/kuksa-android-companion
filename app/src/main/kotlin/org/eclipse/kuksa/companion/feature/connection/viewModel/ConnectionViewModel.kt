@@ -23,8 +23,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import org.eclipse.kuksa.DataBrokerConnection
+import org.eclipse.kuksa.DisconnectListener
+import kotlin.properties.Delegates
 
-class ConnectionStatusViewModel : ViewModel() {
+class ConnectionViewModel : ViewModel() {
     enum class ConnectionState {
         DISCONNECTED,
         CONNECTING,
@@ -34,4 +37,14 @@ class ConnectionStatusViewModel : ViewModel() {
     var onClickReconnect: () -> Unit = { }
 
     var connectionState by mutableStateOf(ConnectionState.DISCONNECTED)
+
+    var dataBrokerConnection: DataBrokerConnection? by Delegates.observable(null) { _, oldValue, newValue ->
+        oldValue?.disconnectListeners?.unregister(disconnectListener)
+        newValue?.disconnectListeners?.register(disconnectListener)
+    }
+
+    private var disconnectListener: DisconnectListener = DisconnectListener {
+        dataBrokerConnection = null
+        connectionState = ConnectionState.DISCONNECTED
+    }
 }

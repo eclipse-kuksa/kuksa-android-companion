@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Contributors to the Eclipse Foundation
+ * Copyright (c) 2023-2024 Contributors to the Eclipse Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,19 +17,15 @@
  *
  */
 
-package org.eclipse.kuksa.companion
+package org.eclipse.kuksa.companion.application
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
-import org.eclipse.kuksa.DataBrokerConnection
 
 const val PREVIEW_WIDTH_DP = 400
 const val PREVIEW_HEIGHT_DP = 900
 
 const val SHEET_EXPANDED_HEIGHT = 350
-const val SHEET_COLLAPSED_HEIGHT = 50
 
 @HiltAndroidApp
-class CompanionApplication : Application() {
-    var dataBrokerConnection: DataBrokerConnection? = null
-}
+class CompanionApplication : Application()

@@ -185,8 +185,6 @@ class DoorVehicleSceneThread(
 
     // region: VehicleScene
     override fun updateDoors(door: VssDoor) {
-        viewModel.updateDoors(door)
-
         addRunnableToThreadQueue {
             door.findProperties(VssDoor.VssRow1.VssPassengerSide.VssIsOpen::class).apply {
                 doorRow1DriverSide = getOrDefault(doorRow1DriverSide.vssPath, doorRow1DriverSide)
@@ -198,8 +196,9 @@ class DoorVehicleSceneThread(
     }
 
     override fun updateTrunk(trunk: VssTrunk) {
-        viewModel.updateTrunk(trunk)
-        doorTrunkRear = trunk.findProperty(VssTrunk.VssRear.VssIsOpen())
+        addRunnableToThreadQueue {
+            doorTrunkRear = trunk.findProperty(VssTrunk.VssRear.VssIsOpen())
+        }
     }
     // endregion
 

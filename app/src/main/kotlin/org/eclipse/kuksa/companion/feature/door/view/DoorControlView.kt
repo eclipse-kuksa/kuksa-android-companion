@@ -34,8 +34,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
-import org.eclipse.kuksa.companion.SHEET_EXPANDED_HEIGHT
+import org.eclipse.kuksa.companion.application.PREVIEW_WIDTH_DP
+import org.eclipse.kuksa.companion.application.SHEET_EXPANDED_HEIGHT
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
 
 @Composable

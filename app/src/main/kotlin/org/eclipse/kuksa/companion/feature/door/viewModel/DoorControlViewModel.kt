@@ -20,17 +20,44 @@
 package org.eclipse.kuksa.companion.feature.door.viewModel
 
 import android.app.Application
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import org.eclipse.kuksa.companion.R
+import org.eclipse.kuksa.companion.extension.TAG
+import org.eclipse.kuksa.companion.feature.door.surface.DoorVehicleScene
+import org.eclipse.kuksa.companion.listener.FilteredVssSpecificationListener
 import org.eclipse.kuksa.vss.VssDoor
 import org.eclipse.kuksa.vss.VssTrunk
 import org.eclipse.kuksa.vsscore.model.VssProperty
 
 class DoorControlViewModel(application: Application) : AndroidViewModel(application) {
+    var doorVehicleSceneDelegate: DoorVehicleScene? = null
+
+    val vssDoorListener = object : FilteredVssSpecificationListener<VssDoor>() {
+        override fun onSpecificationChanged(vssSpecification: VssDoor) {
+            door = vssSpecification
+            doorVehicleSceneDelegate?.updateDoors(vssSpecification)
+        }
+
+        override fun onPostFilterError(throwable: Throwable) {
+            Log.e(TAG, "Failed to subscribe to specification: $throwable")
+        }
+    }
+    val vssTrunkListener = object : FilteredVssSpecificationListener<VssTrunk>() {
+        override fun onSpecificationChanged(vssSpecification: VssTrunk) {
+            trunk = vssSpecification
+            doorVehicleSceneDelegate?.updateTrunk(vssSpecification)
+        }
+
+        override fun onPostFilterError(throwable: Throwable) {
+            Log.e(TAG, "Failed to subscribe to specification: $throwable")
+        }
+    }
+
     var onClickOpenAll: () -> Unit = {}
 
     var onClickCloseAll: () -> Unit = {}
@@ -44,14 +71,6 @@ class DoorControlViewModel(application: Application) : AndroidViewModel(applicat
 
     var door: VssDoor by mutableStateOf(VssDoor())
         private set
-
-    fun updateDoors(door: VssDoor) {
-        this.door = door
-    }
-
-    fun updateTrunk(trunk: VssTrunk) {
-        this.trunk = trunk
-    }
 
     @DrawableRes
     fun fetchLockDrawable(isLocked: Boolean): Int {

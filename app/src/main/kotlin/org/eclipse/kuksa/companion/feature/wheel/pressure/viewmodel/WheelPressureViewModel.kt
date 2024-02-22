@@ -19,14 +19,29 @@
 
 package org.eclipse.kuksa.companion.feature.wheel.pressure.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import org.eclipse.kuksa.VssSpecificationListener
+import org.eclipse.kuksa.companion.extension.TAG
+import org.eclipse.kuksa.companion.listener.FilteredVssSpecificationListener
 import org.eclipse.kuksa.vss.VssAxle
 
 class WheelPressureViewModel : ViewModel() {
+    var vssWheelPressureListener: VssSpecificationListener<VssAxle> =
+        object : FilteredVssSpecificationListener<VssAxle>() {
+            override fun onSpecificationChanged(vssSpecification: VssAxle) {
+                axle = vssSpecification
+            }
+
+            override fun onPostFilterError(throwable: Throwable) {
+                Log.e(TAG, "Failed to subscribe to specification: $throwable")
+            }
+        }
+
     var axle by mutableStateOf(VssAxle())
 
     val pressureLeftFront by derivedStateOf {

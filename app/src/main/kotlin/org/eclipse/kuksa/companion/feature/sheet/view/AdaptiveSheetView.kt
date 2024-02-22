@@ -27,8 +27,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
-import org.eclipse.kuksa.companion.PREVIEW_HEIGHT_DP
-import org.eclipse.kuksa.companion.PREVIEW_WIDTH_DP
+import org.eclipse.kuksa.companion.application.PREVIEW_HEIGHT_DP
+import org.eclipse.kuksa.companion.application.PREVIEW_WIDTH_DP
 import org.eclipse.kuksa.companion.extension.windowSizeClass
 
 /**
