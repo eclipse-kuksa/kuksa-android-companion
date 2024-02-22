@@ -32,13 +32,11 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.eclipse.kuksa.DataBrokerConnection
 import org.eclipse.kuksa.DataBrokerException
-import org.eclipse.kuksa.DisconnectListener
-import org.eclipse.kuksa.companion.application.ApplicationViewModel
 import org.eclipse.kuksa.companion.extension.TAG
 import org.eclipse.kuksa.companion.feature.connection.factory.DataBrokerConnectorFactory
 import org.eclipse.kuksa.companion.feature.connection.repository.ConnectionInfoRepository
-import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel
-import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel.ConnectionState
+import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionViewModel
+import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionViewModel.ConnectionState
 import org.eclipse.kuksa.companion.feature.door.surface.DoorVehicleScene
 import org.eclipse.kuksa.companion.feature.door.surface.DoorVehicleSurface
 import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
@@ -74,8 +72,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var doorVehicleScene: DoorVehicleScene
     private val doorVehicleSurface = DoorVehicleSurface()
 
-    private val applicationViewModel: ApplicationViewModel by viewModels()
-    private val connectionStatusViewModel: ConnectionStatusViewModel by viewModels()
+    private val connectionViewModel: ConnectionViewModel by viewModels()
     private val navigationViewModel: NavigationViewModel by viewModels()
     private val doorControlViewModel: DoorControlViewModel by viewModels()
     private val temperatureViewModel: TemperatureViewModel by viewModels()
@@ -85,11 +82,11 @@ class MainActivity : ComponentActivity() {
 
     private val dataBrokerConnectorFactory = DataBrokerConnectorFactory()
 
-    // storing the connection in the Application keeps the Connection alive on orientation changes
+    // storing the connection in the ViewModel keeps the Connection alive on orientation changes
     private var dataBrokerConnection: DataBrokerConnection?
-        get() = applicationViewModel.dataBrokerConnection
+        get() = connectionViewModel.dataBrokerConnection
         set(value) {
-            applicationViewModel.dataBrokerConnection = value
+            connectionViewModel.dataBrokerConnection = value
         }
 
     // region: Lifecycle
@@ -104,7 +101,7 @@ class MainActivity : ComponentActivity() {
             KuksaCompanionTheme {
                 AdaptiveAppScreen(
                     callback = doorVehicleSurface,
-                    connectionStatusViewModel = connectionStatusViewModel,
+                    connectionViewModel = connectionViewModel,
                     navigationViewModel = navigationViewModel,
                     doorControlViewModel = doorControlViewModel,
                     temperatureViewModel = temperatureViewModel,
@@ -130,12 +127,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        applicationViewModel.disconnectListener = DisconnectListener {
-            applicationViewModel.dataBrokerConnection = null
-            connectionStatusViewModel.connectionState = ConnectionState.DISCONNECTED
-        }
-
-        connectionStatusViewModel.onClickReconnect = {
+        connectionViewModel.onClickReconnect = {
             connectToDataBroker {
                 subscribe()
             }
@@ -215,25 +207,11 @@ class MainActivity : ComponentActivity() {
 
     private fun subscribe() {
         dataBrokerConnection?.apply {
-            disconnectListeners.register(applicationViewModel.disconnectListener)
-
             subscribe(VssDoor(), listener = doorControlViewModel.vssDoorListener)
             subscribe(VssTrunk(), listener = doorControlViewModel.vssTrunkListener)
             subscribe(VssHvac(), listener = temperatureViewModel.vssTemperatureListener)
             subscribe(VssAxle(), listener = wheelPressureViewModel.vssWheelPressureListener)
             subscribe(VssLights(), listener = lightControlViewModel.vssLightListener)
-        }
-    }
-
-    private fun unsubscribe() {
-        dataBrokerConnection?.apply {
-            disconnectListeners.unregister(applicationViewModel.disconnectListener)
-
-            unsubscribe(VssDoor(), listener = doorControlViewModel.vssDoorListener)
-            unsubscribe(VssTrunk(), listener = doorControlViewModel.vssTrunkListener)
-            unsubscribe(VssHvac(), listener = temperatureViewModel.vssTemperatureListener)
-            unsubscribe(VssAxle(), listener = wheelPressureViewModel.vssWheelPressureListener)
-            unsubscribe(VssLights(), listener = lightControlViewModel.vssLightListener)
         }
     }
 
@@ -254,8 +232,7 @@ class MainActivity : ComponentActivity() {
 
     private fun connectToDataBroker(onConnected: () -> Unit = {}) {
         // dataBrokerConnection is already established e.g. after an orientation change
-        if (dataBrokerConnection != null) {
-            onConnected()
+        if (connectionViewModel.connectionState == ConnectionState.CONNECTED) {
             return
         }
 
@@ -265,15 +242,15 @@ class MainActivity : ComponentActivity() {
             try {
                 Log.d(TAG, "Connecting to DataBroker ${connectionInfo.host}:${connectionInfo.port}")
 
-                connectionStatusViewModel.connectionState = ConnectionState.CONNECTING
+                connectionViewModel.connectionState = ConnectionState.CONNECTING
                 val context = this@MainActivity
                 val dataBrokerConnector = dataBrokerConnectorFactory.create(context, connectionInfo)
                 dataBrokerConnection = dataBrokerConnector.connect()
-                connectionStatusViewModel.connectionState = ConnectionState.CONNECTED
+                connectionViewModel.connectionState = ConnectionState.CONNECTED
                 onConnected()
             } catch (e: DataBrokerException) {
                 Log.w(TAG, "Connection to DataBroker failed: ", e)
-                connectionStatusViewModel.connectionState = ConnectionState.DISCONNECTED
+                connectionViewModel.connectionState = ConnectionState.DISCONNECTED
             }
         }
     }

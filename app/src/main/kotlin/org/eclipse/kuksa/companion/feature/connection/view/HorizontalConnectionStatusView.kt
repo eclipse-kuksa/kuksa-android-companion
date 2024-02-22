@@ -42,8 +42,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.eclipse.kuksa.companion.R
-import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel
-import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionStatusViewModel.ConnectionState
+import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionViewModel
+import org.eclipse.kuksa.companion.feature.connection.viewModel.ConnectionViewModel.ConnectionState
 
 val StatusBarHeight = 50.dp
 private val iconSize = 30.dp
@@ -52,7 +52,7 @@ private val paddingEnd = 5.dp
 
 @Composable
 fun HorizontalConnectionStatusView(
-    viewModel: ConnectionStatusViewModel,
+    viewModel: ConnectionViewModel,
     modifier: Modifier = Modifier,
 ) {
     val connectionState = viewModel.connectionState
@@ -113,7 +113,7 @@ fun HorizontalConnectionStatusView(
 @Preview
 @Composable
 private fun HorizontalDisconnectedPreview() {
-    val viewModel = ConnectionStatusViewModel()
+    val viewModel = ConnectionViewModel()
     viewModel.connectionState = ConnectionState.DISCONNECTED
 
     HorizontalConnectionStatusView(viewModel = viewModel)
@@ -122,7 +122,7 @@ private fun HorizontalDisconnectedPreview() {
 @Preview
 @Composable
 private fun HorizontalConnectingPreview() {
-    val viewModel = ConnectionStatusViewModel()
+    val viewModel = ConnectionViewModel()
     viewModel.connectionState = ConnectionState.CONNECTING
     HorizontalConnectionStatusView(viewModel = viewModel)
 }
@@ -130,7 +130,7 @@ private fun HorizontalConnectingPreview() {
 @Preview
 @Composable
 private fun HorizontalConnectedPreview() {
-    val viewModel = ConnectionStatusViewModel()
+    val viewModel = ConnectionViewModel()
     viewModel.connectionState = ConnectionState.CONNECTED
     HorizontalConnectionStatusView(viewModel = viewModel)
 }
