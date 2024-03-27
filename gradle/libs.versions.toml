@@ -3,8 +3,9 @@
 [plugins]
 
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerializationPlugin" }
+vss-processor = { id = "org.eclipse.kuksa.vss-processor-plugin", version.ref = "kuksaSdk" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
-ksp = { id = "com.google.devtools.ksp", version.ref ="ksp"}
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [versions]
 

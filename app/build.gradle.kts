@@ -22,7 +22,7 @@ import org.eclipse.kuksa.companion.property.PropertiesLoader
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")
-    id("org.eclipse.kuksa.vss-processor-plugin") version "0.2.1"
+    alias(libs.plugins.vss.processor)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.hilt.android)
     kotlin("kapt")
