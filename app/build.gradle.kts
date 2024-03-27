@@ -36,7 +36,7 @@ android {
     defaultConfig {
         applicationId = "org.eclipse.kuksa.companion"
         minSdk = 27
-        targetSdk = 33
+        targetSdk = 33 // TODO: 34+ is unsupported by the Ramses SDK
         versionCode = rootProject.extra["projectVersionCode"].toString().toInt()
         versionName = rootProject.extra["projectVersion"].toString()
 
