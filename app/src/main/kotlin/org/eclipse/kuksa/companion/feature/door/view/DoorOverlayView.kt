@@ -54,7 +54,8 @@ fun DoorOverlayView(
     ConstraintLayout(
         modifier = modifier.fillMaxSize(),
     ) {
-        val (driverSide, passengerSide, driverSideBack, passengerSideBack, trunkRear) = createRefs()
+        val (driverSideRef, driverSideBackRef, trunkRearRef) = createRefs()
+        val (passengerSideRef, passengerSideBackRef) = createRefs()
 
         val isLockedDriverSide = viewModel.door.row1.driverSide.isLocked
         val isLockedPassengerSide = viewModel.door.row1.passengerSide.isLocked
@@ -82,7 +83,7 @@ fun DoorOverlayView(
             .size(60.dp)
         Box(
             modifier = imageModifier
-                .constrainAs(driverSide) {
+                .constrainAs(driverSideRef) {
                     driverFrontDoorAnchor.align(this)
                 }
                 .clickable {
@@ -98,7 +99,7 @@ fun DoorOverlayView(
 
         Box(
             modifier = imageModifier
-                .constrainAs(passengerSide) {
+                .constrainAs(passengerSideRef) {
                     passengerFrontDoorAnchor.align(this)
                 }
                 .clickable {
@@ -115,7 +116,7 @@ fun DoorOverlayView(
             painter = painterResource(id = viewModel.fetchLockDrawable(isLockedDriverSideBack.value)),
             contentDescription = "Lock bottom left",
             modifier = imageModifier
-                .constrainAs(driverSideBack) {
+                .constrainAs(driverSideBackRef) {
                     driverBackDoorAnchor.align(this)
                 }
                 .clickable {
@@ -124,7 +125,7 @@ fun DoorOverlayView(
         )
         Box(
             modifier = imageModifier
-                .constrainAs(passengerSideBack) {
+                .constrainAs(passengerSideBackRef) {
                     passengerBackDoorAnchor.align(this)
                 }
                 .clickable {
@@ -140,7 +141,7 @@ fun DoorOverlayView(
 
         Box(
             modifier = imageModifier
-                .constrainAs(trunkRear) {
+                .constrainAs(trunkRearRef) {
                     trunkAnchor.align(this)
                 }
                 .clickable {
