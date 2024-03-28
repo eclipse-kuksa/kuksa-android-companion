@@ -71,7 +71,8 @@ private fun WheelPressureOverlayView(
         modifier = modifier
             .fillMaxSize(),
     ) {
-        val (driverSideRef, passengerSideRef, driverSideBackRef, passengerSideBackRef) = createRefs()
+        val (driverSideRef, driverSideBackRef) = createRefs()
+        val (passengerSideRef, passengerSideBackRef) = createRefs()
 
         val anchorPoint = createRef()
         Spacer(

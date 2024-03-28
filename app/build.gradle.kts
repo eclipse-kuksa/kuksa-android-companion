@@ -22,9 +22,10 @@ import org.eclipse.kuksa.companion.property.PropertiesLoader
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")
+    alias(libs.plugins.vss.processor)
     alias(libs.plugins.kotlin.serialization)
-    kotlin("kapt")
     alias(libs.plugins.hilt.android)
+    kotlin("kapt")
     kotlin("android")
 }
 
@@ -35,7 +36,7 @@ android {
     defaultConfig {
         applicationId = "org.eclipse.kuksa.companion"
         minSdk = 27
-        targetSdk = 33
+        targetSdk = 33 // TODO: 34+ is unsupported by the Ramses SDK
         versionCode = rootProject.extra["projectVersionCode"].toString().toInt()
         versionName = rootProject.extra["projectVersion"].toString()
 
@@ -98,6 +99,10 @@ android {
         java.srcDir("src/main/java")
         java.srcDir("src/main/kotlin")
     }
+}
+
+vssProcessor {
+    searchPath = "$rootDir/spec"
 }
 
 dependencies {

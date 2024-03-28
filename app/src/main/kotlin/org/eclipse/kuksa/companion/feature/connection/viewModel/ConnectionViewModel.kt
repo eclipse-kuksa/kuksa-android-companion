@@ -23,8 +23,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import org.eclipse.kuksa.DataBrokerConnection
-import org.eclipse.kuksa.DisconnectListener
+import org.eclipse.kuksa.connectivity.databroker.DataBrokerConnection
+import org.eclipse.kuksa.connectivity.databroker.listener.DisconnectListener
 import kotlin.properties.Delegates
 
 class ConnectionViewModel : ViewModel() {

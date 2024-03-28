@@ -51,7 +51,8 @@ fun TemperatureOverlayView(
         modifier = modifier
             .fillMaxSize(),
     ) {
-        val (driverSideRef, passengerSideRef, driverSideBackRef, passengerSideBackRef) = createRefs()
+        val (driverSideRef, driverSideBackRef) = createRefs()
+        val (passengerSideRef, passengerSideBackRef) = createRefs()
 
         val temperatureDriverSideFront = viewModel.temperatureDriverSideFront
         val temperaturePassengerSideFront = viewModel.temperaturePassengerSideFront

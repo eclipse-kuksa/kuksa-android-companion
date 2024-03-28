@@ -25,20 +25,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import org.eclipse.kuksa.VssSpecificationListener
 import org.eclipse.kuksa.companion.extension.TAG
-import org.eclipse.kuksa.companion.listener.FilteredVssSpecificationListener
+import org.eclipse.kuksa.companion.listener.FilteredVssNodeListener
+import org.eclipse.kuksa.connectivity.databroker.listener.VssNodeListener
 import org.eclipse.kuksa.vss.VssAxle
 
 class WheelPressureViewModel : ViewModel() {
-    var vssWheelPressureListener: VssSpecificationListener<VssAxle> =
-        object : FilteredVssSpecificationListener<VssAxle>() {
-            override fun onSpecificationChanged(vssSpecification: VssAxle) {
-                axle = vssSpecification
+    var vssWheelPressureListener: VssNodeListener<VssAxle> =
+        object : FilteredVssNodeListener<VssAxle>() {
+            override fun onNodeChanged(vssNode: VssAxle) {
+                axle = vssNode
             }
 
             override fun onPostFilterError(throwable: Throwable) {
-                Log.e(TAG, "Failed to subscribe to specification: $throwable")
+                Log.e(TAG, "Failed to subscribe to node: $throwable")
             }
         }
 

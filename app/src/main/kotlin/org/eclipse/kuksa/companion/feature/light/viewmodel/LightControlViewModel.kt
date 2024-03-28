@@ -26,25 +26,25 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import org.eclipse.kuksa.VssSpecificationListener
 import org.eclipse.kuksa.companion.R
 import org.eclipse.kuksa.companion.extension.TAG
-import org.eclipse.kuksa.companion.listener.FilteredVssSpecificationListener
+import org.eclipse.kuksa.companion.listener.FilteredVssNodeListener
+import org.eclipse.kuksa.connectivity.databroker.listener.VssNodeListener
 import org.eclipse.kuksa.vss.VssLights
-import org.eclipse.kuksa.vsscore.model.VssProperty
+import org.eclipse.kuksa.vsscore.model.VssSignal
 
 class LightControlViewModel : ViewModel() {
-    var vssLightListener: VssSpecificationListener<VssLights> = object : FilteredVssSpecificationListener<VssLights>() {
-        override fun onSpecificationChanged(vssSpecification: VssLights) {
-            vssLight = vssSpecification
+    var vssLightListener: VssNodeListener<VssLights> = object : FilteredVssNodeListener<VssLights>() {
+        override fun onNodeChanged(vssNode: VssLights) {
+            vssLight = vssNode
         }
 
         override fun onPostFilterError(throwable: Throwable) {
-            Log.e(TAG, "Failed to subscribe to specification: $throwable")
+            Log.e(TAG, "Failed to subscribe to node: $throwable")
         }
     }
 
-    var onClickToggleLight: (VssProperty<Boolean>) -> Unit = { }
+    var onClickToggleLight: (VssSignal<Boolean>) -> Unit = { }
 
     var vssLight: VssLights by mutableStateOf(VssLights())
 

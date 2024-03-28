@@ -26,9 +26,8 @@ import org.eclipse.kuksa.companion.feature.door.viewModel.DoorControlViewModel
 import org.eclipse.kuksa.companion.ramses.AndroidRamsesScene
 import org.eclipse.kuksa.vss.VssDoor
 import org.eclipse.kuksa.vss.VssTrunk
-import org.eclipse.kuksa.vsscore.model.VssProperty
-import org.eclipse.kuksa.vsscore.model.findProperties
-import org.eclipse.kuksa.vsscore.model.findProperty
+import org.eclipse.kuksa.vsscore.model.VssSignal
+import org.eclipse.kuksa.vsscore.model.findSignal
 
 interface DoorVehicleScene : AndroidRamsesScene {
     fun updateDoors(door: VssDoor)
@@ -46,16 +45,16 @@ interface DoorVehicleScene : AndroidRamsesScene {
 // - remove touch-related events: onTouchUp, onMotion
 // - Couple to ViewModels and implement DoorVehicleScene interface
 // - Rename variable names
-// - Uses generated VssSpecifications for the models
+// - Uses generated VssNodes for the models
 class DoorVehicleSceneThread(
     threadName: String,
     private val viewModel: DoorControlViewModel,
 ) : RamsesThread(threadName, viewModel.getApplication()), DoorVehicleScene {
-    private var doorRow1DriverSide: VssProperty<Boolean> = VssDoor.VssRow1.VssDriverSide.VssIsOpen()
-    private var doorRow1PassengerSide: VssProperty<Boolean> = VssDoor.VssRow1.VssPassengerSide.VssIsOpen()
-    private var doorRow2DriverSide: VssProperty<Boolean> = VssDoor.VssRow2.VssDriverSide.VssIsOpen()
-    private var doorRow2PassengerSide: VssProperty<Boolean> = VssDoor.VssRow2.VssPassengerSide.VssIsOpen()
-    private var doorTrunkRear: VssProperty<Boolean> = VssTrunk.VssRear.VssIsOpen()
+    private var doorRow1DriverSide: VssSignal<Boolean> = VssDoor.VssRow1.VssDriverSide.VssIsOpen()
+    private var doorRow1PassengerSide: VssSignal<Boolean> = VssDoor.VssRow1.VssPassengerSide.VssIsOpen()
+    private var doorRow2DriverSide: VssSignal<Boolean> = VssDoor.VssRow2.VssDriverSide.VssIsOpen()
+    private var doorRow2PassengerSide: VssSignal<Boolean> = VssDoor.VssRow2.VssPassengerSide.VssIsOpen()
+    private var doorTrunkRear: VssSignal<Boolean> = VssTrunk.VssRear.VssIsOpen()
 
     private var yawValue = 0f
     private var pitchValue = 0f
@@ -184,20 +183,26 @@ class DoorVehicleSceneThread(
     }
 
     // region: VehicleScene
+    @Suppress("UNCHECKED_CAST") // TODO: Remove cast when .findSignal is fixed inside the SDK
     override fun updateDoors(door: VssDoor) {
         addRunnableToThreadQueue {
-            door.findProperties(VssDoor.VssRow1.VssPassengerSide.VssIsOpen::class).apply {
+            door.findSignal(VssDoor.VssRow1.VssPassengerSide.VssIsOpen::class).apply {
                 doorRow1DriverSide = getOrDefault(doorRow1DriverSide.vssPath, doorRow1DriverSide)
+                    as VssSignal<Boolean>
                 doorRow1PassengerSide = getOrDefault(doorRow1PassengerSide.vssPath, doorRow1PassengerSide)
+                    as VssSignal<Boolean>
                 doorRow2DriverSide = getOrDefault(doorRow2DriverSide.vssPath, doorRow2DriverSide)
+                    as VssSignal<Boolean>
                 doorRow2PassengerSide = getOrDefault(doorRow2PassengerSide.vssPath, doorRow2PassengerSide)
+                    as VssSignal<Boolean>
             }
         }
     }
 
+    @Suppress("UNCHECKED_CAST") // TODO: Remove cast when .findSignal is fixed inside the SDK
     override fun updateTrunk(trunk: VssTrunk) {
         addRunnableToThreadQueue {
-            doorTrunkRear = trunk.findProperty(VssTrunk.VssRear.VssIsOpen())
+            doorTrunkRear = trunk.findSignal(VssTrunk.VssRear.VssIsOpen()) as VssSignal<Boolean>
         }
     }
     // endregion
