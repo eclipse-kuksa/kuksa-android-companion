@@ -5,8 +5,8 @@ This guide explains on how to setup the infrastructure to use and test the KUKSA
 ## Requirements
 
 - Android Device with API Level >= 27 (Android 8.1)
-- a running [KUKSA DataBroker](https://github.com/eclipse/kuksa.val/tree/master/kuksa_databroker)
-- a running [Vehicle Mock Service](https://github.com/eclipse/kuksa.val.services/tree/main/mock_service) (Optional)
+- a running [KUKSA DataBroker](https://github.com/eclipse-kuksa/kuksa-databroker)
+- a running [KUKSA Mock Provider](https://github.com/eclipse-kuksa/kuksa-mock-provider) (Optional)
 
 ## Setup KUKSA Databroker
 
@@ -15,19 +15,19 @@ KUKSA Databroker might run inside a car or on your local system for testing purp
 to set up a local KUKSA Databroker can be found in
 the [KUKSA Quickstart Guide](https://github.com/eclipse/kuksa.val/blob/master/doc/quickstart.md)
 
-## Setup Vehicle Mock Service (Optional)
+## Setup KUKSA Mock Provider (Optional)
 
 This step is only required when connecting to a local running KUKSA Databroker, which is not 
 integrated into an actual vehicle.
 
-To use the Companion App the KUKSA Databroker needs to be connected to the Mock Service.
-The Mock Service simulates the interaction with the car e.g. sensors and actuators of a car. 
-The steps to set up a local instance of the Vehicle Mock Service can be found here:
-[Running mockservice](https://github.com/eclipse/kuksa.val.services/tree/main/mock_service#running-mockservice)
+To use the Companion App the KUKSA Databroker needs to be connected to the Mock Provider.
+The Mock Provider simulates the interaction with the car e.g. sensors and actuators of a car. 
+The steps to set up a local instance of the Vehicle Mock Provider can be found here:
+[Running mock provider](https://github.com/eclipse-kuksa/kuksa-mock-provider?tab=readme-ov-file#running-mock-provider)
 
-The Mock Service needs to be run with the
+The Mock Provider needs to be run with the
 following [mock.py](https://github.com/eclipse-kuksa/kuksa-android-companion/blob/main/mock/mock.py).
-Simply replace the mock.py inside the Vehicle Mock Service repository with the one provided by this
+Simply replace the mock.py inside the Vehicle Mock Provider repository with the one provided by this
 project to use it. 
 
 ## Configure Companion App
